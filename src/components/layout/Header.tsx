@@ -61,9 +61,11 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="ghost" size="sm">
-              Se connecter
-            </Button>
+            <Link to="/dashboard">
+              <Button variant="ghost" size="sm">
+                Mon espace
+              </Button>
+            </Link>
             <Button variant="hero" size="default">
               Offrir une carte
             </Button>
@@ -108,9 +110,11 @@ export const Header = () => {
                 </motion.a>
               ))}
               <div className="pt-4 space-y-3">
-                <Button variant="outline" className="w-full">
-                  Se connecter
-                </Button>
+                <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">
+                    Mon espace
+                  </Button>
+                </Link>
                 <Button variant="hero" className="w-full">
                   Offrir une carte
                 </Button>

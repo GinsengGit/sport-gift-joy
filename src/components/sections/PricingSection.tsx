@@ -1,10 +1,19 @@
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Gift, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const amounts = [20, 30, 50, 75, 100, 150, 200, 500];
+const durations = [12, 18, 24] as const;
+const monthlyFeeEUR = 1;
 
 export const PricingSection = () => {
+  const [selectedAmount, setSelectedAmount] = useState<number>(100);
+  const [selectedDuration, setSelectedDuration] = useState<(typeof durations)[number]>(12);
+
+  const feesTotal = useMemo(() => monthlyFeeEUR * selectedDuration, [selectedDuration]);
+  const total = useMemo(() => selectedAmount + feesTotal, [selectedAmount, feesTotal]);
+
   return (
     <section id="offer" className="py-24 lg:py-32 relative overflow-hidden">
       {/* Background */}
@@ -27,7 +36,7 @@ export const PricingSection = () => {
             Choisissez votre montant
           </h2>
           <p className="text-lg text-muted-foreground">
-            Frais d'activation uniques de 7,90€. Pas d'abonnement, pas de frais cachés.
+            Frais de gestion de 1€ / mois. Engagement au choix : 12, 18 ou 24 mois.
           </p>
         </motion.div>
 
@@ -64,17 +73,48 @@ export const PricingSection = () => {
                   {amounts.map((amount, index) => (
                     <motion.button
                       key={amount}
+                      type="button"
+                      onClick={() => setSelectedAmount(amount)}
                       initial={{ opacity: 0, scale: 0.9 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.03 }}
                       className={`py-3 lg:py-4 rounded-xl font-bold text-sm lg:text-base transition-all duration-200 ${
-                        amount === 100
+                        amount === selectedAmount
                           ? "bg-primary text-primary-foreground shadow-kado"
                           : "bg-muted text-foreground hover:bg-primary/10 hover:text-primary"
                       }`}
+                      aria-pressed={amount === selectedAmount}
                     >
                       {amount}€
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Duration Selection */}
+              <div className="mb-8">
+                <label className="block text-sm font-medium text-muted-foreground mb-4">
+                  Engagement
+                </label>
+                <div className="grid grid-cols-3 gap-2 lg:gap-3">
+                  {durations.map((months, index) => (
+                    <motion.button
+                      key={months}
+                      type="button"
+                      onClick={() => setSelectedDuration(months)}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.03 }}
+                      className={`py-3 lg:py-4 rounded-xl font-bold text-sm lg:text-base transition-all duration-200 ${
+                        months === selectedDuration
+                          ? "bg-primary text-primary-foreground shadow-kado"
+                          : "bg-muted text-foreground hover:bg-primary/10 hover:text-primary"
+                      }`}
+                      aria-pressed={months === selectedDuration}
+                    >
+                      {months} mois
                     </motion.button>
                   ))}
                 </div>
@@ -84,16 +124,22 @@ export const PricingSection = () => {
               <div className="bg-muted/50 rounded-2xl p-5 mb-8">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-muted-foreground">Montant carte</span>
-                  <span className="font-semibold text-foreground">100,00 €</span>
+                  <span className="font-semibold text-foreground">
+                    {selectedAmount.toFixed(2).replace(".", ",")} €
+                  </span>
                 </div>
                 <div className="flex justify-between items-center mb-3">
-                  <span className="text-muted-foreground">Frais d'activation</span>
-                  <span className="font-semibold text-foreground">7,90 €</span>
+                  <span className="text-muted-foreground">Frais (1€ / mois × {selectedDuration})</span>
+                  <span className="font-semibold text-foreground">
+                    {feesTotal.toFixed(2).replace(".", ",")} €
+                  </span>
                 </div>
                 <div className="h-px bg-border my-4" />
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-foreground">Total</span>
-                  <span className="font-display text-2xl font-bold text-primary">107,90 €</span>
+                  <span className="font-display text-2xl font-bold text-primary">
+                    {total.toFixed(2).replace(".", ",")} €
+                  </span>
                 </div>
               </div>
 
@@ -101,7 +147,7 @@ export const PricingSection = () => {
               <div className="space-y-3 mb-8">
                 {[
                   "Livraison instantanée par email",
-                  "Valable 1 an",
+                  "Validité : 12 à 24 mois",
                   "Cashback chez +200 partenaires",
                   "Option cadeau commun disponible",
                 ].map((feature) => (

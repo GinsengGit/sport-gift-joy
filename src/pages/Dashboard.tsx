@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import BalanceCard from "@/components/dashboard/BalanceCard";
-import CashbackCard from "@/components/dashboard/CashbackCard";
+import KadosportScoreCard from "@/components/dashboard/KadosportScoreCard";
+import MedalProgress from "@/components/dashboard/MedalProgress";
+import ActivityTracker from "@/components/dashboard/ActivityTracker";
+import RewardsSection from "@/components/dashboard/RewardsSection";
 import TransactionHistory from "@/components/dashboard/TransactionHistory";
 import QuickActions from "@/components/dashboard/QuickActions";
-import PartnerOffers from "@/components/dashboard/PartnerOffers";
 
 // Mock data - will be replaced with real data from API
 const mockUserData = {
@@ -12,9 +14,38 @@ const mockUserData = {
   balance: 127.50,
   cardNumber: "4532789012345678",
   expirationDate: "2026-01-15",
-  totalCashback: 12.35,
-  pendingCashback: 3.50,
+  totalPoints: 1850,
+  purchasePoints: 1270,
+  activityPoints: 580,
+  weeklyActivityHours: 3,
 };
+
+const mockMedals = [
+  { id: "1", name: "Débutant", emoji: "🥉", pointsRequired: 500, reward: "10% chez Decathlon", isUnlocked: true, isCurrent: false },
+  { id: "2", name: "Sportif", emoji: "🥈", pointsRequired: 1000, reward: "Gourde offerte", isUnlocked: true, isCurrent: false },
+  { id: "3", name: "Athlète", emoji: "🥇", pointsRequired: 2000, reward: "Séance coaching", isUnlocked: false, isCurrent: true },
+  { id: "4", name: "Champion", emoji: "🏆", pointsRequired: 5000, reward: "Équipement premium", isUnlocked: false, isCurrent: false },
+  { id: "5", name: "Légende", emoji: "👑", pointsRequired: 10000, reward: "Week-end sportif", isUnlocked: false, isCurrent: false },
+];
+
+const mockConnectedApps = [
+  { id: "1", name: "Strava", icon: "🏃", isConnected: true, lastSync: "Il y a 2h" },
+  { id: "2", name: "Decathlon Coach", icon: "🏋️", isConnected: true, lastSync: "Il y a 1j" },
+  { id: "3", name: "Garmin", icon: "⌚", isConnected: false },
+];
+
+const mockRecentActivities = [
+  { id: "1", type: "Course à pied", duration: 65, date: new Date().toISOString(), pointsEarned: 10, source: "Strava" },
+  { id: "2", type: "Musculation", duration: 75, date: new Date(Date.now() - 86400000).toISOString(), pointsEarned: 10, source: "Decathlon Coach" },
+  { id: "3", type: "Vélo", duration: 90, date: new Date(Date.now() - 86400000 * 3).toISOString(), pointsEarned: 10, source: "Strava" },
+];
+
+const mockRewards = [
+  { id: "1", name: "-15% sur tout", description: "Code promo exclusif", pointsCost: 1500, type: "promo" as const, partner: "Decathlon", isAvailable: true },
+  { id: "2", name: "Gourde sport", description: "Gourde 750ml", pointsCost: 1000, type: "goodie" as const, partner: "Kadosport", isAvailable: true },
+  { id: "3", name: "Séance coaching", description: "1h avec un coach", pointsCost: 3000, type: "experience" as const, partner: "Fitness Park", isAvailable: false },
+  { id: "4", name: "Montre connectée", description: "Tirage au sort", pointsCost: 2000, type: "lottery" as const, partner: "Garmin", isAvailable: false },
+];
 
 const mockTransactions = [
   {
@@ -24,13 +55,13 @@ const mockTransactions = [
     category: "Équipement sportif",
     amount: 45.90,
     date: new Date().toISOString(),
-    cashbackEarned: 2.30,
+    pointsEarned: 459,
   },
   {
     id: "2",
-    type: "cashback" as const,
-    merchant: "Cashback Decathlon",
-    amount: 2.30,
+    type: "credit" as const,
+    merchant: "Points activité",
+    amount: 0,
     date: new Date(Date.now() - 86400000).toISOString(),
   },
   {
@@ -40,7 +71,7 @@ const mockTransactions = [
     category: "Salle de sport",
     amount: 29.99,
     date: new Date(Date.now() - 86400000 * 2).toISOString(),
-    cashbackEarned: 1.50,
+    pointsEarned: 300,
   },
   {
     id: "4",
@@ -56,31 +87,7 @@ const mockTransactions = [
     category: "Équipement sportif",
     amount: 78.50,
     date: new Date(Date.now() - 86400000 * 7).toISOString(),
-    cashbackEarned: 3.93,
-  },
-];
-
-const mockOffers = [
-  {
-    id: "1",
-    partner: "Decathlon",
-    cashbackPercent: 5,
-    category: "Équipement sportif",
-    validUntil: "2026-02-28",
-  },
-  {
-    id: "2",
-    partner: "Fitness Park",
-    cashbackPercent: 10,
-    category: "Salle de sport",
-    validUntil: "2026-01-31",
-  },
-  {
-    id: "3",
-    partner: "Go Sport",
-    cashbackPercent: 4,
-    category: "Équipement sportif",
-    validUntil: "2026-03-15",
+    pointsEarned: 785,
   },
 ];
 
@@ -105,26 +112,45 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left column - Main content */}
           <div className="lg:col-span-2 space-y-6">
-            <BalanceCard
-              balance={mockUserData.balance}
-              cardNumber={mockUserData.cardNumber}
-              expirationDate={mockUserData.expirationDate}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <BalanceCard
+                balance={mockUserData.balance}
+                cardNumber={mockUserData.cardNumber}
+                expirationDate={mockUserData.expirationDate}
+              />
+              <KadosportScoreCard
+                totalPoints={mockUserData.totalPoints}
+                purchasePoints={mockUserData.purchasePoints}
+                activityPoints={mockUserData.activityPoints}
+                weeklyActivityHours={mockUserData.weeklyActivityHours}
+              />
+            </div>
+
+            <MedalProgress 
+              currentPoints={mockUserData.totalPoints} 
+              medals={mockMedals} 
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <CashbackCard
-                totalCashback={mockUserData.totalCashback}
-                pendingCashback={mockUserData.pendingCashback}
-              />
-              <QuickActions />
-            </div>
+            <ActivityTracker
+              connectedApps={mockConnectedApps}
+              recentActivities={mockRecentActivities}
+              weeklyHours={mockUserData.weeklyActivityHours}
+              maxWeeklyHours={4}
+            />
 
             <TransactionHistory transactions={mockTransactions} />
           </div>
 
           {/* Right column - Sidebar */}
           <div className="space-y-6">
-            <PartnerOffers offers={mockOffers} />
+            <RewardsSection
+              rewards={mockRewards}
+              currentPoints={mockUserData.totalPoints}
+              lotteryPoints={mockUserData.totalPoints}
+              lotteryThreshold={2000}
+            />
+
+            <QuickActions />
 
             {/* Promo banner */}
             <motion.div

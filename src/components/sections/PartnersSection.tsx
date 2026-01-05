@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Percent } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const partners = [
-  { name: "Decathlon", cashback: "5%", category: "Équipement" },
-  { name: "Basic-Fit", cashback: "8%", category: "Fitness" },
-  { name: "Go Sport", cashback: "6%", category: "Équipement" },
-  { name: "Fitness Park", cashback: "10%", category: "Fitness" },
-  { name: "Intersport", cashback: "5%", category: "Équipement" },
-  { name: "Nike", cashback: "4%", category: "Sportswear" },
-  { name: "Adidas", cashback: "4%", category: "Sportswear" },
-  { name: "Alltricks", cashback: "7%", category: "Cyclisme" },
+  { name: "Decathlon", bonus: "x2 pts", category: "Équipement" },
+  { name: "Basic-Fit", bonus: "x3 pts", category: "Fitness" },
+  { name: "Go Sport", bonus: "x2 pts", category: "Équipement" },
+  { name: "Fitness Park", bonus: "x3 pts", category: "Fitness" },
+  { name: "Intersport", bonus: "x2 pts", category: "Équipement" },
+  { name: "Nike", bonus: "x2 pts", category: "Sportswear" },
+  { name: "Adidas", bonus: "x2 pts", category: "Sportswear" },
+  { name: "Alltricks", bonus: "x2 pts", category: "Cyclisme" },
 ];
 
 export const PartnersSection = () => {
@@ -39,10 +39,10 @@ export const PartnersSection = () => {
             +200 partenaires
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Cashback exclusif chez nos partenaires
+            Récompenses exclusives chez nos partenaires
           </h2>
           <p className="text-lg text-secondary-foreground/80">
-            Profitez de réductions automatiques chez les plus grandes enseignes sportives.
+            Multipliez vos points et débloquez des avantages chez les plus grandes enseignes sportives.
           </p>
         </motion.div>
 
@@ -70,12 +70,11 @@ export const PartnersSection = () => {
                 </span>
               </div>
 
-              {/* Cashback Badge */}
+              {/* Bonus Badge */}
               <div className="flex items-center justify-between">
                 <span className="text-xs text-secondary-foreground/60">{partner.category}</span>
                 <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-primary/20 text-primary-foreground">
-                  <Percent className="w-3 h-3" />
-                  <span className="text-xs font-bold">{partner.cashback}</span>
+                  <span className="text-xs font-bold">{partner.bonus}</span>
                 </div>
               </div>
             </motion.div>

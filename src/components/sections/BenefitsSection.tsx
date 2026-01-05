@@ -15,8 +15,8 @@ const benefits = [
   },
   {
     icon: Percent,
-    title: "Cashback exclusif",
-    description: "Jusqu'à 10% de cashback chez nos partenaires sportifs sélectionnés.",
+    title: "Récompenses exclusives",
+    description: "Gagnez des points et débloquez des récompenses chez nos partenaires sportifs.",
   },
   {
     icon: Shield,
@@ -81,7 +81,7 @@ export const BenefitsSection = () => {
             <div className="space-y-4 mb-8">
               {[
                 "Acceptée partout dans l'écosystème sportif",
-                "Cashback exclusif chez +200 partenaires",
+                "Récompenses exclusives chez +200 partenaires",
                 "Solde remboursable à l'expiration",
               ].map((point, index) => (
                 <motion.div

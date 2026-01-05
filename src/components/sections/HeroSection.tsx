@@ -59,7 +59,7 @@ export const HeroSection = () => {
             {/* Subheadline */}
             <p className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
               La première carte cadeau digitale universelle, valable dans tout l'écosystème sportif. 
-              Simple, sécurisée, avec du cashback exclusif.
+              Simple, sécurisée, avec des récompenses exclusives.
             </p>
 
             {/* CTA Buttons */}

@@ -74,7 +74,7 @@ export const KadosportScoreSection = () => {
             Le Kadosport Score
           </h2>
           <p className="text-lg text-muted-foreground">
-            Plus qu'un simple cashback : gagnez des points en achetant ET en faisant du sport. 
+            Gagnez des points en achetant ET en faisant du sport. 
             Débloquez des médailles et des récompenses exclusives !
           </p>
         </motion.div>

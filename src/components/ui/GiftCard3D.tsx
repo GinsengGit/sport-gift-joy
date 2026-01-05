@@ -98,8 +98,8 @@ export const GiftCard3D = () => {
             <CreditCard className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">Cashback</p>
-            <p className="font-display font-bold text-primary">+5%</p>
+            <p className="text-xs text-muted-foreground">Bonus</p>
+            <p className="font-display font-bold text-primary">x2 pts</p>
           </div>
         </div>
       </motion.div>

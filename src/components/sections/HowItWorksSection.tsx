@@ -11,7 +11,7 @@ const steps = [
   {
     icon: CreditCard,
     title: "Payez en toute sécurité",
-    description: "Montant + frais d'activation de 7,90€. Paiement 100% sécurisé.",
+    description: "Montant + 1€/mois de frais de gestion. Paiement 100% sécurisé.",
     color: "bg-kado-coral/10 text-kado-coral",
   },
   {
@@ -22,8 +22,8 @@ const steps = [
   },
   {
     icon: Coins,
-    title: "Profitez du cashback",
-    description: "Jusqu'à 10% de cashback chez nos partenaires sportifs exclusifs.",
+    title: "Gagnez des points",
+    description: "Accumulez des points à chaque achat et activité sportive pour débloquer des récompenses.",
     color: "bg-kado-gold/10 text-kado-gold",
   },
 ];

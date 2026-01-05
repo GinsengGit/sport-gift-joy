@@ -148,7 +148,7 @@ export const PricingSection = () => {
                 {[
                   "Livraison instantanée par email",
                   "Validité : 12 à 24 mois",
-                  "Cashback chez +200 partenaires",
+                  "Kadosport Score : gagnez des points et récompenses",
                   "Option cadeau commun disponible",
                 ].map((feature) => (
                   <div key={feature} className="flex items-center gap-3">

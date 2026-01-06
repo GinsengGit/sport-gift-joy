@@ -36,7 +36,7 @@ export const PricingSection = () => {
             Choisissez votre montant
           </h2>
           <p className="text-lg text-muted-foreground">
-            Frais de gestion de 1€ / mois. Engagement au choix : 12, 18 ou 24 mois.
+            Frais de gestion de 1€ / mois. Durée de validité au choix : 12, 18 ou 24 mois.
           </p>
         </motion.div>
 
@@ -95,7 +95,7 @@ export const PricingSection = () => {
               {/* Duration Selection */}
               <div className="mb-8">
                 <label className="block text-sm font-medium text-muted-foreground mb-4">
-                  Engagement
+                  Durée de validité
                 </label>
                 <div className="grid grid-cols-3 gap-2 lg:gap-3">
                   {durations.map((months, index) => (

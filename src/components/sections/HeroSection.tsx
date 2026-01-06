@@ -1,23 +1,26 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Zap, CreditCard, Store, Calendar } from "lucide-react";
+import { ArrowRight, Shield, CreditCard, Store, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GiftCard3D } from "@/components/ui/GiftCard3D";
 import heroSportsImage from "@/assets/hero-sports.jpg";
+import sportsActivitiesImage from "@/assets/sports-activities.jpg";
+import sportsStoreImage from "@/assets/sports-store.jpg";
+import athleteCelebrationImage from "@/assets/athlete-celebration.jpg";
+import friendsRunningImage from "@/assets/friends-running.jpg";
 
 export const HeroSection = () => {
+  const sportsImages = [
+    { src: heroSportsImage, alt: "Athlète en action" },
+    { src: sportsActivitiesImage, alt: "Activités sportives" },
+    { src: sportsStoreImage, alt: "Magasin de sport" },
+    { src: athleteCelebrationImage, alt: "Célébration sportive" },
+    { src: friendsRunningImage, alt: "Course entre amis" },
+  ];
+
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Image with Overlay - More visible */}
-      <div className="absolute inset-0">
-        <img 
-          src={heroSportsImage} 
-          alt="Athlète en action" 
-          className="w-full h-full object-cover object-center"
-        />
-        {/* Less opaque overlay to show more of the image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent lg:to-background/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/40" />
-      </div>
+    <section className="relative min-h-screen pt-20 overflow-hidden">
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-kado-coral/5" />
       
       {/* Floating shapes */}
       <motion.div
@@ -32,8 +35,9 @@ export const HeroSection = () => {
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left Content */}
+        {/* Main Hero Content */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 lg:py-16">
+          {/* Left Content - Text */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -59,7 +63,7 @@ export const HeroSection = () => {
               <span className="gradient-text">sans limite</span>
             </h1>
 
-            {/* Subheadline - Emphasis on payment method */}
+            {/* Subheadline */}
             <p className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed">
               <strong className="text-foreground">La carte cadeau qui fonctionne comme un vrai moyen de paiement.</strong>{" "}
               Utilisable dans les magasins de sport, sites e-commerce, salles de fitness, 
@@ -73,7 +77,7 @@ export const HeroSection = () => {
               transition={{ delay: 0.3 }}
               className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8"
             >
-              {["Équipement", "Abonnements", "Cours", "Événements", "E-commerce"].map((item, i) => (
+              {["Équipement", "Abonnements", "Cours", "Événements", "E-commerce"].map((item) => (
                 <span 
                   key={item}
                   className="px-3 py-1.5 text-xs font-medium rounded-full bg-kado-coral/10 text-kado-coral border border-kado-coral/20"
@@ -137,6 +141,67 @@ export const HeroSection = () => {
             <GiftCard3D />
           </motion.div>
         </div>
+
+        {/* Sports Photo Gallery Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="pb-16"
+        >
+          <div className="text-center mb-8">
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">
+              L'univers Kadosport
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground">
+              Tout l'écosystème sportif à portée de carte
+            </h2>
+          </div>
+
+          {/* Photo Mosaic */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {/* Large featured image */}
+            <motion.div 
+              className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img 
+                src={sportsImages[0].src} 
+                alt={sportsImages[0].alt}
+                className="w-full h-full object-cover aspect-square"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <span className="px-3 py-1 bg-primary/90 rounded-full text-sm font-medium">
+                  Équipement sport
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Smaller images */}
+            {sportsImages.slice(1).map((image, index) => (
+              <motion.div 
+                key={index}
+                className="relative rounded-xl overflow-hidden group aspect-square"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img 
+                  src={image.src} 
+                  alt={image.alt}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="px-2 py-1 bg-kado-coral/90 rounded-full text-xs font-medium">
+                    {["Fitness", "Shopping", "Événements", "Loisirs"][index]}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

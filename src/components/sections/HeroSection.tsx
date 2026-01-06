@@ -7,15 +7,16 @@ import heroSportsImage from "@/assets/hero-sports.jpg";
 export const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Image with Overlay */}
+      {/* Background Image with Overlay - More visible */}
       <div className="absolute inset-0">
         <img 
           src={heroSportsImage} 
           alt="Athlète en action" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50" />
+        {/* Less opaque overlay to show more of the image */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent lg:to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/40" />
       </div>
       
       {/* Floating shapes */}

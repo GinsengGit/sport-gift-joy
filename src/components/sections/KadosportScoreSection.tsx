@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Trophy, ShoppingBag, Activity, Gift, Medal, Star } from "lucide-react";
+import athleteCelebrationImage from "@/assets/athlete-celebration.jpg";
 
 const features = [
   {
@@ -53,9 +54,18 @@ const itemVariants = {
 export const KadosportScoreSection = () => {
   return (
     <section id="kadosport-score" className="py-24 lg:py-32 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
-      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-gradient-glow opacity-30" />
+      {/* Background with sports image */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
+        <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 lg:opacity-30">
+          <img 
+            src={athleteCelebrationImage} 
+            alt="Athlète célébrant" 
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background" />
+        </div>
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -92,7 +102,7 @@ export const KadosportScoreSection = () => {
               <motion.div
                 key={feature.title}
                 variants={itemVariants}
-                className="bg-card rounded-2xl p-6 border border-border/50 shadow-sm hover:shadow-kado transition-all duration-300 hover:-translate-y-1"
+                className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 border border-border/50 shadow-sm hover:shadow-kado transition-all duration-300 hover:-translate-y-1"
               >
                 <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4`}>
                   <feature.icon className="w-6 h-6" />
@@ -111,7 +121,7 @@ export const KadosportScoreSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-card rounded-3xl p-8 border border-border/50 shadow-xl"
+            className="bg-card/90 backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-xl"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-xl bg-kado-gold/10 flex items-center justify-center">

@@ -26,8 +26,8 @@ const benefits = [
   },
   {
     icon: Euro,
-    title: "Avantage fiscal",
-    description: "Exonération de charges sociales jusqu'à 25% du SMIC annuel par salarié pour le sport."
+    title: "Budget maîtrisé",
+    description: "Définissez le montant par collaborateur et suivez les dépenses en temps réel."
   },
   {
     icon: Shield,
@@ -61,7 +61,7 @@ const features = [
 ];
 
 const stats = [
-  { value: "25%", label: "Exonération SMIC" },
+  { value: "100%", label: "Digital" },
   { value: "-27%", label: "Absentéisme" },
   { value: "+35%", label: "Engagement" },
   { value: "500+", label: "Partenaires sport" }

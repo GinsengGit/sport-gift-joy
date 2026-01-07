@@ -109,7 +109,7 @@ const B2B = () => {
                 className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
               >
                 La carte Kadosport permet aux entreprises d'allouer un budget sport 
-                à leurs salariés, en toute conformité et avec un avantage fiscal.
+                à leurs salariés, en toute simplicité et conformité.
               </motion.p>
               
               <motion.div

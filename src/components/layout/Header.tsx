@@ -36,11 +36,11 @@ export const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center group">
+          <Link to="/" className="flex items-center group -my-2">
             <img 
               src={kadosportLogo} 
               alt="Kadosport - La carte 100% Sport" 
-              className="h-14 sm:h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+              className="h-20 sm:h-24 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
             />
           </Link>
 

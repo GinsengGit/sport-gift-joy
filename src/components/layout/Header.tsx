@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, CreditCard, Gift, Users, HelpCircle, Building2 } from "lucide-react";
+import { Menu, X, Gift, Users, HelpCircle, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import kadosportLogo from "@/assets/kadosport-logo.png";
 
 const navItems = [
   { label: "Comment ça marche", href: "#how-it-works", icon: HelpCircle },
   { label: "Offrir une carte", href: "#offer", icon: Gift },
   { label: "Partenaires", href: "#partners", icon: Users },
-  { label: "Avantages", href: "#benefits", icon: CreditCard },
+  { label: "Avantages", href: "#benefits", icon: Gift },
   { label: "Entreprises", href: "/b2b", icon: Building2, isRoute: true },
 ];
 
@@ -35,16 +36,12 @@ export const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-gradient-hero flex items-center justify-center shadow-kado group-hover:shadow-kado-hover transition-shadow duration-300">
-                <CreditCard className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <div className="absolute -inset-1 bg-gradient-hero opacity-0 group-hover:opacity-30 blur-lg rounded-xl transition-opacity duration-300" />
-            </div>
-            <span className="font-display font-bold text-xl sm:text-2xl text-foreground">
-              Kado<span className="text-primary">sport</span>
-            </span>
+          <Link to="/" className="flex items-center group">
+            <img 
+              src={kadosportLogo} 
+              alt="Kadosport - La carte 100% Sport" 
+              className="h-14 sm:h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+            />
           </Link>
 
           {/* Desktop Navigation */}

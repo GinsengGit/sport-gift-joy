@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CreditCard } from "lucide-react";
+import { QrCode } from "lucide-react";
 
 export const GiftCard3D = () => {
   return (
@@ -40,40 +40,53 @@ export const GiftCard3D = () => {
 
         {/* Card Content */}
         <div className="relative h-full p-5 sm:p-6 flex flex-col justify-between text-white">
-          {/* Chip - Gold colored like logo */}
+          {/* Top Row - Logo and Amount */}
           <div className="flex items-start justify-between">
-            <div className="w-12 h-10 rounded-md overflow-hidden shadow-lg" style={{ background: 'linear-gradient(135deg, #D4AF37 0%, #F4D03F 30%, #D4AF37 50%, #C5A028 100%)' }}>
-              <div className="w-full h-full grid grid-cols-3 grid-rows-3 gap-px p-1">
-                <div className="bg-[#B8962E]/60 rounded-sm" />
-                <div className="bg-[#D4AF37]/80 rounded-sm" />
-                <div className="bg-[#B8962E]/60 rounded-sm" />
-                <div className="bg-[#D4AF37]/80 rounded-sm" />
-                <div className="bg-[#F4D03F]/90 rounded-sm" />
-                <div className="bg-[#D4AF37]/80 rounded-sm" />
-                <div className="bg-[#B8962E]/60 rounded-sm" />
-                <div className="bg-[#D4AF37]/80 rounded-sm" />
-                <div className="bg-[#B8962E]/60 rounded-sm" />
+            <div className="flex flex-col">
+              <span className="font-display font-bold text-xl sm:text-2xl text-white">Kadosport</span>
+              <span className="text-xs text-white/70">Carte cadeau sport</span>
+            </div>
+            <div className="text-right">
+              <span className="font-display font-bold text-2xl sm:text-3xl text-white">100€</span>
+            </div>
+          </div>
+
+          {/* Center - QR Code */}
+          <div className="flex items-center justify-center flex-1">
+            <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg flex items-center justify-center relative">
+                {/* Fake QR pattern */}
+                <div className="absolute inset-2 grid grid-cols-6 grid-rows-6 gap-0.5">
+                  {Array.from({ length: 36 }).map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`rounded-sm ${Math.random() > 0.4 ? 'bg-foreground' : 'bg-transparent'}`}
+                    />
+                  ))}
+                </div>
+                {/* Corner squares */}
+                <div className="absolute top-2 left-2 w-4 h-4 border-2 border-foreground rounded-sm bg-white">
+                  <div className="absolute inset-1 bg-foreground rounded-sm" />
+                </div>
+                <div className="absolute top-2 right-2 w-4 h-4 border-2 border-foreground rounded-sm bg-white">
+                  <div className="absolute inset-1 bg-foreground rounded-sm" />
+                </div>
+                <div className="absolute bottom-2 left-2 w-4 h-4 border-2 border-foreground rounded-sm bg-white">
+                  <div className="absolute inset-1 bg-foreground rounded-sm" />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Card Number */}
-          <div className="space-y-1">
-            <p className="font-mono text-lg sm:text-xl tracking-[0.2em] text-white/95 font-medium">
-              1234 5678 9012 3456
-            </p>
-            <div className="flex items-center gap-4 text-xs text-white/70">
-              <span>0000</span>
-              <span>1234 UTILISATEUR</span>
+          {/* Bottom Row */}
+          <div className="flex items-end justify-between">
+            <div className="text-xs text-white/70">
+              <p>Valable 24 mois</p>
+              <p className="font-mono">KDS-2024-XXXX</p>
             </div>
-          </div>
-
-          {/* Bottom Row - Mastercard Logo */}
-          <div className="flex items-end justify-end">
-            {/* Mastercard circles */}
-            <div className="flex items-center -space-x-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#EB001B] opacity-90" />
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#F79E1B] opacity-90" />
+            <div className="flex items-center gap-1.5 text-white/80">
+              <QrCode className="w-4 h-4" />
+              <span className="text-xs font-medium">Scannez pour payer</span>
             </div>
           </div>
         </div>
@@ -86,7 +99,7 @@ export const GiftCard3D = () => {
         />
       </motion.div>
 
-      {/* Floating Badge */}
+      {/* Floating Badge - QR Code info */}
       <motion.div
         className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-card rounded-2xl p-3 sm:p-4 shadow-xl border border-border/50"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -95,11 +108,11 @@ export const GiftCard3D = () => {
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <CreditCard className="w-5 h-5 text-primary" />
+            <QrCode className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">Bonus</p>
-            <p className="font-display font-bold text-primary">x2 pts</p>
+            <p className="text-xs text-muted-foreground">Paiement</p>
+            <p className="font-display font-bold text-primary">QR unique</p>
           </div>
         </div>
       </motion.div>

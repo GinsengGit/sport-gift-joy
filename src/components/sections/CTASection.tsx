@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Gift, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import friendsRunningImage from "@/assets/friends-running.jpg";
 
@@ -25,38 +25,26 @@ export const CTASection = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-4xl mx-auto"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/20 backdrop-blur-sm mb-8"
-          >
-            <Sparkles className="w-4 h-4 text-primary-foreground" />
-            <span className="text-sm font-medium text-primary-foreground">
-              Le cadeau parfait pour les sportifs
-            </span>
-          </motion.div>
-
           {/* Headline */}
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
-            Prêt à offrir une expérience sportive unique ?
+            Prêt à offrir le sport ?
           </h2>
 
           {/* Subheadline */}
           <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10">
-            Rejoignez des milliers de personnes qui ont choisi Kadosport pour faire plaisir à leurs proches.
+            Un cadeau universel, sans limites, accepté par tous les professionnels du sport.
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero-outline" size="xl" className="group bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-              Offrir une carte maintenant
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Gift className="w-5 h-5 mr-2" />
+              Offrir une carte
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button variant="hero-outline" size="xl">
-              En savoir plus
+              <Store className="w-5 h-5 mr-2" />
+              Espace partenaire
             </Button>
           </div>
 
@@ -69,9 +57,9 @@ export const CTASection = () => {
             className="flex flex-wrap items-center justify-center gap-8 lg:gap-16 mt-16 pt-10 border-t border-primary-foreground/20"
           >
             {[
-              { value: "10k+", label: "Cartes offertes" },
-              { value: "200+", label: "Partenaires" },
-              { value: "4.9/5", label: "Note clients" },
+              { value: "0%", label: "Commission" },
+              { value: "48h", label: "Remboursement" },
+              { value: "∞", label: "Partenaires possibles" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="font-display text-3xl lg:text-4xl font-bold text-primary-foreground mb-1">

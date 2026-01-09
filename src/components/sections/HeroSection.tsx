@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Shield, CreditCard, Store, Calendar } from "lucide-react";
+import { ArrowRight, QrCode, Store, Clock, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GiftCard3D } from "@/components/ui/GiftCard3D";
 import heroSportsImage from "@/assets/hero-sports.jpg";
@@ -51,23 +51,22 @@ export const HeroSection = () => {
               transition={{ delay: 0.2 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
             >
-              <CreditCard className="w-4 h-4 text-primary" />
+              <QrCode className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">
-                Un véritable moyen de paiement sport
+                Carte cadeau avec QR code unique
               </span>
             </motion.div>
 
             {/* Headline */}
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] mb-6">
-              Offrez le sport,{" "}
-              <span className="gradient-text">sans limite</span>
+              Le cadeau sport{" "}
+              <span className="gradient-text">universel</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed">
-              <strong className="text-foreground">La carte cadeau qui fonctionne comme un vrai moyen de paiement.</strong>{" "}
-              Utilisable dans les magasins de sport, sites e-commerce, salles de fitness, 
-              cours collectifs, et même pour vos événements sportifs.
+              <strong className="text-foreground">Une carte cadeau acceptée chez tous les pros du sport.</strong>{" "}
+              Le bénéficiaire présente son QR code, le partenaire encaisse : c'est simple, rapide et sécurisé.
             </p>
 
             {/* Use Cases Pills */}
@@ -77,7 +76,7 @@ export const HeroSection = () => {
               transition={{ delay: 0.3 }}
               className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8"
             >
-              {["Équipement", "Abonnements", "Cours", "Événements", "E-commerce"].map((item) => (
+              {["Salles de sport", "Cours & coaching", "Équipement", "Événements", "E-commerce"].map((item) => (
                 <span 
                   key={item}
                   className="px-3 py-1.5 text-xs font-medium rounded-full bg-kado-coral/10 text-kado-coral border border-kado-coral/20"
@@ -99,7 +98,7 @@ export const HeroSection = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button variant="outline" size="xl">
-                Découvrir
+                Devenir partenaire
               </Button>
             </motion.div>
 
@@ -112,21 +111,21 @@ export const HeroSection = () => {
             >
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Shield className="w-4 h-4 text-primary" />
+                  <QrCode className="w-4 h-4 text-primary" />
                 </div>
-                <span>Paiement sécurisé</span>
+                <span>QR code unique</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-lg bg-kado-coral/10 flex items-center justify-center">
                   <Store className="w-4 h-4 text-kado-coral" />
                 </div>
-                <span>+200 partenaires</span>
+                <span>0% commission</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-lg bg-kado-sky/10 flex items-center justify-center">
-                  <Calendar className="w-4 h-4 text-kado-sky" />
+                  <Clock className="w-4 h-4 text-kado-sky" />
                 </div>
-                <span>Valable 12-24 mois</span>
+                <span>Remboursé sous 48h</span>
               </div>
             </motion.div>
           </motion.div>
@@ -154,7 +153,7 @@ export const HeroSection = () => {
               L'univers Kadosport
             </p>
             <h2 className="text-2xl sm:text-3xl font-display font-bold text-foreground">
-              Tout l'écosystème sportif à portée de carte
+              Tout le sport, un seul cadeau
             </h2>
           </div>
 

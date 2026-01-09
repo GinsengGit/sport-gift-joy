@@ -1,29 +1,56 @@
 import { motion } from "framer-motion";
-import { Gift, CreditCard, ShoppingBag, Coins } from "lucide-react";
+import { Gift, QrCode, Store, CreditCard, Check, Clock } from "lucide-react";
 
-const steps = [
+const userSteps = [
   {
     icon: Gift,
-    title: "Choisissez le montant",
-    description: "De 20€ à 500€, vous décidez du montant de votre cadeau sport.",
+    title: "Achetez une carte",
+    description: "Choisissez le montant (20€ à 500€) et personnalisez votre cadeau sport.",
+    color: "bg-primary/10 text-primary",
+  },
+  {
+    icon: QrCode,
+    title: "QR code unique",
+    description: "Le bénéficiaire reçoit sa carte avec un QR code personnel et sécurisé.",
+    color: "bg-kado-coral/10 text-kado-coral",
+  },
+  {
+    icon: Store,
+    title: "Présentez chez un pro",
+    description: "Chez n'importe quel professionnel du sport : salle, coach, magasin, événement...",
+    color: "bg-kado-sky/10 text-kado-sky",
+  },
+  {
+    icon: Check,
+    title: "C'est payé !",
+    description: "Le partenaire scanne, le montant est débité. Simple, rapide, sans limite d'enseigne.",
+    color: "bg-kado-gold/10 text-kado-gold",
+  },
+];
+
+const partnerSteps = [
+  {
+    icon: QrCode,
+    title: "Scannez le QR",
+    description: "Le client présente sa carte Kadosport avec son QR code unique.",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: CreditCard,
-    title: "Payez en toute sécurité",
-    description: "Montant + 1€/mois de frais de gestion. Paiement 100% sécurisé.",
+    title: "Remplissez le formulaire",
+    description: "SIRET, nom commercial, RIB, numéro de carte et montant à débiter.",
     color: "bg-kado-coral/10 text-kado-coral",
   },
   {
-    icon: ShoppingBag,
-    title: "Envoyez instantanément",
-    description: "Par email ou lien partageable. Le bénéficiaire reçoit sa carte immédiatement.",
+    icon: Check,
+    title: "Confirmation immédiate",
+    description: "Vérification automatique : SIRET actif, activité sportive, solde suffisant.",
     color: "bg-kado-sky/10 text-kado-sky",
   },
   {
-    icon: Coins,
-    title: "Gagnez des points",
-    description: "Accumulez des points à chaque achat et activité sportive pour débloquer des récompenses.",
+    icon: Clock,
+    title: "Remboursé sous 48h",
+    description: "Le montant est viré sur votre compte bancaire. 0% de commission.",
     color: "bg-kado-gold/10 text-kado-gold",
   },
 ];
@@ -65,51 +92,115 @@ export const HowItWorksSection = () => {
             Comment ça marche ?
           </h2>
           <p className="text-lg text-muted-foreground">
-            En quelques clics, offrez une expérience sportive unique à vos proches.
+            Un système simple et sécurisé, sans carte bancaire complexe, sans contrat partenaire.
           </p>
         </motion.div>
 
-        {/* Steps Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
-        >
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.title}
-              variants={itemVariants}
-              className="group relative"
-            >
-              {/* Connector Line (desktop only) */}
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-border to-transparent" />
-              )}
+        {/* User Steps */}
+        <div className="mb-20">
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center font-display text-2xl font-bold text-foreground mb-10"
+          >
+            <span className="text-primary">Pour le bénéficiaire</span>
+          </motion.h3>
+          
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+          >
+            {userSteps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                variants={itemVariants}
+                className="group relative"
+              >
+                {/* Connector Line (desktop only) */}
+                {index < userSteps.length - 1 && (
+                  <div className="hidden lg:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-border to-transparent" />
+                )}
 
-              <div className="relative bg-card rounded-2xl p-6 lg:p-8 border border-border/50 shadow-sm hover:shadow-kado transition-all duration-300 hover:-translate-y-1">
-                {/* Step Number */}
-                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shadow-kado">
-                  {index + 1}
+                <div className="relative bg-card rounded-2xl p-6 lg:p-8 border border-border/50 shadow-sm hover:shadow-kado transition-all duration-300 hover:-translate-y-1">
+                  {/* Step Number */}
+                  <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shadow-kado">
+                    {index + 1}
+                  </div>
+
+                  {/* Icon */}
+                  <div className={`w-14 h-14 rounded-2xl ${step.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                    <step.icon className="w-7 h-7" />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="font-display text-xl font-bold text-foreground mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
-                {/* Icon */}
-                <div className={`w-14 h-14 rounded-2xl ${step.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                  <step.icon className="w-7 h-7" />
+        {/* Partner Steps */}
+        <div>
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center font-display text-2xl font-bold text-foreground mb-10"
+          >
+            <span className="text-kado-coral">Pour le partenaire</span>
+          </motion.h3>
+          
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+          >
+            {partnerSteps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                variants={itemVariants}
+                className="group relative"
+              >
+                {/* Connector Line (desktop only) */}
+                {index < partnerSteps.length - 1 && (
+                  <div className="hidden lg:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-kado-coral/30 to-transparent" />
+                )}
+
+                <div className="relative bg-card rounded-2xl p-6 lg:p-8 border border-kado-coral/20 shadow-sm hover:shadow-kado transition-all duration-300 hover:-translate-y-1">
+                  {/* Step Number */}
+                  <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-kado-coral text-white flex items-center justify-center font-bold text-sm shadow-kado">
+                    {index + 1}
+                  </div>
+
+                  {/* Icon */}
+                  <div className={`w-14 h-14 rounded-2xl ${step.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                    <step.icon className="w-7 h-7" />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="font-display text-xl font-bold text-foreground mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
-
-                {/* Content */}
-                <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

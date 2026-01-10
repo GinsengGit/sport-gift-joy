@@ -76,7 +76,7 @@ export const HeroSection = () => {
               transition={{ delay: 0.3 }}
               className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8"
             >
-              {["Salles de sport", "Cours & coaching", "Équipement", "Événements", "E-commerce"].map((item) => (
+              {["Salles de sport", "Cours & coaching", "Clubs sportifs", "Événements", "Loisirs actifs"].map((item) => (
                 <span 
                   key={item}
                   className="px-3 py-1.5 text-xs font-medium rounded-full bg-kado-coral/10 text-kado-coral border border-kado-coral/20"
@@ -173,7 +173,7 @@ export const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 text-white">
                 <span className="px-3 py-1 bg-primary/90 rounded-full text-sm font-medium">
-                  Équipement sport
+                  Activités sportives
                 </span>
               </div>
             </motion.div>
@@ -194,7 +194,7 @@ export const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="px-2 py-1 bg-kado-coral/90 rounded-full text-xs font-medium">
-                    {["Fitness", "Shopping", "Événements", "Loisirs"][index]}
+                    {["Fitness", "Coaching", "Événements", "Loisirs"][index]}
                   </span>
                 </div>
               </motion.div>

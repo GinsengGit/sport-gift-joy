@@ -17,7 +17,7 @@ const userSteps = [
   {
     icon: Store,
     title: "Présentez chez un pro",
-    description: "Chez n'importe quel professionnel du sport : salle, coach, magasin, événement...",
+    description: "Chez n'importe quel professionnel du sport : salle, club, coach, événement...",
     color: "bg-kado-sky/10 text-kado-sky",
   },
   {

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Check, BadgePercent, FileX, Clock, Shield, QrCode, ArrowRight } from "lucide-react";
+import { BadgePercent, FileX, Clock, Shield, QrCode, ArrowRight, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const partnerBenefits = [
   {
@@ -155,10 +156,13 @@ export const PartnerBenefitsSection = () => {
                 </div>
               </div>
               
-              <Button variant="coral" size="lg" className="w-full group">
-                Accéder à l'espace partenaire
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <Link to="/partner-payment">
+                <Button variant="coral" size="lg" className="w-full group gap-2">
+                  <CreditCard className="w-5 h-5" />
+                  Je débite une carte Kadosport
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>

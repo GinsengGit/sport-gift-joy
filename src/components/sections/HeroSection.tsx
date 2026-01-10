@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, QrCode, Store, Clock, BadgeCheck } from "lucide-react";
+import { ArrowRight, QrCode, Store, Clock, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { GiftCard3D } from "@/components/ui/GiftCard3D";
 import heroSportsImage from "@/assets/hero-sports.jpg";
 import sportsActivitiesImage from "@/assets/sports-activities.jpg";
@@ -97,9 +98,12 @@ export const HeroSection = () => {
                 Offrir une carte
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="xl">
-                Devenir partenaire
-              </Button>
+              <Link to="/partner-payment">
+                <Button variant="outline" size="xl" className="gap-2">
+                  <CreditCard className="w-5 h-5" />
+                  Je débite une carte
+                </Button>
+              </Link>
             </motion.div>
 
             {/* Trust Badges */}

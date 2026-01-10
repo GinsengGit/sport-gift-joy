@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Gift, Store } from "lucide-react";
+import { ArrowRight, Gift, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import friendsRunningImage from "@/assets/friends-running.jpg";
 
 export const CTASection = () => {
@@ -42,10 +43,12 @@ export const CTASection = () => {
               Offrir une carte
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="hero-outline" size="xl">
-              <Store className="w-5 h-5 mr-2" />
-              Espace partenaire
-            </Button>
+            <Link to="/partner-payment">
+              <Button variant="hero-outline" size="xl" className="gap-2">
+                <CreditCard className="w-5 h-5" />
+                Je débite une carte
+              </Button>
+            </Link>
           </div>
 
           {/* Trust Stats */}

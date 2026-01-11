@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import sportsActivitiesImage from "@/assets/sports-activities.jpg";
-import sportsStoreImage from "@/assets/sports-store.jpg";
+import coachingImage from "@/assets/coaching-fitness.jpg";
+import climbingImage from "@/assets/climbing-adventure.jpg";
+import waterSportsImage from "@/assets/water-sports.jpg";
+import gymImage from "@/assets/gym-fitness.jpg";
 
 const benefits = [
   {
@@ -128,8 +130,8 @@ export const BenefitsSection = () => {
                 className="rounded-2xl overflow-hidden shadow-kado"
               >
                 <img 
-                  src={sportsActivitiesImage} 
-                  alt="Activités sportives diverses" 
+                  src={coachingImage} 
+                  alt="Coaching sportif" 
                   className="w-full h-64 object-cover"
                 />
               </motion.div>
@@ -141,8 +143,34 @@ export const BenefitsSection = () => {
                 className="rounded-2xl overflow-hidden shadow-kado mt-8"
               >
                 <img 
-                  src={sportsStoreImage} 
-                  alt="Magasin de sport" 
+                  src={climbingImage} 
+                  alt="Escalade aventure" 
+                  className="w-full h-64 object-cover"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="rounded-2xl overflow-hidden shadow-kado"
+              >
+                <img 
+                  src={waterSportsImage} 
+                  alt="Sports nautiques" 
+                  className="w-full h-64 object-cover"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="rounded-2xl overflow-hidden shadow-kado mt-8"
+              >
+                <img 
+                  src={gymImage} 
+                  alt="Salle de fitness" 
                   className="w-full h-64 object-cover"
                 />
               </motion.div>

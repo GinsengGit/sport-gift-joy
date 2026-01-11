@@ -159,7 +159,7 @@ export const PartnerBenefitsSection = () => {
               <Link to="/partner-payment">
                 <Button variant="coral" size="lg" className="w-full group gap-2">
                   <CreditCard className="w-5 h-5" />
-                  Je débite une carte Kadosport
+                  J'encaisse une carte Kadosport
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>

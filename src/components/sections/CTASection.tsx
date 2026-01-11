@@ -46,7 +46,7 @@ export const CTASection = () => {
             <Link to="/partner-payment">
               <Button variant="hero-outline" size="xl" className="gap-2">
                 <CreditCard className="w-5 h-5" />
-                Je débite une carte
+                J'encaisse une carte
               </Button>
             </Link>
           </div>

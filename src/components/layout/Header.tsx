@@ -10,7 +10,7 @@ const navItems = [
   { label: "J'offre une carte", href: "#offer", icon: Gift },
   { label: "Avantages", href: "#benefits", icon: Gift },
   { label: "Entreprises", href: "/b2b", icon: Building2, isRoute: true },
-  { label: "Débiter une carte", href: "/partner-payment", icon: CreditCard, isRoute: true },
+  { label: "Encaisser une carte", href: "/partner-payment", icon: CreditCard, isRoute: true },
 ];
 
 export const Header = () => {

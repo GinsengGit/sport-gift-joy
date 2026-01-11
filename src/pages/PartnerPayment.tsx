@@ -162,10 +162,10 @@ const PartnerPayment = () => {
               Espace professionnel
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Débiter une carte Kadosport
+              Encaisser une carte Kadosport
             </h1>
-            <p className="text-muted-foreground text-lg">
-              Encaissez vos prestations et recevez votre virement sous 48h
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+              Vous êtes professionnel du sport (association sportive, salle, coach, activités de loisirs...) ? Encaissez cette carte cadeau en 2 min sans aucune commission.
             </p>
           </motion.div>
 

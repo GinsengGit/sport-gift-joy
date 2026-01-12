@@ -179,7 +179,7 @@ const PartnerPayment = () => {
               <img 
                 src={siretBadge} 
                 alt="SIRET Vérifié - Professionnel du Sport" 
-                className="h-28 sm:h-36 object-contain"
+                className="h-36 sm:h-48 object-contain"
               />
             </motion.div>
           </motion.div>

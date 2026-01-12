@@ -43,28 +43,6 @@ export const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background" />
       </div>
 
-      {/* Animated sport icons floating */}
-      <motion.div
-        className="absolute top-32 right-[15%] w-16 h-16 rounded-2xl bg-primary/20 backdrop-blur-sm flex items-center justify-center"
-        animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      >
-        <Dumbbell className="w-8 h-8 text-primary" />
-      </motion.div>
-      <motion.div
-        className="absolute top-48 right-[25%] w-14 h-14 rounded-2xl bg-kado-coral/20 backdrop-blur-sm flex items-center justify-center"
-        animate={{ y: [0, -20, 0], rotate: [0, -5, 0] }}
-        transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-      >
-        <Waves className="w-7 h-7 text-kado-coral" />
-      </motion.div>
-      <motion.div
-        className="absolute bottom-32 right-[10%] w-12 h-12 rounded-xl bg-kado-sky/20 backdrop-blur-sm flex items-center justify-center hidden lg:flex"
-        animate={{ y: [0, -10, 0], rotate: [0, 8, 0] }}
-        transition={{ duration: 3.5, repeat: Infinity, delay: 0.5 }}
-      >
-        <Mountain className="w-6 h-6 text-kado-sky" />
-      </motion.div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 lg:pt-32">
         {/* Main Hero Content */}
@@ -90,11 +68,11 @@ export const HeroSection = () => {
             </motion.div>
 
             {/* Headline - User focused */}
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.05] mb-6">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] mb-4 sm:mb-6">
               Offrez le{" "}
               <span className="gradient-text">plaisir du sport</span>
               <br />
-              <span className="text-3xl sm:text-4xl lg:text-5xl text-muted-foreground font-medium">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-muted-foreground font-medium">
                 sans limite d'activité
               </span>
             </h1>
@@ -104,7 +82,7 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-4 sm:mb-6 leading-relaxed px-2 sm:px-0"
             >
               <strong className="text-foreground">Une carte cadeau pour pratiquer toutes les activités sportives et de loisirs.</strong>{" "}
               Coaching, fitness, sports outdoor, nautique, escalade, associations sportives... 

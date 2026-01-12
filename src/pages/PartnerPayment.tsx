@@ -166,7 +166,7 @@ const PartnerPayment = () => {
               Encaisser une carte Kadosport
             </h1>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-6">
-              Vous êtes professionnel du sport (association sportive, salle, coach, activités de loisirs...) ? Encaissez cette carte cadeau en 2 min sans aucune commission.
+              Vous êtes un professionnel du sport ? Grâce à votre activité sportive déclarée, vous pouvez encaisser cette carte cadeau et être remboursé rapidement, sans commission.
             </p>
             
             {/* Badge SIRET Vérifié */}

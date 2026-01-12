@@ -23,6 +23,7 @@ import {
   Calendar,
   Receipt
 } from "lucide-react";
+import siretBadge from "@/assets/siret-badge.png";
 
 type Step = "scan" | "balance" | "info" | "confirmation";
 
@@ -164,9 +165,23 @@ const PartnerPayment = () => {
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
               Encaisser une carte Kadosport
             </h1>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-6">
               Vous êtes professionnel du sport (association sportive, salle, coach, activités de loisirs...) ? Encaissez cette carte cadeau en 2 min sans aucune commission.
             </p>
+            
+            {/* Badge SIRET Vérifié */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+              className="flex justify-center"
+            >
+              <img 
+                src={siretBadge} 
+                alt="SIRET Vérifié - Professionnel du Sport" 
+                className="h-20 sm:h-24 object-contain"
+              />
+            </motion.div>
           </motion.div>
 
           {/* Progress Steps */}
@@ -443,6 +458,15 @@ const PartnerPayment = () => {
                     </div>
 
                     <div className="pt-4 space-y-3">
+                      {/* Badge de confiance */}
+                      <div className="flex items-center justify-center mb-4">
+                        <img 
+                          src={siretBadge} 
+                          alt="SIRET Vérifié - Professionnel du Sport" 
+                          className="h-16 object-contain"
+                        />
+                      </div>
+                      
                       <div className="flex items-start gap-3 p-3 bg-green-500/5 border border-green-500/20 rounded-lg">
                         <Shield className="w-5 h-5 text-green-600 mt-0.5" />
                         <div className="text-sm">

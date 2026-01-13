@@ -23,7 +23,7 @@ const userSteps = [
   {
     icon: Check,
     title: "C'est payé !",
-    description: "Le partenaire scanne, le montant est débité. Simple, rapide, sans limite d'enseigne.",
+    description: "Le pro scanne, le montant est débité. Simple, rapide, sans limite d'enseigne.",
     color: "bg-kado-gold/10 text-kado-gold",
   },
 ];
@@ -92,7 +92,7 @@ export const HowItWorksSection = () => {
             Comment ça marche ?
           </h2>
           <p className="text-lg text-muted-foreground">
-            Un système simple et sécurisé, sans carte bancaire complexe, sans contrat partenaire.
+            Un système simple et sécurisé, sans carte bancaire complexe, sans contrat préalable.
           </p>
         </motion.div>
 
@@ -157,7 +157,7 @@ export const HowItWorksSection = () => {
             viewport={{ once: true }}
             className="text-center font-display text-2xl font-bold text-foreground mb-10"
           >
-            <span className="text-kado-coral">Pour le partenaire</span>
+            <span className="text-kado-coral">Pour le professionnel du sport</span>
           </motion.h3>
           
           <motion.div

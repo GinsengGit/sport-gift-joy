@@ -143,7 +143,7 @@ export const HeroSection = () => {
               </div>
               <div className="text-center lg:text-left">
                 <p className="text-3xl font-bold text-kado-coral">0%</p>
-                <p className="text-xs text-muted-foreground font-medium">Commission partenaire</p>
+                <p className="text-xs text-muted-foreground font-medium">Commission pro du sport</p>
               </div>
               <div className="text-center lg:text-left">
                 <p className="text-3xl font-bold text-kado-sky">24</p>

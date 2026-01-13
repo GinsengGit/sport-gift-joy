@@ -36,10 +36,10 @@ export const PartnersSection = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-foreground text-sm font-medium mb-4">
-            +200 partenaires
+            +200 professionnels du sport
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Récompenses exclusives chez nos partenaires
+            Récompenses exclusives chez nos pros du sport
           </h2>
           <p className="text-lg text-secondary-foreground/80">
             Multipliez vos points et débloquez des avantages chez les plus grandes enseignes sportives.

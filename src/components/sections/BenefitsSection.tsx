@@ -79,7 +79,7 @@ export const BenefitsSection = () => {
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               La carte Kadosport ouvre les portes de tout l'univers sportif. 
-              Pas de réseau fermé, pas de liste de partenaires à consulter : 
+              Pas de réseau fermé, pas de liste à consulter : 
               tout professionnel du sport peut l'accepter.
             </p>
 
@@ -189,7 +189,7 @@ export const BenefitsSection = () => {
                 </div>
                 <div>
                   <p className="font-display font-bold text-2xl text-foreground">∞</p>
-                  <p className="text-sm text-muted-foreground">partenaires possibles</p>
+                  <p className="text-sm text-muted-foreground">pros du sport acceptés</p>
                 </div>
               </div>
             </motion.div>

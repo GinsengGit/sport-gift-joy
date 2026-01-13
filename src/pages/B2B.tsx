@@ -66,7 +66,7 @@ const stats = [
   { value: "100%", label: "Digital" },
   { value: "-27%", label: "Absentéisme" },
   { value: "+35%", label: "Engagement" },
-  { value: "500+", label: "Partenaires sport" }
+  { value: "500+", label: "Pros du sport" }
 ];
 
 const B2B = () => {

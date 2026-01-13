@@ -201,6 +201,13 @@ const OffrirCarte = () => {
                             </button>
                           ))}
                         </div>
+                        {/* Transparency note */}
+                        <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-xl">
+                          <p className="text-sm text-muted-foreground">
+                            <span className="font-semibold text-foreground">Transparence totale :</span> les frais de 1€/mois sont notre seule source de revenu pour faire fonctionner le réseau Kadosport. 
+                            <span className="text-primary font-medium"> Aucune commission n'est prélevée sur les partenaires sportifs</span>, qui reçoivent 100% du montant de la carte.
+                          </p>
+                        </div>
                       </div>
 
                       {/* Features */}

@@ -97,7 +97,7 @@ const OffrirCarte = () => {
               Faites plaisir avec une carte sport
             </h1>
             <p className="text-lg text-muted-foreground">
-              Une carte cadeau 100% dédiée au sport, utilisable chez tous nos partenaires.
+              Une carte cadeau 100% dédiée au sport, utilisable chez tous les professionnels du sport.
             </p>
           </motion.div>
 
@@ -205,7 +205,7 @@ const OffrirCarte = () => {
                         <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-xl">
                           <p className="text-sm text-muted-foreground">
                             <span className="font-semibold text-foreground">Transparence totale :</span> les frais d'activation de 1€/mois sont notre seule source de revenu pour faire fonctionner le réseau Kadosport. 
-                            <span className="text-primary font-medium"> Aucune commission n'est prélevée sur les partenaires sportifs</span>, qui reçoivent 100% du montant de la carte.
+                            <span className="text-primary font-medium"> Aucune commission n'est prélevée sur les professionnels du sport</span>, qui reçoivent 100% du montant de la carte.
                           </p>
                         </div>
                       </div>

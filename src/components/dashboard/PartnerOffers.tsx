@@ -28,7 +28,7 @@ const PartnerOffers = ({ offers }: PartnerOffersProps) => {
           <div className="p-2 bg-kado-gold/10 rounded-xl">
             <Percent className="h-5 w-5 text-kado-gold" />
           </div>
-          <h3 className="font-display font-semibold text-lg">Offres partenaires</h3>
+          <h3 className="font-display font-semibold text-lg">Offres pros du sport</h3>
         </div>
         <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
           Voir tout

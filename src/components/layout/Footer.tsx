@@ -5,7 +5,7 @@ const footerLinks = {
   product: [
     { label: "Comment ça marche", href: "#how-it-works" },
     { label: "Offrir une carte", href: "#offer" },
-    { label: "Partenaires", href: "#partners" },
+    { label: "Pros du sport", href: "#partners" },
     { label: "Tarifs", href: "#pricing" },
   ],
   company: [

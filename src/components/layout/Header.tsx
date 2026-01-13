@@ -7,7 +7,7 @@ import kadosportLogo from "@/assets/kadosport-logo.png";
 
 const navItems = [
   { label: "Comment ça marche", href: "#how-it-works", icon: HelpCircle },
-  { label: "J'offre une carte", href: "#offer", icon: Gift },
+  { label: "J'offre une carte", href: "/offrir-carte", icon: Gift, isRoute: true },
   { label: "Avantages", href: "#benefits", icon: Gift },
   { label: "Entreprises", href: "/b2b", icon: Building2, isRoute: true },
   { label: "Encaisser une carte", href: "/partner-payment", icon: CreditCard, isRoute: true },
@@ -74,9 +74,11 @@ export const Header = () => {
                 Mon espace
               </Button>
             </Link>
-            <Button variant="hero" size="default">
-              Offrir une carte
-            </Button>
+            <Link to="/offrir-carte">
+              <Button variant="hero" size="default">
+                Offrir une carte
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Actions */}
@@ -151,9 +153,11 @@ export const Header = () => {
                     Mon espace
                   </Button>
                 </Link>
-                <Button variant="hero" className="w-full">
-                  Offrir une carte
-                </Button>
+                <Link to="/offrir-carte" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="hero" className="w-full">
+                    Offrir une carte
+                  </Button>
+                </Link>
               </div>
             </nav>
           </motion.div>

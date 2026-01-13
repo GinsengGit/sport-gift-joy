@@ -11,14 +11,14 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 const amounts = [20, 30, 50, 75, 100, 150, 200, 500];
-const durations = [12, 18, 24] as const;
+const durations = [6, 12, 18, 24] as const;
 const monthlyFeeEUR = 1;
 
 const OffrirCarte = () => {
   const { toast } = useToast();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedAmount, setSelectedAmount] = useState<number>(100);
-  const [selectedDuration, setSelectedDuration] = useState<(typeof durations)[number]>(12);
+  const [selectedDuration, setSelectedDuration] = useState<(typeof durations)[number]>(6);
   
   // Recipient info
   const [recipientName, setRecipientName] = useState("");
@@ -185,7 +185,7 @@ const OffrirCarte = () => {
                       {/* Duration Selection */}
                       <div className="mb-8">
                         <Label className="mb-4 block">Durée de validité</Label>
-                        <div className="grid grid-cols-3 gap-2 lg:gap-3">
+                        <div className="grid grid-cols-4 gap-2 lg:gap-3">
                           {durations.map((months) => (
                             <button
                               key={months}
@@ -204,7 +204,7 @@ const OffrirCarte = () => {
                         {/* Transparency note */}
                         <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-xl">
                           <p className="text-sm text-muted-foreground">
-                            <span className="font-semibold text-foreground">Transparence totale :</span> les frais de 1€/mois sont notre seule source de revenu pour faire fonctionner le réseau Kadosport. 
+                            <span className="font-semibold text-foreground">Transparence totale :</span> les frais d'activation de 1€/mois sont notre seule source de revenu pour faire fonctionner le réseau Kadosport. 
                             <span className="text-primary font-medium"> Aucune commission n'est prélevée sur les partenaires sportifs</span>, qui reçoivent 100% du montant de la carte.
                           </p>
                         </div>
@@ -425,7 +425,7 @@ const OffrirCarte = () => {
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Frais (1€/mois × {selectedDuration})</span>
+                      <span className="text-muted-foreground">Activation (1€/mois × {selectedDuration})</span>
                       <span className="font-semibold text-foreground">
                         {feesTotal.toFixed(2).replace(".", ",")} €
                       </span>

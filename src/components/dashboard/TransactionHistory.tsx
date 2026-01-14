@@ -101,9 +101,8 @@ const TransactionHistory = ({ transactions }: TransactionHistoryProps) => {
         <div className="flex gap-2 overflow-x-auto pb-2">
           {[
             { key: 'all', label: 'Tout' },
-            { key: 'payment', label: 'Paiements' },
+            { key: 'payment', label: 'Utilisations' },
             { key: 'credit', label: 'Crédits' },
-            { key: 'cashback', label: 'Cashback' },
           ].map((tab) => (
             <button
               key={tab.key}

@@ -46,12 +46,12 @@ const KadosportScoreCard = ({
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="h-2 w-2 rounded-full bg-primary" />
-              <span className="text-xs text-white/70">Achats</span>
+              <span className="text-xs text-white/70">Utilisation carte</span>
             </div>
             <p className="font-display text-xl font-bold">
               {purchasePoints.toLocaleString()} <span className="text-sm font-normal text-white/70">pts</span>
             </p>
-            <p className="text-xs text-white/50 mt-1">1€ = 10 pts</p>
+            <p className="text-xs text-white/50 mt-1">1€ utilisé = 10 pts</p>
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">

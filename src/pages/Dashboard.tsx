@@ -51,8 +51,8 @@ const mockTransactions = [
   {
     id: "1",
     type: "payment" as const,
-    merchant: "Decathlon",
-    category: "Équipement sportif",
+    merchant: "Fitness Park",
+    category: "Salle de sport",
     amount: 45.90,
     date: new Date().toISOString(),
     pointsEarned: 459,
@@ -67,8 +67,8 @@ const mockTransactions = [
   {
     id: "3",
     type: "payment" as const,
-    merchant: "Fitness Park",
-    category: "Salle de sport",
+    merchant: "Club de Tennis",
+    category: "Cours & Entraînement",
     amount: 29.99,
     date: new Date(Date.now() - 86400000 * 2).toISOString(),
     pointsEarned: 300,
@@ -83,8 +83,8 @@ const mockTransactions = [
   {
     id: "5",
     type: "payment" as const,
-    merchant: "Intersport",
-    category: "Équipement sportif",
+    merchant: "Coach sportif",
+    category: "Coaching personnel",
     amount: 78.50,
     date: new Date(Date.now() - 86400000 * 7).toISOString(),
     pointsEarned: 785,

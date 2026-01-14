@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { Trophy, ShoppingBag, Activity, Gift, Medal, Star } from "lucide-react";
+import { Trophy, Activity, Gift, Medal, Star } from "lucide-react";
 import athleteCelebrationImage from "@/assets/athlete-celebration.jpg";
 
 const features = [
   {
-    icon: ShoppingBag,
-    title: "Achats sportifs",
-    description: "1€ dépensé = 10 points",
+    icon: Gift,
+    title: "Utilisation carte",
+    description: "1€ utilisé = 10 points",
     color: "bg-primary/10 text-primary",
   },
   {
@@ -22,7 +22,7 @@ const features = [
     color: "bg-kado-gold/10 text-kado-gold",
   },
   {
-    icon: Gift,
+    icon: Star,
     title: "Récompenses exclusives",
     description: "Codes promo, goodies, tirages",
     color: "bg-kado-sky/10 text-kado-sky",
@@ -84,7 +84,7 @@ export const KadosportScoreSection = () => {
             Le Kadosport Score
           </h2>
           <p className="text-lg text-muted-foreground">
-            Gagnez des points en achetant ET en faisant du sport. 
+            Gagnez des points en utilisant votre carte ET en faisant du sport. 
             Débloquez des médailles et des récompenses exclusives !
           </p>
         </motion.div>

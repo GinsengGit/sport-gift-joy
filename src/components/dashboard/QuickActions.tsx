@@ -19,7 +19,7 @@ const QuickActions = () => {
     {
       icon: RefreshCw,
       label: "Prolonger ma carte",
-      description: "Renouveler pour 7,90€",
+      description: "1€/mois",
       color: "bg-primary/10 text-primary",
       href: "/prolonger"
     },

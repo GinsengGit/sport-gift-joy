@@ -4,7 +4,7 @@ import { Check, Gift, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const amounts = [20, 30, 50, 75, 100, 150, 200, 500];
-const durations = [12, 18, 24] as const;
+const durations = [6, 12, 18, 24] as const;
 const monthlyFeeEUR = 1;
 
 export const PricingSection = () => {
@@ -36,7 +36,7 @@ export const PricingSection = () => {
             Choisissez votre montant
           </h2>
           <p className="text-lg text-muted-foreground">
-            Frais de gestion de 1€ / mois. Durée de validité au choix : 12, 18 ou 24 mois.
+            Frais de gestion de 1€ / mois. Durée de validité au choix : 6, 12, 18 ou 24 mois.
           </p>
         </motion.div>
 
@@ -97,7 +97,7 @@ export const PricingSection = () => {
                 <label className="block text-sm font-medium text-muted-foreground mb-4">
                   Durée de validité
                 </label>
-                <div className="grid grid-cols-3 gap-2 lg:gap-3">
+                <div className="grid grid-cols-4 gap-2 lg:gap-3">
                   {durations.map((months, index) => (
                     <motion.button
                       key={months}
@@ -147,7 +147,7 @@ export const PricingSection = () => {
               <div className="space-y-3 mb-8">
                 {[
                   "Livraison instantanée par email",
-                  "Validité : 12 à 24 mois",
+                  "Validité : jusqu'à 24 mois",
                   "Kadosport Score : gagnez des points et récompenses",
                   "Option cadeau commun disponible",
                 ].map((feature) => (

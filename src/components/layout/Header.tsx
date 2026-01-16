@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Gift, HelpCircle, Building2, CreditCard } from "lucide-react";
+import { Menu, X, Gift, HelpCircle, Building2, CreditCard, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import kadosportLogo from "@/assets/kadosport-logo.png";
 
 const navItems = [
-  { label: "Comment ça marche", href: "#how-it-works", icon: HelpCircle },
   { label: "J'offre une carte", href: "/offrir-carte", icon: Gift, isRoute: true },
-  { label: "Avantages", href: "#benefits", icon: Gift },
+  { label: "Pros du sport", href: "/pros-du-sport", icon: Users, isRoute: true },
   { label: "Entreprises", href: "/b2b", icon: Building2, isRoute: true },
-  { label: "Encaisser une carte", href: "/partner-payment", icon: CreditCard, isRoute: true },
+  { label: "FAQ", href: "/faq", icon: HelpCircle, isRoute: true },
 ];
 
 export const Header = () => {

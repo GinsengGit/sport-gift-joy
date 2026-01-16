@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const footerLinks = {
   product: [
-    { label: "Comment ça marche", href: "#how-it-works" },
-    { label: "Offrir une carte", href: "#offer" },
-    { label: "Pros du sport", href: "#partners" },
-    { label: "Tarifs", href: "#pricing" },
+    { label: "Offrir une carte", href: "/offrir-carte", isRoute: true },
+    { label: "Pros du sport", href: "/pros-du-sport", isRoute: true },
+    { label: "Entreprises", href: "/b2b", isRoute: true },
+    { label: "Mon espace", href: "/dashboard", isRoute: true },
   ],
   company: [
     { label: "À propos", href: "#" },
@@ -15,9 +15,8 @@ const footerLinks = {
     { label: "Presse", href: "#" },
   ],
   support: [
-    { label: "Centre d'aide", href: "#" },
-    { label: "FAQ", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "FAQ", href: "/faq", isRoute: true },
+    { label: "Contact", href: "mailto:contact@kadosport.fr" },
     { label: "CGV", href: "#" },
   ],
   legal: [
@@ -64,9 +63,15 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
-                    {link.label}
-                  </a>
+                  {link.isRoute ? (
+                    <Link to={link.href} className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -90,9 +95,15 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
-                    {link.label}
-                  </a>
+                  {link.isRoute ? (
+                    <Link to={link.href} className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className="text-sm text-secondary-foreground/70 hover:text-secondary-foreground transition-colors">
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

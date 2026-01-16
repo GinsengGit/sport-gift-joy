@@ -146,7 +146,7 @@ export const HeroSection = () => {
                 <p className="text-xs text-muted-foreground font-medium">Commission pro du sport</p>
               </div>
               <div className="text-center lg:text-left">
-                <p className="text-3xl font-bold text-kado-sky">24</p>
+                <p className="text-3xl font-bold text-kado-sky">6-24</p>
                 <p className="text-xs text-muted-foreground font-medium">Mois de validité</p>
               </div>
             </motion.div>

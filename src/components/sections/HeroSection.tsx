@@ -117,11 +117,13 @@ export const HeroSection = () => {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Button variant="hero" size="xl" className="group text-lg">
-                <Gift className="w-5 h-5 mr-2" />
-                Offrir une carte Kadosport
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <Link to="/offrir-carte">
+                <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto">
+                  <Gift className="w-5 h-5 mr-2" />
+                  Offrir une carte Kadosport
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
               <Link to="/partner-payment">
                 <Button variant="outline" size="xl" className="gap-2 text-lg w-full sm:w-auto">
                   <QrCode className="w-5 h-5" />

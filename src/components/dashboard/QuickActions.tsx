@@ -14,7 +14,7 @@ const QuickActions = () => {
       label: "Offrir une carte",
       description: "Faites plaisir à un proche",
       color: "bg-kado-coral/10 text-kado-coral",
-      href: "/offrir"
+      href: "/offrir-carte"
     },
     {
       icon: RefreshCw,

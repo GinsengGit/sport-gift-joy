@@ -8,7 +8,7 @@ import kadosportLogo from "@/assets/kadosport-logo.png";
 const navItems = [
   { label: "J'offre une carte", href: "/offrir-carte", icon: Gift, isRoute: true },
   { label: "Pros du sport", href: "/pros-du-sport", icon: Users, isRoute: true },
-  { label: "Entreprises", href: "/b2b", icon: Building2, isRoute: true },
+  { label: "CSE Entreprises", href: "/b2b", icon: Building2, isRoute: true },
   { label: "FAQ", href: "/faq", icon: HelpCircle, isRoute: true },
 ];
 

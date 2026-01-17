@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import coachingImage from "@/assets/coaching-fitness.jpg";
 import climbingImage from "@/assets/climbing-adventure.jpg";
 import waterSportsImage from "@/assets/water-sports.jpg";
@@ -108,9 +109,11 @@ export const BenefitsSection = () => {
               ))}
             </div>
 
-            <Button variant="hero" size="lg">
-              Offrir une carte
-            </Button>
+            <Link to="/offrir-carte">
+              <Button variant="hero" size="lg">
+                Offrir une carte
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Right Content - Images */}

@@ -168,7 +168,7 @@ const Dashboard = () => {
                   Faites plaisir à vos proches sportifs avec une carte cadeau universelle.
                 </p>
                 <a
-                  href="/offrir"
+                  href="/offrir-carte"
                   className="inline-flex items-center gap-2 bg-white text-kado-navy font-semibold px-4 py-2 rounded-lg text-sm hover:bg-white/90 transition-colors"
                 >
                   Offrir maintenant

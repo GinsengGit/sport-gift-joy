@@ -269,7 +269,7 @@ const ProsDuSport = () => {
                 Qui peut rejoindre le réseau ?
               </h2>
               <p className="text-muted-foreground max-w-xl mx-auto">
-                Tous les professionnels proposant des activités sportives ou de loisirs actifs.
+                Tous les professionnels proposant des activités sportives ou de loisirs sportifs.
               </p>
             </motion.div>
 

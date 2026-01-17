@@ -104,7 +104,7 @@ const faqCategories = [
       },
       {
         q: "Qui peut accepter les cartes Kadosport ?",
-        a: "Tous les professionnels proposant des activités sportives ou de loisirs actifs, à condition d'avoir un numéro SIRET valide. Cela exclut les commerces de vente d'équipements et le e-commerce."
+        a: "Tous les professionnels proposant des activités sportives ou de loisirs sportifs, à condition d'avoir un numéro SIRET valide. Cela exclut les commerces de vente d'équipements et le e-commerce."
       },
       {
         q: "Faut-il signer un contrat ?",

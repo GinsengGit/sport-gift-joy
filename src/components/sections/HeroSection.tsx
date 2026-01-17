@@ -70,10 +70,10 @@ export const HeroSection = () => {
             {/* Headline - User focused */}
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] mb-4 sm:mb-6">
               Offrez le{" "}
-              <span className="gradient-text">plaisir du sport</span>
+              <span className="gradient-text">sport</span>,
               <br />
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-muted-foreground font-medium">
-                sans limite d'activité
+                sans limite
               </span>
             </h1>
 

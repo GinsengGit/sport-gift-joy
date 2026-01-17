@@ -70,12 +70,12 @@ export const HeroSection = () => {
             {/* Headline - User focused */}
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] mb-4 sm:mb-6">
               Offrez le{" "}
-              <span className="gradient-text">sport</span>,
-              <br />
-              <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium">
-                la carte cadeau dédiée aux activités sportives
-              </span>
+              <span className="gradient-text">sport</span>, sans limite
             </h1>
+            
+            <p className="text-xl sm:text-2xl md:text-2xl lg:text-3xl text-muted-foreground font-medium mb-4 sm:mb-6">
+              La carte cadeau dédiée aux activités sportives
+            </p>
 
             {/* Clear value proposition */}
             <motion.p 

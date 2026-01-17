@@ -72,8 +72,8 @@ export const HeroSection = () => {
               Offrez le{" "}
               <span className="gradient-text">sport</span>,
               <br />
-              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-muted-foreground font-medium">
-                sans limite
+              <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium">
+                la carte cadeau dédiée aux activités sportives
               </span>
             </h1>
 

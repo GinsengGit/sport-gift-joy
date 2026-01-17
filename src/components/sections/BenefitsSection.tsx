@@ -90,7 +90,7 @@ export const BenefitsSection = () => {
                 "Coachs et cours particuliers",
                 "Clubs sportifs et associations",
                 "Événements : marathons, courses, compétitions",
-                "Loisirs actifs : escalade, paddle, ski...",
+                "Loisirs sportifs : escalade, paddle, ski...",
               ].map((point, index) => (
                 <motion.div
                   key={point}

@@ -29,30 +29,95 @@ const sportsGallery = [
   { src: gymImage, label: "Fitness", category: "Salle" },
 ];
 
+// Hero sports collage images for dynamic background
+const heroSportsImages = [
+  { src: coachingImage, label: "Coaching", position: "top-20 left-0", size: "w-48 h-64 lg:w-64 lg:h-80", rotate: "-rotate-6", delay: 0 },
+  { src: climbingImage, label: "Escalade", position: "top-40 right-0", size: "w-44 h-56 lg:w-56 lg:h-72", rotate: "rotate-6", delay: 0.1 },
+  { src: waterSportsImage, label: "Nautique", position: "bottom-32 left-8", size: "w-40 h-52 lg:w-52 lg:h-68", rotate: "rotate-3", delay: 0.2 },
+  { src: runningImage, label: "Running", position: "bottom-20 right-4", size: "w-44 h-56 lg:w-56 lg:h-72", rotate: "-rotate-3", delay: 0.15 },
+  { src: gymImage, label: "Fitness", position: "top-60 left-20 lg:left-40", size: "w-36 h-48 lg:w-48 lg:h-64", rotate: "rotate-12", delay: 0.25 },
+];
+
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      {/* Full-width sports background with overlay */}
-      <div className="absolute inset-0">
-        <img 
-          src={heroCollage} 
-          alt="Univers sportif Kadosport" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background" />
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+      {/* Floating Sports Images - Left Side */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Left floating images */}
+        <motion.div
+          initial={{ opacity: 0, x: -100, rotate: -15 }}
+          animate={{ opacity: 1, x: 0, rotate: -6 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="absolute top-20 -left-8 lg:left-0 w-40 h-52 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform -rotate-6 z-0"
+        >
+          <img src={coachingImage} alt="Coaching sportif" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: -80, rotate: 20 }}
+          animate={{ opacity: 1, x: 0, rotate: 12 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="absolute top-[45%] -left-4 lg:left-12 w-36 h-48 lg:w-48 lg:h-64 rounded-2xl overflow-hidden shadow-2xl transform rotate-12 z-0"
+        >
+          <img src={gymImage} alt="Fitness en salle" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 80, rotate: -10 }}
+          animate={{ opacity: 1, y: 0, rotate: 3 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          className="absolute bottom-24 -left-6 lg:left-4 w-40 h-52 lg:w-52 lg:h-68 rounded-2xl overflow-hidden shadow-2xl transform rotate-3 z-0"
+        >
+          <img src={waterSportsImage} alt="Sports nautiques" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </motion.div>
+
+        {/* Right floating images */}
+        <motion.div
+          initial={{ opacity: 0, x: 100, rotate: 15 }}
+          animate={{ opacity: 1, x: 0, rotate: 6 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="absolute top-24 -right-8 lg:right-0 w-44 h-56 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform rotate-6 z-0"
+        >
+          <img src={climbingImage} alt="Escalade aventure" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 80, rotate: -15 }}
+          animate={{ opacity: 1, x: 0, rotate: -8 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="absolute top-[50%] -right-4 lg:right-8 w-40 h-52 lg:w-52 lg:h-68 rounded-2xl overflow-hidden shadow-2xl transform -rotate-8 z-0"
+        >
+          <img src={runningImage} alt="Running outdoor" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 80, rotate: 10 }}
+          animate={{ opacity: 1, y: 0, rotate: -3 }}
+          transition={{ duration: 1, delay: 0.7 }}
+          className="absolute bottom-20 -right-6 lg:right-4 w-36 h-48 lg:w-48 lg:h-64 rounded-2xl overflow-hidden shadow-2xl transform -rotate-3 z-0"
+        >
+          <img src={heroCollage} alt="Sports collectifs" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </motion.div>
       </div>
 
+      {/* Central gradient overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/95 to-background/70 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background z-[1]" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 lg:pt-32">
-        {/* Main Hero Content */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
-          {/* Left Content - Text */}
+        {/* Main Hero Content - Centered */}
+        <div className="flex flex-col items-center justify-center min-h-[85vh] text-center">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center lg:text-left"
+            className="max-w-4xl mx-auto"
           >
             {/* Sport Badge */}
             <motion.div
@@ -67,13 +132,13 @@ export const HeroSection = () => {
               </span>
             </motion.div>
 
-            {/* Headline - User focused */}
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] mb-4 sm:mb-6">
+            {/* Headline */}
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground leading-[1.1] mb-4 sm:mb-6">
               Offrez le{" "}
               <span className="gradient-text">sport</span>, sans limite
             </h1>
             
-            <p className="text-xl sm:text-2xl md:text-2xl lg:text-3xl text-muted-foreground font-medium mb-4 sm:mb-6">
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-6">
               La carte cadeau dédiée aux activités sportives
             </p>
 
@@ -82,10 +147,9 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-4 sm:mb-6 leading-relaxed px-2 sm:px-0"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed"
             >
-              <strong className="text-foreground">Une carte cadeau pour pratiquer toutes les activités sportives et de loisirs.</strong>{" "}
-              Coaching, fitness, sports outdoor, nautique, escalade, associations sportives... 
+              <strong className="text-foreground">Coaching, fitness, sports outdoor, nautique, escalade, associations sportives...</strong>{" "}
               Le bénéficiaire choisit librement son activité !
             </motion.p>
 
@@ -94,7 +158,7 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8"
+              className="flex flex-wrap gap-2 justify-center mb-8"
             >
               {sportCategories.map((category) => (
                 <span 
@@ -115,7 +179,7 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
             >
               <Link to="/offrir-carte">
                 <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto">
@@ -132,36 +196,36 @@ export const HeroSection = () => {
               </Link>
             </motion.div>
 
+            {/* 3D Gift Card - Centered */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="flex justify-center mb-8"
+            >
+              <GiftCard3D />
+            </motion.div>
+
             {/* Key Stats */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-wrap items-center gap-8 mt-10 justify-center lg:justify-start"
+              className="flex flex-wrap items-center gap-8 justify-center"
             >
-              <div className="text-center lg:text-left">
+              <div className="text-center">
                 <p className="text-3xl font-bold text-primary">∞</p>
                 <p className="text-xs text-muted-foreground font-medium">Activités possibles</p>
               </div>
-              <div className="text-center lg:text-left">
+              <div className="text-center">
                 <p className="text-3xl font-bold text-kado-coral">0%</p>
                 <p className="text-xs text-muted-foreground font-medium">Commission pro du sport</p>
               </div>
-              <div className="text-center lg:text-left">
+              <div className="text-center">
                 <p className="text-3xl font-bold text-kado-sky">6-24</p>
                 <p className="text-xs text-muted-foreground font-medium">Mois de validité</p>
               </div>
             </motion.div>
-          </motion.div>
-
-          {/* Right Content - 3D Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="relative flex justify-center lg:justify-end"
-          >
-            <GiftCard3D />
           </motion.div>
         </div>
       </div>

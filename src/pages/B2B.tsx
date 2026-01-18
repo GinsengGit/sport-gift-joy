@@ -123,9 +123,11 @@ const B2B = () => {
                 <Button variant="hero" size="lg" className="text-base">
                   Demander une démo
                 </Button>
-                <Button variant="outline" size="lg" className="text-base">
-                  Télécharger la plaquette
-                </Button>
+                <Link to="/plaquette-cse">
+                  <Button variant="outline" size="lg" className="text-base w-full sm:w-auto">
+                    Télécharger la plaquette
+                  </Button>
+                </Link>
               </motion.div>
             </div>
           </div>

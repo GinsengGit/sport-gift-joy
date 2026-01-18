@@ -10,6 +10,7 @@ import PartnerPayment from "./pages/PartnerPayment";
 import OffrirCarte from "./pages/OffrirCarte";
 import ProsDuSport from "./pages/ProsDuSport";
 import FAQ from "./pages/FAQ";
+import PlaquetteCSE from "./pages/PlaquetteCSE";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/offrir-carte" element={<OffrirCarte />} />
           <Route path="/pros-du-sport" element={<ProsDuSport />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/plaquette-cse" element={<PlaquetteCSE />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

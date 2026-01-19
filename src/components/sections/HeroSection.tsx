@@ -48,30 +48,30 @@ export const HeroSection = () => {
           initial={{ opacity: 0, x: -100, rotate: -15 }}
           animate={{ opacity: 1, x: 0, rotate: -6 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="absolute top-20 -left-8 lg:left-0 w-40 h-52 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform -rotate-6 z-0"
+          className="absolute top-20 -left-8 lg:left-0 w-44 h-56 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl transform -rotate-6 z-0 border border-white/20"
         >
           <img src={coachingImage} alt="Coaching sportif" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, x: -80, rotate: 20 }}
           animate={{ opacity: 1, x: 0, rotate: 12 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="absolute top-[45%] -left-4 lg:left-12 w-36 h-48 lg:w-48 lg:h-64 rounded-2xl overflow-hidden shadow-2xl transform rotate-12 z-0"
+          className="absolute top-[45%] -left-4 lg:left-12 w-40 h-52 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform rotate-12 z-0 border border-white/20"
         >
           <img src={gymImage} alt="Fitness en salle" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 80, rotate: -10 }}
           animate={{ opacity: 1, y: 0, rotate: 3 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="absolute bottom-24 -left-6 lg:left-4 w-40 h-52 lg:w-52 lg:h-68 rounded-2xl overflow-hidden shadow-2xl transform rotate-3 z-0"
+          className="absolute bottom-24 -left-6 lg:left-4 w-44 h-56 lg:w-60 lg:h-76 rounded-2xl overflow-hidden shadow-2xl transform rotate-3 z-0 border border-white/20"
         >
           <img src={waterSportsImage} alt="Sports nautiques" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </motion.div>
 
         {/* Right floating images */}
@@ -79,36 +79,36 @@ export const HeroSection = () => {
           initial={{ opacity: 0, x: 100, rotate: 15 }}
           animate={{ opacity: 1, x: 0, rotate: 6 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="absolute top-24 -right-8 lg:right-0 w-44 h-56 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform rotate-6 z-0"
+          className="absolute top-24 -right-8 lg:right-0 w-48 h-60 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl transform rotate-6 z-0 border border-white/20"
         >
           <img src={climbingImage} alt="Escalade aventure" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, x: 80, rotate: -15 }}
           animate={{ opacity: 1, x: 0, rotate: -8 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="absolute top-[50%] -right-4 lg:right-8 w-40 h-52 lg:w-52 lg:h-68 rounded-2xl overflow-hidden shadow-2xl transform -rotate-8 z-0"
+          className="absolute top-[50%] -right-4 lg:right-8 w-44 h-56 lg:w-60 lg:h-76 rounded-2xl overflow-hidden shadow-2xl transform -rotate-8 z-0 border border-white/20"
         >
           <img src={runningImage} alt="Running outdoor" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 80, rotate: 10 }}
           animate={{ opacity: 1, y: 0, rotate: -3 }}
           transition={{ duration: 1, delay: 0.7 }}
-          className="absolute bottom-20 -right-6 lg:right-4 w-36 h-48 lg:w-48 lg:h-64 rounded-2xl overflow-hidden shadow-2xl transform -rotate-3 z-0"
+          className="absolute bottom-20 -right-6 lg:right-4 w-40 h-52 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform -rotate-3 z-0 border border-white/20"
         >
           <img src={heroCollage} alt="Sports collectifs" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </motion.div>
       </div>
 
       {/* Central gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/95 to-background/70 z-[1]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/30 via-background/70 to-background/30 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/60 z-[1]" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 lg:pt-32">
         {/* Main Hero Content - Centered */}

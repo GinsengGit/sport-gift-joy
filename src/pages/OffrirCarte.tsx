@@ -94,11 +94,23 @@ const OffrirCarte = () => {
               Offrir une carte
             </span>
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Faites plaisir avec une carte sport
+              Offrez un budget sport, pas un catalogue.
             </h1>
-            <p className="text-lg text-muted-foreground">
-              Une carte cadeau 100% dédiée au sport, utilisable chez tous les professionnels du sport.
+            <p className="text-lg text-muted-foreground mb-6">
+              Avec Kadosport, vous offrez un budget dédié à la pratique sportive.
+              Le bénéficiaire utilise sa carte chez le professionnel du sport de son choix
+              (salle de sport, coach, club, association, structure indépendante…).
             </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/20 rounded-full">
+                <Check className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium text-foreground">Liberté totale d'utilisation</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/20 rounded-full">
+                <Check className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium text-foreground">Soutien direct aux professionnels du sport</span>
+              </div>
+            </div>
           </motion.div>
 
           {/* Progress Steps */}

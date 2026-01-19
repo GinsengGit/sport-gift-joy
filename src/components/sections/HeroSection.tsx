@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, QrCode, Gift, Dumbbell, Mountain, Waves, Zap, Users } from "lucide-react";
+import { ArrowRight, QrCode, Gift, Dumbbell, Mountain, Waves, Zap, Users, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { GiftCard3D } from "@/components/ui/GiftCard3D";
@@ -119,58 +119,47 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-4xl mx-auto"
           >
-            {/* Sport Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
+            {/* Headline */}
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground leading-[1.1] mb-6 sm:mb-8">
+              Offrez du{" "}
+              <span className="gradient-text">sport</span>
+            </h1>
+
+            {/* Introduction text */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-kado-coral/15 border border-kado-coral/30 mb-6"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed"
             >
-              <Zap className="w-4 h-4 text-kado-coral" />
-              <span className="text-sm font-bold text-kado-coral uppercase tracking-wide">
-                La carte cadeau 100% sport
-              </span>
+              <p className="mb-4">
+                <strong className="text-foreground">Kadosport</strong> est une carte sport qui permet de financer la pratique sportive librement,
+                chez tous les professionnels du sport déclarés, partout en France.
+              </p>
+              <p className="text-muted-foreground/80">
+                Sans catalogue, sans contrainte, sans commission pour les professionnels.
+              </p>
             </motion.div>
 
-            {/* Headline */}
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground leading-[1.1] mb-4 sm:mb-6">
-              Offrez le{" "}
-              <span className="gradient-text">sport</span>, sans limite
-            </h1>
-            
-            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-6">
-              La carte cadeau dédiée aux activités sportives
-            </p>
-
-            {/* Clear value proposition */}
-            <motion.p 
+            {/* Les + Kadosport */}
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed"
+              className="flex flex-col gap-3 items-center mb-8"
             >
-              <strong className="text-foreground">Coaching, fitness, sports outdoor, nautique, escalade, associations sportives...</strong>{" "}
-              Le bénéficiaire choisit librement son activité !
-            </motion.p>
-
-            {/* Sport Categories Pills */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-wrap gap-2 justify-center mb-8"
-            >
-              {sportCategories.map((category) => (
-                <span 
-                  key={category.label}
-                  className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg 
-                    ${category.color === 'primary' ? 'bg-primary/10 text-primary border border-primary/20' : 
-                      category.color === 'kado-coral' ? 'bg-kado-coral/10 text-kado-coral border border-kado-coral/20' : 
-                      'bg-kado-sky/10 text-kado-sky border border-kado-sky/20'}`}
+              {[
+                "Encaissable chez tous les professionnels du sport déclarés",
+                "Zéro commission pour les structures sportives",
+                "Remboursement simple et garanti",
+              ].map((benefit, index) => (
+                <div 
+                  key={index}
+                  className="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 border border-primary/20 rounded-full"
                 >
-                  <category.icon className="w-3.5 h-3.5" />
-                  {category.label}
-                </span>
+                  <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm sm:text-base font-medium text-foreground">{benefit}</span>
+                </div>
               ))}
             </motion.div>
 
@@ -178,20 +167,21 @@ export const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
             >
               <Link to="/offrir-carte">
                 <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto">
                   <Gift className="w-5 h-5 mr-2" />
-                  Offrir une carte Kadosport
+                  Offrir une carte sport
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to="/partner-payment">
                 <Button variant="outline" size="xl" className="gap-2 text-lg w-full sm:w-auto">
                   <QrCode className="w-5 h-5" />
-                  J'encaisse une carte
+                  Encaisser une carte
+                  <span className="text-muted-foreground text-sm">(pro du sport)</span>
                 </Button>
               </Link>
             </motion.div>

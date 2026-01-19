@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Wallet, Eye, EyeOff, RefreshCw } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 interface BalanceCardProps {
@@ -105,12 +106,14 @@ const BalanceCard = ({ balance, cardNumber, expirationDate }: BalanceCardProps) 
             animate={{ opacity: 1, height: "auto" }}
             className="mt-4"
           >
-            <Button 
-              className="w-full bg-white text-kado-emerald-dark hover:bg-white/90 font-semibold"
-            >
-              <RefreshCw className="h-4 w-4 mr-2" />
-              {isExpired ? "Réactiver ma carte" : "Prolonger ma carte"}
-            </Button>
+            <Link to="/prolonger">
+              <Button 
+                className="w-full bg-white text-kado-emerald-dark hover:bg-white/90 font-semibold"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {isExpired ? "Réactiver ma carte" : "Prolonger ma carte"}
+              </Button>
+            </Link>
           </motion.div>
         )}
       </div>

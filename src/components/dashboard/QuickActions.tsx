@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { 
   Gift, 
   RefreshCw, 
@@ -50,24 +51,27 @@ const QuickActions = () => {
       
       <div className="grid grid-cols-2 gap-3">
         {actions.map((action, index) => (
-          <motion.a
+          <motion.div
             key={action.label}
-            href={action.href}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
-            className="group p-4 rounded-xl bg-muted/50 hover:bg-muted transition-all hover:shadow-md"
           >
-            <div className={`w-10 h-10 ${action.color} rounded-xl flex items-center justify-center mb-3`}>
-              <action.icon className="h-5 w-5" />
-            </div>
-            <p className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
-              {action.label}
-            </p>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              {action.description}
-            </p>
-          </motion.a>
+            <Link
+              to={action.href}
+              className="group block p-4 rounded-xl bg-muted/50 hover:bg-muted transition-all hover:shadow-md"
+            >
+              <div className={`w-10 h-10 ${action.color} rounded-xl flex items-center justify-center mb-3`}>
+                <action.icon className="h-5 w-5" />
+              </div>
+              <p className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
+                {action.label}
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {action.description}
+              </p>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </motion.div>

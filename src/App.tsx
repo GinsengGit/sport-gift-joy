@@ -11,6 +11,7 @@ import OffrirCarte from "./pages/OffrirCarte";
 import ProsDuSport from "./pages/ProsDuSport";
 import FAQ from "./pages/FAQ";
 import PlaquetteCSE from "./pages/PlaquetteCSE";
+import ExtendCard from "./pages/ExtendCard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/pros-du-sport" element={<ProsDuSport />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/plaquette-cse" element={<PlaquetteCSE />} />
+          <Route path="/prolonger" element={<ExtendCard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

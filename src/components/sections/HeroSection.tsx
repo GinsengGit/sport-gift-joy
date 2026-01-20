@@ -5,12 +5,9 @@ import { Link } from "react-router-dom";
 import { GiftCard3D } from "@/components/ui/GiftCard3D";
 
 // New dynamic sports images
-import heroCollage from "@/assets/hero-sports-collage.jpg";
-import coachingImage from "@/assets/coaching-fitness.jpg";
-import climbingImage from "@/assets/climbing-adventure.jpg";
-import waterSportsImage from "@/assets/water-sports.jpg";
-import runningImage from "@/assets/outdoor-running.jpg";
-import gymImage from "@/assets/gym-fitness.jpg";
+import fitnessImage from "@/assets/fitness-gym-dynamic.jpg";
+import outdoorImage from "@/assets/outdoor-sport-dynamic.jpg";
+import padelImage from "@/assets/padel-sport.jpg";
 
 const sportCategories = [
   { icon: Dumbbell, label: "Salles & Fitness", color: "primary" },
@@ -22,87 +19,62 @@ const sportCategories = [
 ];
 
 const sportsGallery = [
-  { src: coachingImage, label: "Coaching", category: "Personnel" },
-  { src: climbingImage, label: "Escalade", category: "Aventure" },
-  { src: waterSportsImage, label: "Nautique", category: "Outdoor" },
-  { src: runningImage, label: "Running", category: "Collectif" },
-  { src: gymImage, label: "Fitness", category: "Salle" },
+  { src: fitnessImage, label: "Fitness", category: "Salle" },
+  { src: outdoorImage, label: "Outdoor", category: "Aventure" },
+  { src: padelImage, label: "Padel", category: "Raquette" },
 ];
 
-// Hero sports collage images for dynamic background
 const heroSportsImages = [
-  { src: coachingImage, label: "Coaching", position: "top-20 left-0", size: "w-48 h-64 lg:w-64 lg:h-80", rotate: "-rotate-6", delay: 0 },
-  { src: climbingImage, label: "Escalade", position: "top-40 right-0", size: "w-44 h-56 lg:w-56 lg:h-72", rotate: "rotate-6", delay: 0.1 },
-  { src: waterSportsImage, label: "Nautique", position: "bottom-32 left-8", size: "w-40 h-52 lg:w-52 lg:h-68", rotate: "rotate-3", delay: 0.2 },
-  { src: runningImage, label: "Running", position: "bottom-20 right-4", size: "w-44 h-56 lg:w-56 lg:h-72", rotate: "-rotate-3", delay: 0.15 },
-  { src: gymImage, label: "Fitness", position: "top-60 left-20 lg:left-40", size: "w-36 h-48 lg:w-48 lg:h-64", rotate: "rotate-12", delay: 0.25 },
+  { src: fitnessImage, label: "Fitness", position: "left" },
+  { src: outdoorImage, label: "Outdoor", position: "center" },
+  { src: padelImage, label: "Padel", position: "right" },
 ];
 
 export const HeroSection = () => {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-      {/* Floating Sports Images - Left Side */}
+      {/* 3 Dynamic Floating Sports Images */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Left floating images */}
+        {/* Left - Fitness */}
         <motion.div
           initial={{ opacity: 0, x: -100, rotate: -15 }}
           animate={{ opacity: 1, x: 0, rotate: -6 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="absolute top-20 -left-8 lg:left-0 w-44 h-56 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl transform -rotate-6 z-0 border border-white/20"
+          className="absolute top-32 -left-6 lg:left-4 w-52 h-72 lg:w-72 lg:h-96 rounded-2xl overflow-hidden shadow-2xl transform -rotate-6 z-0 border border-white/20"
         >
-          <img src={coachingImage} alt="Coaching sportif" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          <img src={fitnessImage} alt="Fitness en salle" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          <div className="absolute bottom-4 left-4">
+            <span className="px-3 py-1 bg-primary/90 text-primary-foreground text-sm font-semibold rounded-full">Fitness</span>
+          </div>
         </motion.div>
 
+        {/* Center Top - Outdoor */}
         <motion.div
-          initial={{ opacity: 0, x: -80, rotate: 20 }}
-          animate={{ opacity: 1, x: 0, rotate: 12 }}
+          initial={{ opacity: 0, y: -80 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="absolute top-[45%] -left-4 lg:left-12 w-40 h-52 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform rotate-12 z-0 border border-white/20"
+          className="absolute top-20 left-1/2 -translate-x-1/2 w-48 h-64 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl z-0 border border-white/20 hidden lg:block"
         >
-          <img src={gymImage} alt="Fitness en salle" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          <img src={outdoorImage} alt="Sport outdoor" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          <div className="absolute bottom-4 left-4">
+            <span className="px-3 py-1 bg-kado-sky/90 text-white text-sm font-semibold rounded-full">Outdoor</span>
+          </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 80, rotate: -10 }}
-          animate={{ opacity: 1, y: 0, rotate: 3 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="absolute bottom-24 -left-6 lg:left-4 w-44 h-56 lg:w-60 lg:h-76 rounded-2xl overflow-hidden shadow-2xl transform rotate-3 z-0 border border-white/20"
-        >
-          <img src={waterSportsImage} alt="Sports nautiques" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        </motion.div>
-
-        {/* Right floating images */}
+        {/* Right - Padel */}
         <motion.div
           initial={{ opacity: 0, x: 100, rotate: 15 }}
           animate={{ opacity: 1, x: 0, rotate: 6 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="absolute top-24 -right-8 lg:right-0 w-48 h-60 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl transform rotate-6 z-0 border border-white/20"
+          className="absolute top-32 -right-6 lg:right-4 w-52 h-72 lg:w-72 lg:h-96 rounded-2xl overflow-hidden shadow-2xl transform rotate-6 z-0 border border-white/20"
         >
-          <img src={climbingImage} alt="Escalade aventure" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 80, rotate: -15 }}
-          animate={{ opacity: 1, x: 0, rotate: -8 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute top-[50%] -right-4 lg:right-8 w-44 h-56 lg:w-60 lg:h-76 rounded-2xl overflow-hidden shadow-2xl transform -rotate-8 z-0 border border-white/20"
-        >
-          <img src={runningImage} alt="Running outdoor" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 80, rotate: 10 }}
-          animate={{ opacity: 1, y: 0, rotate: -3 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="absolute bottom-20 -right-6 lg:right-4 w-40 h-52 lg:w-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl transform -rotate-3 z-0 border border-white/20"
-        >
-          <img src={heroCollage} alt="Sports collectifs" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          <img src={padelImage} alt="Padel sport de raquette" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          <div className="absolute bottom-4 left-4">
+            <span className="px-3 py-1 bg-kado-coral/90 text-white text-sm font-semibold rounded-full">Padel</span>
+          </div>
         </motion.div>
       </div>
 
@@ -248,7 +220,7 @@ export const HeroSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4"
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto"
           >
             {sportsGallery.map((item, index) => (
               <motion.div
@@ -258,7 +230,7 @@ export const HeroSection = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, zIndex: 10 }}
-                className="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer shadow-lg"
+                className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer shadow-lg"
               >
                 <img 
                   src={item.src}

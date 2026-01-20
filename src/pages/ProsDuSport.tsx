@@ -23,39 +23,6 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import siretBadge from "@/assets/siret-badge.png";
 
-const benefits = [
-  {
-    icon: Euro,
-    title: "0% de commission",
-    description: "Recevez 100% du montant de la carte. Aucun frais caché, jamais.",
-    highlight: true,
-  },
-  {
-    icon: Clock,
-    title: "Paiement sous 48h",
-    description: "Virement bancaire automatique après validation de la transaction.",
-  },
-  {
-    icon: Shield,
-    title: "Zéro contrat",
-    description: "Pas d'engagement, pas de paperasse. Inscrivez-vous et encaissez.",
-  },
-  {
-    icon: Users,
-    title: "Nouveaux clients",
-    description: "Accédez à une communauté de sportifs motivés prêts à découvrir votre activité.",
-  },
-  {
-    icon: Smartphone,
-    title: "Simple comme un scan",
-    description: "Le client présente son QR code, vous scannez, c'est encaissé.",
-  },
-  {
-    icon: BadgeCheck,
-    title: "SIRET vérifié",
-    description: "Seuls les vrais professionnels du sport peuvent encaisser.",
-  },
-];
 
 const steps = [
   {
@@ -155,57 +122,50 @@ const ProsDuSport = () => {
           </motion.div>
         </section>
 
-        {/* Benefits Grid */}
+        {/* Important Notice */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="max-w-3xl mx-auto text-center"
             >
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Pourquoi rejoindre Kadosport ?
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary/10 rounded-full mb-8">
+                <BadgeCheck className="w-6 h-6 text-primary" />
+                <span className="font-semibold text-primary">Réservé aux professionnels du sport</span>
+              </div>
+              
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6">
+                Une carte encaissable uniquement par les pros du sport
               </h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                Un modèle économique transparent qui privilégie les professionnels du sport.
+              
+              <p className="text-lg text-muted-foreground mb-8">
+                La carte Kadosport ne peut être encaissée que par des <strong className="text-foreground">professionnels du sport déclarés</strong>, 
+                avec un numéro SIRET valide correspondant à une activité sportive ou de loisirs sportifs.
               </p>
+              
+              <div className="bg-card border border-border rounded-2xl p-6 text-left">
+                <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-primary" />
+                  Pourquoi cette exclusivité ?
+                </h3>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary font-bold">•</span>
+                    <span>Garantir que chaque euro est utilisé pour la <strong className="text-foreground">pratique sportive</strong></span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary font-bold">•</span>
+                    <span>Soutenir directement les <strong className="text-foreground">acteurs du sport</strong> en France</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary font-bold">•</span>
+                    <span>Éviter les dérives vers l'achat d'équipements ou de produits</span>
+                  </li>
+                </ul>
+              </div>
             </motion.div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={benefit.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`p-6 rounded-2xl border ${
-                    benefit.highlight 
-                      ? "bg-gradient-hero text-primary-foreground border-transparent" 
-                      : "bg-card border-border"
-                  }`}
-                >
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                    benefit.highlight 
-                      ? "bg-primary-foreground/20" 
-                      : "bg-primary/10"
-                  }`}>
-                    <benefit.icon className={`w-6 h-6 ${
-                      benefit.highlight ? "text-primary-foreground" : "text-primary"
-                    }`} />
-                  </div>
-                  <h3 className={`font-display font-bold text-lg mb-2 ${
-                    benefit.highlight ? "text-primary-foreground" : "text-foreground"
-                  }`}>
-                    {benefit.title}
-                  </h3>
-                  <p className={benefit.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}>
-                    {benefit.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -266,10 +226,10 @@ const ProsDuSport = () => {
               className="text-center mb-12"
             >
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Qui peut rejoindre le réseau ?
+                Qui peut encaisser la carte Kadosport ?
               </h2>
               <p className="text-muted-foreground max-w-xl mx-auto">
-                Tous les professionnels proposant des activités sportives ou de loisirs sportifs.
+                Exclusivement les professionnels déclarés proposant des activités de pratique sportive.
               </p>
             </motion.div>
 
@@ -296,9 +256,10 @@ const ProsDuSport = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="text-center text-muted-foreground mt-8"
+              className="text-center mt-8 p-4 bg-primary/5 rounded-xl border border-primary/20"
             >
-              <strong className="text-foreground">Condition unique :</strong> être un professionnel déclaré avec un numéro SIRET valide.
+              <strong className="text-primary">⚠️ Condition obligatoire :</strong> 
+              <span className="text-foreground"> Être un professionnel du sport déclaré avec un numéro SIRET valide correspondant à une activité sportive.</span>
             </motion.p>
           </div>
         </section>

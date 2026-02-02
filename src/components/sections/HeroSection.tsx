@@ -21,150 +21,152 @@ const sportCategories = [
   { icon: Users, label: "Clubs & associations", color: "primary" },
 ];
 
-// Tilted collage images configuration
-const collageImages = [
-  { src: fitnessImage, className: "top-4 left-4 w-40 h-52 lg:w-56 lg:h-72 -rotate-6", delay: 0.1 },
-  { src: outdoorImage, className: "top-8 left-1/4 w-36 h-48 lg:w-48 lg:h-64 rotate-3", delay: 0.2 },
-  { src: padelImage, className: "top-2 right-1/4 w-40 h-52 lg:w-52 lg:h-68 -rotate-3", delay: 0.3 },
-  { src: coachingImage, className: "top-6 right-4 w-38 h-50 lg:w-52 lg:h-72 rotate-6", delay: 0.4 },
-  { src: waterSportsImage, className: "top-1/3 left-8 w-36 h-44 lg:w-44 lg:h-56 rotate-4", delay: 0.5 },
-  { src: climbingImage, className: "top-1/3 right-8 w-36 h-44 lg:w-44 lg:h-56 -rotate-4", delay: 0.6 },
-  { src: friendsRunning, className: "bottom-1/4 left-4 w-40 h-52 lg:w-52 lg:h-64 -rotate-3", delay: 0.7 },
-  { src: gymFitness, className: "bottom-1/4 right-4 w-38 h-48 lg:w-48 lg:h-60 rotate-5", delay: 0.8 },
-  { src: padelImage, className: "bottom-8 left-1/4 w-36 h-44 lg:w-44 lg:h-52 rotate-2 scale-x-[-1]", delay: 0.9 },
-  { src: outdoorImage, className: "bottom-8 right-1/4 w-36 h-44 lg:w-44 lg:h-52 -rotate-2 scale-x-[-1]", delay: 1.0 },
+// Featured sport images for the tilted collage box
+const featuredSports = [
+  { src: fitnessImage, label: "Fitness", rotation: "-rotate-3" },
+  { src: coachingImage, label: "Coaching", rotation: "rotate-2" },
+  { src: outdoorImage, label: "Outdoor", rotation: "-rotate-2" },
+  { src: padelImage, label: "Padel", rotation: "rotate-3" },
+  { src: waterSportsImage, label: "Aquatique", rotation: "-rotate-1" },
+  { src: climbingImage, label: "Escalade", rotation: "rotate-2" },
+  { src: friendsRunning, label: "Running", rotation: "-rotate-2" },
+  { src: gymFitness, label: "Musculation", rotation: "rotate-1" },
 ];
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      {/* Tilted Sports Collage Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {collageImages.map((img, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: img.delay }}
-            className={`absolute rounded-lg overflow-hidden shadow-xl border-2 border-white/30 ${img.className}`}
-          >
-            <img 
-              src={img.src} 
-              alt="Sport" 
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        ))}
-        
-        {/* Overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/50" />
-      </div>
+    <section className="relative bg-gradient-to-b from-primary/5 via-background to-background overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 lg:pt-32 pb-8">
+        {/* Headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
+        >
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-4">
+            OFFREZ DU <span className="text-primary">SPORT</span>
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+            KADOSPORT est la 1ère carte cadeau 100% sportive
+          </p>
+        </motion.div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 lg:pt-32">
-        {/* Main Hero Content - Centered */}
-        <div className="flex flex-col items-center justify-center min-h-[85vh] text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-4xl mx-auto"
-          >
-            {/* Headline */}
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4">
-              OFFREZ DU SPORT
-            </h1>
-
-            {/* Subtitle */}
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8"
-            >
-              KADOSPORT est la 1ère carte cadeau 100% sportive
-            </motion.p>
-
-            {/* Introduction text */}
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-base sm:text-lg text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed"
-            >
-              <p>
-                Une carte sport qui permet de financer la pratique sportive librement,
-                chez tous les professionnels du sport déclarés, partout en France.
-              </p>
-            </motion.div>
-
-            {/* Les + Kadosport */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-col gap-3 items-center mb-10"
-            >
-              {[
-                "Encaissable chez tous les professionnels du sport déclarés",
-                "Zéro commission pour les structures sportives",
-                "Remboursement simple et garanti",
-              ].map((benefit, index) => (
-                <div 
-                  key={index}
-                  className="inline-flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full"
-                >
-                  <Check className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm sm:text-base font-medium text-white">{benefit}</span>
-                </div>
-              ))}
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-            >
-              <Link to="/offrir-carte">
-                <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
-                  <Gift className="w-5 h-5 mr-2" />
-                  J'offre une carte Kadosport
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/partner-payment">
-                <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
-                  <QrCode className="w-5 h-5 mr-2" />
-                  J'encaisse une carte
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Sport Categories */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
-            >
-              {sportCategories.map((category, index) => (
+        {/* Tilted Photo Collage Box */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative max-w-5xl mx-auto mb-12"
+        >
+          {/* Photo grid with tilted images */}
+          <div className="relative bg-gradient-to-br from-primary/10 to-primary/5 rounded-3xl p-6 md:p-8 border border-primary/20 shadow-xl overflow-hidden">
+            {/* Background glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-kado-coral/10 opacity-50" />
+            
+            <div className="relative grid grid-cols-4 md:grid-cols-8 gap-3 md:gap-4">
+              {featuredSports.map((sport, index) => (
                 <motion.div
-                  key={category.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7 + index * 0.1 }}
-                  className="flex flex-col items-center gap-2 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
+                  key={sport.label}
+                  initial={{ opacity: 0, y: 20, rotate: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                  className={`relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg border-2 border-white/80 transform ${sport.rotation} hover:scale-105 hover:rotate-0 transition-all duration-300 cursor-pointer group`}
                 >
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-                    <category.icon className="w-6 h-6 text-primary" />
+                  <img 
+                    src={sport.src} 
+                    alt={sport.label}
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Hover overlay with label */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="absolute bottom-2 left-2 right-2 text-white text-xs font-semibold text-center">
+                      {sport.label}
+                    </span>
                   </div>
-                  <span className="text-sm font-semibold text-white text-center">{category.label}</span>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Explanatory text BELOW photos */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-10"
+        >
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
+            Une carte sport qui permet de financer la pratique sportive librement,
+            chez tous les professionnels du sport déclarés, partout en France.
+          </p>
+          
+          {/* Les + Kadosport */}
+          <div className="flex flex-col gap-3 items-center">
+            {[
+              "Encaissable chez tous les professionnels du sport déclarés",
+              "Zéro commission pour les structures sportives",
+              "Remboursement simple et garanti",
+            ].map((benefit, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 + index * 0.1 }}
+                className="inline-flex items-center gap-3 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full"
+              >
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span className="text-sm sm:text-base font-medium text-foreground">{benefit}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+        >
+          <Link to="/offrir-carte">
+            <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
+              <Gift className="w-5 h-5 mr-2" />
+              J'offre une carte Kadosport
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+          <Link to="/partner-payment">
+            <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
+              <QrCode className="w-5 h-5 mr-2" />
+              J'encaisse une carte
+            </Button>
+          </Link>
+        </motion.div>
+
+        {/* Sport Categories */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+        >
+          {sportCategories.map((category, index) => (
+            <motion.div
+              key={category.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1 + index * 0.1 }}
+              className="flex flex-col items-center gap-2 p-4 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer group"
+            >
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <category.icon className="w-6 h-6 text-primary" />
+              </div>
+              <span className="text-sm font-semibold text-foreground text-center">{category.label}</span>
             </motion.div>
-          </motion.div>
-        </div>
+          ))}
+        </motion.div>
       </div>
 
       {/* 3D Gift Card Section */}

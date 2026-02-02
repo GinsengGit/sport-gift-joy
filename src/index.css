@@ -16,20 +16,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 30% 15%;
 
-    /* Primary: Vibrant Kadosport Green - Sport, Energy */
-    --primary: 120 70% 35%;
+    /* Primary: Kadosport Green - Fresh, Sport Energy (lighter like original site) */
+    --primary: 95 70% 42%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Deep Forest Green - Trust */
-    --secondary: 120 50% 20%;
+    /* Secondary: Deep Green - Trust */
+    --secondary: 100 50% 25%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 120 10% 96%;
-    --muted-foreground: 120 15% 40%;
+    --muted: 95 10% 96%;
+    --muted-foreground: 95 15% 40%;
 
     /* Accent: Lime Energy */
-    --accent: 85 80% 50%;
-    --accent-foreground: 120 50% 15%;
+    --accent: 90 75% 48%;
+    --accent-foreground: 100 50% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -40,22 +40,24 @@
 
     --radius: 0.75rem;
 
-    /* Custom Kadosport tokens */
-    --kado-emerald: 120 70% 35%;
-    --kado-emerald-light: 100 65% 50%;
-    --kado-emerald-dark: 120 80% 25%;
-    --kado-navy: 120 50% 15%;
-    --kado-navy-light: 120 40% 25%;
-    --kado-lime: 85 80% 50%;
-    --kado-lime-light: 85 75% 65%;
+    /* Custom Kadosport tokens - Lighter green matching original site */
+    --kado-emerald: 95 70% 42%;
+    --kado-emerald-light: 90 65% 52%;
+    --kado-emerald-dark: 100 75% 30%;
+    --kado-navy: 100 50% 20%;
+    --kado-navy-light: 100 40% 28%;
+    --kado-lime: 90 75% 48%;
+    --kado-lime-light: 90 70% 60%;
     --kado-gold: 45 95% 55%;
     --kado-sky: 150 70% 45%;
+    --kado-coral: 12 85% 60%;
+    --kado-coral-light: 12 80% 68%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(120 70% 35%) 0%, hsl(100 65% 45%) 50%, hsl(85 80% 50%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(120 70% 35%) 0%, hsl(120 80% 25%) 100%);
-    --gradient-navy: linear-gradient(135deg, hsl(120 50% 15%) 0%, hsl(120 40% 25%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(100 65% 50% / 0.2) 0%, transparent 70%);
+    --gradient-hero: linear-gradient(135deg, hsl(95 70% 42%) 0%, hsl(90 65% 48%) 50%, hsl(90 75% 48%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(95 70% 42%) 0%, hsl(100 75% 30%) 100%);
+    --gradient-navy: linear-gradient(135deg, hsl(100 50% 20%) 0%, hsl(100 40% 28%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(90 65% 52% / 0.2) 0%, transparent 70%);
 
     /* Shadows */
     --shadow-card: 0 4px 24px -4px hsl(120 70% 35% / 0.15);

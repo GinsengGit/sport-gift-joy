@@ -11,6 +11,8 @@ import padelImage from "@/assets/padel-sport.jpg";
 import coachingImage from "@/assets/coaching-fitness.jpg";
 import waterSportsImage from "@/assets/water-sports.jpg";
 import climbingImage from "@/assets/climbing-adventure.jpg";
+import friendsRunning from "@/assets/friends-running.jpg";
+import gymFitness from "@/assets/gym-fitness.jpg";
 
 const sportCategories = [
   { icon: Dumbbell, label: "Coaching fitness", color: "primary" },
@@ -19,103 +21,47 @@ const sportCategories = [
   { icon: Users, label: "Clubs & associations", color: "primary" },
 ];
 
-// Images for the collage background (like the original site)
+// Tilted collage images configuration
 const collageImages = [
-  { src: fitnessImage, position: "top-0 left-0", size: "w-1/3 h-1/3" },
-  { src: outdoorImage, position: "top-0 right-0", size: "w-1/3 h-1/3" },
-  { src: padelImage, position: "top-1/4 left-1/4", size: "w-1/3 h-1/3" },
-  { src: coachingImage, position: "bottom-1/4 right-1/4", size: "w-1/3 h-1/3" },
-  { src: waterSportsImage, position: "bottom-0 left-0", size: "w-1/3 h-1/3" },
-  { src: climbingImage, position: "bottom-0 right-0", size: "w-1/3 h-1/3" },
+  { src: fitnessImage, className: "top-4 left-4 w-40 h-52 lg:w-56 lg:h-72 -rotate-6", delay: 0.1 },
+  { src: outdoorImage, className: "top-8 left-1/4 w-36 h-48 lg:w-48 lg:h-64 rotate-3", delay: 0.2 },
+  { src: padelImage, className: "top-2 right-1/4 w-40 h-52 lg:w-52 lg:h-68 -rotate-3", delay: 0.3 },
+  { src: coachingImage, className: "top-6 right-4 w-38 h-50 lg:w-52 lg:h-72 rotate-6", delay: 0.4 },
+  { src: waterSportsImage, className: "top-1/3 left-8 w-36 h-44 lg:w-44 lg:h-56 rotate-4", delay: 0.5 },
+  { src: climbingImage, className: "top-1/3 right-8 w-36 h-44 lg:w-44 lg:h-56 -rotate-4", delay: 0.6 },
+  { src: friendsRunning, className: "bottom-1/4 left-4 w-40 h-52 lg:w-52 lg:h-64 -rotate-3", delay: 0.7 },
+  { src: gymFitness, className: "bottom-1/4 right-4 w-38 h-48 lg:w-48 lg:h-60 rotate-5", delay: 0.8 },
+  { src: padelImage, className: "bottom-8 left-1/4 w-36 h-44 lg:w-44 lg:h-52 rotate-2 scale-x-[-1]", delay: 0.9 },
+  { src: outdoorImage, className: "bottom-8 right-1/4 w-36 h-44 lg:w-44 lg:h-52 -rotate-2 scale-x-[-1]", delay: 1.0 },
 ];
 
 export const HeroSection = () => {
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Sports Collage Background - Like the original site */}
-      <div className="absolute inset-0 z-0">
-        {/* Grid of sports images */}
-        <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-1">
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative overflow-hidden"
+      {/* Tilted Sports Collage Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {collageImages.map((img, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: img.delay }}
+            className={`absolute rounded-lg overflow-hidden shadow-xl border-2 border-white/30 ${img.className}`}
           >
-            <img src={fitnessImage} alt="Fitness" className="w-full h-full object-cover" />
+            <img 
+              src={img.src} 
+              alt="Sport" 
+              className="w-full h-full object-cover"
+            />
           </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative overflow-hidden"
-          >
-            <img src={outdoorImage} alt="Outdoor" className="w-full h-full object-cover" />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative overflow-hidden"
-          >
-            <img src={padelImage} alt="Padel" className="w-full h-full object-cover" />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative overflow-hidden"
-          >
-            <img src={coachingImage} alt="Coaching" className="w-full h-full object-cover" />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="relative overflow-hidden col-span-1 row-span-1"
-          >
-            <img src={waterSportsImage} alt="Sports nautiques" className="w-full h-full object-cover" />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="relative overflow-hidden"
-          >
-            <img src={climbingImage} alt="Escalade" className="w-full h-full object-cover" />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="relative overflow-hidden"
-          >
-            <img src={padelImage} alt="Raquette" className="w-full h-full object-cover scale-x-[-1]" />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="relative overflow-hidden"
-          >
-            <img src={fitnessImage} alt="Training" className="w-full h-full object-cover scale-x-[-1]" />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="relative overflow-hidden"
-          >
-            <img src={outdoorImage} alt="Aventure" className="w-full h-full object-cover scale-x-[-1]" />
-          </motion.div>
-        </div>
+        ))}
         
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/50" />
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/50" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 lg:pt-32">
-        {/* Main Hero Content - Centered like original site */}
+        {/* Main Hero Content - Centered */}
         <div className="flex flex-col items-center justify-center min-h-[85vh] text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -123,7 +69,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-4xl mx-auto"
           >
-            {/* Headline - Like original site */}
+            {/* Headline */}
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4">
               OFFREZ DU SPORT
             </h1>
@@ -173,7 +119,7 @@ export const HeroSection = () => {
               ))}
             </motion.div>
 
-            {/* CTA Buttons - Green like original site */}
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -190,7 +136,7 @@ export const HeroSection = () => {
               <Link to="/partner-payment">
                 <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
                   <QrCode className="w-5 h-5 mr-2" />
-                  J'utilise ma carte Kadosport
+                  J'encaisse une carte
                 </Button>
               </Link>
             </motion.div>

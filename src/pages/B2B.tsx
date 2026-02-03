@@ -18,7 +18,8 @@ import {
   Target,
   Sparkles,
   Trophy,
-  Rocket
+  Rocket,
+  LayoutDashboard
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -126,6 +127,12 @@ const B2B = () => {
                 <Link to="/plaquette-cse">
                   <Button variant="outline" size="lg" className="text-base w-full sm:w-auto">
                     Télécharger la plaquette
+                  </Button>
+                </Link>
+                <Link to="/dashboard-cse">
+                  <Button variant="outline" size="lg" className="text-base w-full sm:w-auto">
+                    <LayoutDashboard className="w-4 h-4 mr-2" />
+                    Tableau de bord RH
                   </Button>
                 </Link>
               </motion.div>

@@ -21,11 +21,15 @@ import {
   ArrowLeft,
   User,
   Calendar,
-  Receipt
+  Receipt,
+  BadgeCheck,
+  FileCheck,
+  Users,
+  Zap
 } from "lucide-react";
 import siretBadge from "@/assets/siret-badge.png";
 
-type Step = "scan" | "balance" | "info" | "confirmation";
+type Step = "landing" | "scan" | "balance" | "info" | "confirmation";
 
 interface FormData {
   cardCode: string;
@@ -44,7 +48,7 @@ interface CardInfo {
 }
 
 const PartnerPayment = () => {
-  const [currentStep, setCurrentStep] = useState<Step>("scan");
+  const [currentStep, setCurrentStep] = useState<Step>("landing");
   const [isLoading, setIsLoading] = useState(false);
   const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
   const [transactionId, setTransactionId] = useState<string>("");
@@ -84,10 +88,8 @@ const PartnerPayment = () => {
 
   const handleCardVerification = async () => {
     setIsLoading(true);
-    // Simulation de vérification avec délai réaliste
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // Simulation des données de la carte
     setCardInfo({
       balance: 150,
       holderName: "Marie Dupont",
@@ -108,10 +110,8 @@ const PartnerPayment = () => {
 
   const handleFinalSubmit = async () => {
     setIsLoading(true);
-    // Simulation d'envoi avec vérifications
     await new Promise(resolve => setTimeout(resolve, 2500));
     
-    // Générer un ID de transaction fictif
     setTransactionId(`KS-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`);
     
     setIsLoading(false);
@@ -119,7 +119,7 @@ const PartnerPayment = () => {
   };
 
   const resetForm = () => {
-    setCurrentStep("scan");
+    setCurrentStep("landing");
     setFormData({
       cardCode: "",
       amount: "",
@@ -133,549 +133,650 @@ const PartnerPayment = () => {
   };
 
   const goBack = () => {
-    if (currentStep === "balance") setCurrentStep("scan");
+    if (currentStep === "scan") setCurrentStep("landing");
+    else if (currentStep === "balance") setCurrentStep("scan");
     else if (currentStep === "info") setCurrentStep("balance");
   };
 
-  const steps = [
+  const processSteps = [
     { id: "scan", label: "Carte", icon: QrCode },
     { id: "balance", label: "Montant", icon: CreditCard },
     { id: "info", label: "Informations", icon: Building2 },
     { id: "confirmation", label: "Confirmation", icon: CheckCircle2 },
   ];
 
-  const currentStepIndex = steps.findIndex(s => s.id === currentStep);
+  const currentStepIndex = processSteps.findIndex(s => s.id === currentStep);
+
+  // Landing page steps
+  const howItWorksSteps = [
+    {
+      number: "1",
+      title: "Un client arrive avec Kadosport",
+      description: "Le client vous présente sa carte Kadosport avec son QR code unique.",
+      icon: Users,
+    },
+    {
+      number: "2",
+      title: "Vous déclarez l'encaissement",
+      description: "Scannez ou saisissez le code carte, indiquez le montant de la prestation.",
+      icon: QrCode,
+    },
+    {
+      number: "3",
+      title: "Vérification SIRET et activité sportive",
+      description: "Validation requise pour le premier remboursement. Automatique ensuite.",
+      icon: FileCheck,
+    },
+    {
+      number: "4",
+      title: "Remboursement par virement bancaire sous 48h ouvrées",
+      description: "Le montant est viré directement sur votre compte bancaire professionnel.",
+      icon: Banknote,
+    },
+  ];
+
+  const keyPoints = [
+    { text: "Réservé aux professionnels du sport", icon: Users },
+    { text: "Vérification administrative", icon: FileCheck },
+    { text: "Remboursement bancaire", icon: Banknote },
+    { text: "Zéro commission", icon: Zap },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <main className="pt-32 pb-20">
-        <div className="container mx-auto px-4 max-w-2xl">
-          {/* Header */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              <Building2 className="w-4 h-4" />
-              Espace professionnel
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Encaisser une carte Kadosport
-            </h1>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-6">
-              Vous êtes un professionnel du sport ? Grâce à votre activité sportive déclarée, vous pouvez encaisser cette carte cadeau et être remboursé rapidement, sans commission.
-            </p>
-            
-            {/* Badge SIRET Vérifié */}
+        <AnimatePresence mode="wait">
+          {/* Landing Page */}
+          {currentStep === "landing" && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="flex justify-center"
+              key="landing"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <img 
-                src={siretBadge} 
-                alt="SIRET Vérifié - Professionnel du Sport" 
-                className="h-36 sm:h-48 object-contain"
-              />
-            </motion.div>
-          </motion.div>
-
-          {/* Progress Steps */}
-          <div className="flex items-center justify-center gap-2 mb-12">
-            {steps.map((step, index) => (
-              <div key={step.id} className="flex items-center">
-                <div 
-                  className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all ${
-                    index <= currentStepIndex 
-                      ? "bg-primary text-primary-foreground" 
-                      : "bg-muted text-muted-foreground"
-                  }`}
+              {/* Hero Header */}
+              <section className="container mx-auto px-4 max-w-4xl mb-16">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center"
                 >
-                  <step.icon className="w-4 h-4" />
-                  <span className="text-sm font-medium hidden sm:inline">{step.label}</span>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className={`w-8 h-0.5 mx-1 ${
-                    index < currentStepIndex ? "bg-primary" : "bg-muted"
-                  }`} />
-                )}
-              </div>
-            ))}
-          </div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+                    <Building2 className="w-4 h-4" />
+                    Espace professionnel
+                  </div>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                    Professionnels du sport : encaissez Kadosport
+                  </h1>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Dispositif de remboursement réservé aux professionnels du sport disposant d'un SIRET valide.
+                  </p>
+                </motion.div>
+              </section>
 
-          {/* Step Content */}
-          <AnimatePresence mode="wait">
-            {/* Step 1: Scan Card */}
-            {currentStep === "scan" && (
-              <motion.div
-                key="scan"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-              >
-                <Card className="border-2">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <QrCode className="w-8 h-8 text-primary" />
-                    </div>
-                    <CardTitle>Scannez ou saisissez le code carte</CardTitle>
-                    <CardDescription>
-                      Entrez le code unique situé sous le QR code de la carte Kadosport
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="cardCode">Code carte (16 caractères)</Label>
-                      <Input
-                        id="cardCode"
-                        placeholder="ABCD-1234-EFGH-5678"
-                        value={formData.cardCode}
-                        onChange={(e) => setFormData({ ...formData, cardCode: formatCardCode(e.target.value) })}
-                        className="text-center text-lg tracking-widest font-mono h-14"
-                        maxLength={19}
-                      />
-                      <p className="text-xs text-muted-foreground text-center">
-                        Le code se trouve sous le QR code sur la carte du client
-                      </p>
-                    </div>
-                    
-                    {/* Visual hint */}
-                    <div className="bg-muted/50 rounded-xl p-4 flex items-center gap-4">
-                      <div className="w-16 h-16 bg-white rounded-lg border-2 border-dashed border-muted-foreground/30 flex items-center justify-center">
-                        <QrCode className="w-8 h-8 text-muted-foreground/50" />
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        <p className="font-medium text-foreground">Où trouver le code ?</p>
-                        <p>Demandez au client de vous montrer sa carte Kadosport. Le code est imprimé sous le QR code.</p>
-                      </div>
-                    </div>
-
-                    <Button 
-                      className="w-full" 
-                      size="lg"
-                      onClick={handleCardVerification}
-                      disabled={formData.cardCode.replace(/-/g, "").length < 16 || isLoading}
-                    >
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Vérification de la carte...
-                        </>
-                      ) : (
-                        <>
-                          Vérifier la carte
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </>
-                      )}
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
-
-            {/* Step 2: Balance & Amount */}
-            {currentStep === "balance" && cardInfo && (
-              <motion.div
-                key="balance"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-              >
-                <Card className="border-2">
-                  <CardHeader className="text-center pb-4">
-                    <div className="mx-auto w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
-                      <CheckCircle2 className="w-8 h-8 text-green-500" />
-                    </div>
-                    <CardTitle className="text-green-600">Carte vérifiée ✓</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    {/* Card Info Display */}
-                    <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6">
-                      <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="flex items-center gap-2">
-                          <User className="w-4 h-4 text-muted-foreground" />
-                          <div>
-                            <p className="text-xs text-muted-foreground">Titulaire</p>
-                            <p className="font-medium">{cardInfo.holderName}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-muted-foreground" />
-                          <div>
-                            <p className="text-xs text-muted-foreground">Expiration</p>
-                            <p className="font-medium">{cardInfo.expiryDate}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-center pt-4 border-t border-primary/20">
-                        <p className="text-sm text-muted-foreground mb-1">Solde disponible</p>
-                        <p className="text-5xl font-bold text-primary">{cardInfo.balance}€</p>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="amount" className="text-base">Montant de la prestation</Label>
-                      <div className="relative">
-                        <Input
-                          id="amount"
-                          type="number"
-                          placeholder="0"
-                          value={formData.amount}
-                          onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                          className="text-center text-3xl font-bold pr-12 h-16"
-                          max={cardInfo.balance}
-                          min={0}
-                          step={0.01}
-                        />
-                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-muted-foreground">€</span>
-                      </div>
-                      {parseFloat(formData.amount) > cardInfo.balance && (
-                        <motion.p 
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-sm text-destructive flex items-center gap-1 justify-center"
-                        >
-                          <AlertCircle className="w-4 h-4" />
-                          Le montant dépasse le solde disponible ({cardInfo.balance}€)
-                        </motion.p>
-                      )}
-                      {formData.amount && parseFloat(formData.amount) > 0 && parseFloat(formData.amount) <= cardInfo.balance && (
-                        <motion.p 
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="text-sm text-green-600 text-center"
-                        >
-                          Solde restant après débit : {(cardInfo.balance - parseFloat(formData.amount)).toFixed(2)}€
-                        </motion.p>
-                      )}
-                    </div>
-
-                    <div className="flex gap-3">
-                      <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
-                        <ArrowLeft className="w-4 h-4" />
-                        Retour
-                      </Button>
-                      <Button 
-                        className="flex-1" 
-                        size="lg"
-                        onClick={handleAmountSubmit}
-                        disabled={!formData.amount || parseFloat(formData.amount) <= 0 || parseFloat(formData.amount) > cardInfo.balance}
+              {/* Comment ça fonctionne */}
+              <section className="container mx-auto px-4 max-w-5xl mb-16">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-10">
+                    Comment ça fonctionne
+                  </h2>
+                  
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {howItWorksSteps.map((step, index) => (
+                      <motion.div
+                        key={step.number}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 + index * 0.1 }}
+                        className="relative"
                       >
-                        Continuer
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
+                        {/* Connector line */}
+                        {index < howItWorksSteps.length - 1 && (
+                          <div className="hidden lg:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/30 to-transparent" />
+                        )}
+                        
+                        <Card className="h-full border-2 hover:border-primary/30 transition-colors">
+                          <CardContent className="pt-6">
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                                {step.number}
+                              </div>
+                              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                <step.icon className="w-5 h-5 text-primary" />
+                              </div>
+                            </div>
+                            <h3 className="font-semibold text-foreground mb-2">
+                              {step.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {step.description}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
 
-            {/* Step 3: Partner Info */}
-            {currentStep === "info" && (
-              <motion.div
-                key="info"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                  {/* Commission highlight */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="mt-8 text-center"
+                  >
+                    <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-500/10 border border-green-500/20">
+                      <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      <span className="font-semibold text-green-700">Aucune commission prélevée</span>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </section>
+
+              {/* Vérification & Sécurité */}
+              <section className="container mx-auto px-4 max-w-4xl mb-16">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+                    <CardContent className="p-8">
+                      <div className="flex flex-col md:flex-row items-center gap-8">
+                        <div className="flex-shrink-0">
+                          <img 
+                            src={siretBadge} 
+                            alt="SIRET Vérifié" 
+                            className="h-32 sm:h-40 object-contain"
+                          />
+                        </div>
+                        <div className="text-center md:text-left">
+                          <div className="flex items-center gap-2 justify-center md:justify-start mb-3">
+                            <Shield className="w-6 h-6 text-primary" />
+                            <h3 className="text-xl font-bold text-foreground">
+                              Vérification & sécurité
+                            </h3>
+                          </div>
+                          <p className="text-muted-foreground mb-4">
+                            <strong className="text-foreground">Vérification SIRET automatique.</strong><br />
+                            Les remboursements sont réservés aux professionnels du sport.<br />
+                            L'entreprise est vérifiée avant le premier remboursement.
+                          </p>
+                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium">
+                            <BadgeCheck className="w-5 h-5" />
+                            SIRET vérifié
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </section>
+
+              {/* À retenir */}
+              <section className="container mx-auto px-4 max-w-4xl mb-16">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h2 className="text-2xl font-bold text-foreground text-center mb-8">
+                    À retenir
+                  </h2>
+                  
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {keyPoints.map((point, index) => (
+                      <motion.div
+                        key={point.text}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.45 + index * 0.05 }}
+                        className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                          <CheckCircle2 className="w-5 h-5 text-green-600" />
+                        </div>
+                        <span className="font-medium text-foreground">{point.text}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              </section>
+
+              {/* CTA Button */}
+              <section className="container mx-auto px-4 max-w-md">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-center"
+                >
+                  <Button 
+                    size="xl" 
+                    variant="coral"
+                    className="w-full gap-3 text-lg"
+                    onClick={() => setCurrentStep("scan")}
+                  >
+                    <CreditCard className="w-6 h-6" />
+                    Encaisser Kadosport
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </motion.div>
+              </section>
+            </motion.div>
+          )}
+
+          {/* Process Steps (scan, balance, info, confirmation) */}
+          {currentStep !== "landing" && (
+            <motion.div
+              key="process"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="container mx-auto px-4 max-w-2xl"
+            >
+              {/* Header */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center mb-8"
               >
-                <Card className="border-2">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <Building2 className="w-8 h-8 text-primary" />
-                    </div>
-                    <CardTitle>Vos informations professionnelles</CardTitle>
-                    <CardDescription>
-                      Pour recevoir votre virement de <strong className="text-primary">{formData.amount}€</strong> sous 48h
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="companyName" className="flex items-center gap-2">
-                        <Building2 className="w-4 h-4" />
-                        Nom de l'établissement
-                      </Label>
-                      <Input
-                        id="companyName"
-                        placeholder="Ex: Salle Fitness Plus, Coach Sportif Martin..."
-                        value={formData.companyName}
-                        onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      />
-                    </div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+                  Encaisser une carte Kadosport
+                </h1>
+              </motion.div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="siret" className="flex items-center gap-2">
-                        <Receipt className="w-4 h-4" />
-                        Numéro SIRET
-                      </Label>
-                      <Input
-                        id="siret"
-                        placeholder="123 456 789 00012"
-                        value={formData.siret}
-                        onChange={(e) => setFormData({ ...formData, siret: formatSiret(e.target.value) })}
-                        maxLength={17}
-                        className="font-mono"
-                      />
-                      <p className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Shield className="w-3 h-3" />
-                        Nous vérifions automatiquement que votre activité est bien sportive
-                      </p>
+              {/* Progress Steps */}
+              <div className="flex items-center justify-center gap-2 mb-12">
+                {processSteps.map((step, index) => (
+                  <div key={step.id} className="flex items-center">
+                    <div 
+                      className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all ${
+                        index <= currentStepIndex 
+                          ? "bg-primary text-primary-foreground" 
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      <step.icon className="w-4 h-4" />
+                      <span className="text-sm font-medium hidden sm:inline">{step.label}</span>
                     </div>
+                    {index < processSteps.length - 1 && (
+                      <div className={`w-8 h-0.5 mx-1 ${
+                        index < currentStepIndex ? "bg-primary" : "bg-muted"
+                      }`} />
+                    )}
+                  </div>
+                ))}
+              </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="rib" className="flex items-center gap-2">
-                        <Banknote className="w-4 h-4" />
-                        IBAN
-                      </Label>
-                      <Input
-                        id="rib"
-                        placeholder="FR76 1234 5678 9012 3456 7890 123"
-                        value={formData.rib}
-                        onChange={(e) => setFormData({ ...formData, rib: formatIban(e.target.value) })}
-                        maxLength={34}
-                        className="font-mono"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        Email professionnel
-                      </Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="contact@votresalle.fr"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      />
-                      <p className="text-xs text-muted-foreground">
-                        Vous recevrez la confirmation et le justificatif à cette adresse
-                      </p>
-                    </div>
-
-                    <div className="pt-4 space-y-3">
-                      {/* Badge de confiance */}
-                      <div className="flex items-center justify-center mb-4">
-                        <img 
-                          src={siretBadge} 
-                          alt="SIRET Vérifié - Professionnel du Sport" 
-                          className="h-24 object-contain"
+              {/* Step 1: Scan Card */}
+              {currentStep === "scan" && (
+                <motion.div
+                  key="scan"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                >
+                  <Card className="border-2">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <QrCode className="w-8 h-8 text-primary" />
+                      </div>
+                      <CardTitle>Scannez ou saisissez le code carte</CardTitle>
+                      <CardDescription>
+                        Entrez le code unique situé sous le QR code de la carte Kadosport
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="cardCode">Code carte (16 caractères)</Label>
+                        <Input
+                          id="cardCode"
+                          placeholder="ABCD-1234-EFGH-5678"
+                          value={formData.cardCode}
+                          onChange={(e) => setFormData({ ...formData, cardCode: formatCardCode(e.target.value) })}
+                          className="text-center text-lg tracking-widest font-mono h-14"
+                          maxLength={19}
                         />
+                        <p className="text-xs text-muted-foreground text-center">
+                          Le code se trouve sous le QR code sur la carte du client
+                        </p>
                       </div>
                       
-                      <div className="flex items-start gap-3 p-3 bg-green-500/5 border border-green-500/20 rounded-lg">
-                        <Shield className="w-5 h-5 text-green-600 mt-0.5" />
-                        <div className="text-sm">
-                          <p className="font-medium text-green-700">0% de commission</p>
-                          <p className="text-muted-foreground">Vous recevez 100% du montant : {formData.amount}€</p>
+                      <div className="bg-muted/50 rounded-xl p-4 flex items-center gap-4">
+                        <div className="w-16 h-16 bg-white rounded-lg border-2 border-dashed border-muted-foreground/30 flex items-center justify-center">
+                          <QrCode className="w-8 h-8 text-muted-foreground/50" />
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          <p className="font-medium text-foreground">Où trouver le code ?</p>
+                          <p>Demandez au client de vous montrer sa carte Kadosport. Le code est imprimé sous le QR code.</p>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3 p-3 bg-blue-500/5 border border-blue-500/20 rounded-lg">
-                        <Clock className="w-5 h-5 text-blue-600 mt-0.5" />
-                        <div className="text-sm">
-                          <p className="font-medium text-blue-700">Virement sous 48h ouvrées</p>
-                          <p className="text-muted-foreground">Après vérification automatique de votre SIRET</p>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className="flex gap-3 pt-4">
-                      <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
-                        <ArrowLeft className="w-4 h-4" />
-                        Retour
-                      </Button>
-                      <Button 
-                        className="flex-1" 
-                        size="lg"
-                        onClick={handleFinalSubmit}
-                        disabled={!formData.siret || !formData.rib || !formData.email || !formData.companyName || isLoading}
-                      >
-                        {isLoading ? (
-                          <>
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            Vérification en cours...
-                          </>
-                        ) : (
-                          <>
-                            Valider le débit de {formData.amount}€
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </>
+                      <div className="flex gap-3">
+                        <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
+                          <ArrowLeft className="w-4 h-4" />
+                          Retour
+                        </Button>
+                        <Button 
+                          className="flex-1" 
+                          size="lg"
+                          onClick={handleCardVerification}
+                          disabled={formData.cardCode.replace(/-/g, "").length < 16 || isLoading}
+                        >
+                          {isLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Vérification...
+                            </>
+                          ) : (
+                            <>
+                              Vérifier la carte
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* Step 2: Balance & Amount */}
+              {currentStep === "balance" && cardInfo && (
+                <motion.div
+                  key="balance"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                >
+                  <Card className="border-2">
+                    <CardHeader className="text-center pb-4">
+                      <div className="mx-auto w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                        <CheckCircle2 className="w-8 h-8 text-green-500" />
+                      </div>
+                      <CardTitle className="text-green-600">Carte vérifiée ✓</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6">
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          <div className="flex items-center gap-2">
+                            <User className="w-4 h-4 text-muted-foreground" />
+                            <div>
+                              <p className="text-xs text-muted-foreground">Titulaire</p>
+                              <p className="font-medium">{cardInfo.holderName}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-muted-foreground" />
+                            <div>
+                              <p className="text-xs text-muted-foreground">Expiration</p>
+                              <p className="font-medium">{cardInfo.expiryDate}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-center pt-4 border-t border-primary/20">
+                          <p className="text-sm text-muted-foreground mb-1">Solde disponible</p>
+                          <p className="text-5xl font-bold text-primary">{cardInfo.balance}€</p>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="amount" className="text-base">Montant de la prestation</Label>
+                        <div className="relative">
+                          <Input
+                            id="amount"
+                            type="number"
+                            placeholder="0"
+                            value={formData.amount}
+                            onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                            className="text-center text-3xl font-bold pr-12 h-16"
+                            max={cardInfo.balance}
+                            min={0}
+                            step={0.01}
+                          />
+                          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-muted-foreground">€</span>
+                        </div>
+                        {parseFloat(formData.amount) > cardInfo.balance && (
+                          <motion.p 
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-sm text-destructive flex items-center gap-1 justify-center"
+                          >
+                            <AlertCircle className="w-4 h-4" />
+                            Le montant dépasse le solde disponible ({cardInfo.balance}€)
+                          </motion.p>
                         )}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
+                        {formData.amount && parseFloat(formData.amount) > 0 && parseFloat(formData.amount) <= cardInfo.balance && (
+                          <motion.p 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-sm text-green-600 text-center"
+                          >
+                            Solde restant après débit : {(cardInfo.balance - parseFloat(formData.amount)).toFixed(2)}€
+                          </motion.p>
+                        )}
+                      </div>
 
-            {/* Step 4: Confirmation */}
-            {currentStep === "confirmation" && cardInfo && (
-              <motion.div
-                key="confirmation"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-              >
-                <Card className="border-2 border-green-500/30 bg-gradient-to-br from-green-500/5 to-transparent overflow-hidden">
-                  {/* Success animation overlay */}
-                  <div className="absolute inset-0 pointer-events-none">
-                    <motion.div
-                      initial={{ scale: 0, opacity: 0.5 }}
-                      animate={{ scale: 4, opacity: 0 }}
-                      transition={{ duration: 1, ease: "easeOut" }}
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-green-500"
-                    />
-                  </div>
-                  
-                  <CardHeader className="text-center relative">
-                    <motion.div 
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", delay: 0.2, stiffness: 200 }}
-                      className="mx-auto w-24 h-24 rounded-full bg-green-500/10 flex items-center justify-center mb-4"
-                    >
+                      <div className="flex gap-3">
+                        <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
+                          <ArrowLeft className="w-4 h-4" />
+                          Retour
+                        </Button>
+                        <Button 
+                          className="flex-1" 
+                          size="lg"
+                          onClick={handleAmountSubmit}
+                          disabled={!formData.amount || parseFloat(formData.amount) <= 0 || parseFloat(formData.amount) > cardInfo.balance}
+                        >
+                          Continuer
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* Step 3: Partner Info */}
+              {currentStep === "info" && (
+                <motion.div
+                  key="info"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                >
+                  <Card className="border-2">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <Building2 className="w-8 h-8 text-primary" />
+                      </div>
+                      <CardTitle>Vos informations professionnelles</CardTitle>
+                      <CardDescription>
+                        Pour recevoir votre virement de <strong className="text-primary">{formData.amount}€</strong> sous 48h
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="companyName" className="flex items-center gap-2">
+                          <Building2 className="w-4 h-4" />
+                          Nom de l'établissement
+                        </Label>
+                        <Input
+                          id="companyName"
+                          placeholder="Ex: Salle Fitness Plus, Coach Sportif Martin..."
+                          value={formData.companyName}
+                          onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="siret" className="flex items-center gap-2">
+                          <Receipt className="w-4 h-4" />
+                          Numéro SIRET
+                        </Label>
+                        <Input
+                          id="siret"
+                          placeholder="123 456 789 00012"
+                          value={formData.siret}
+                          onChange={(e) => setFormData({ ...formData, siret: formatSiret(e.target.value) })}
+                          maxLength={17}
+                          className="font-mono"
+                        />
+                        <p className="text-xs text-muted-foreground flex items-center gap-1">
+                          <Shield className="w-3 h-3" />
+                          Nous vérifions automatiquement que votre activité est bien sportive
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="rib" className="flex items-center gap-2">
+                          <Banknote className="w-4 h-4" />
+                          IBAN (RIB)
+                        </Label>
+                        <Input
+                          id="rib"
+                          placeholder="FR76 1234 5678 9012 3456 7890 123"
+                          value={formData.rib}
+                          onChange={(e) => setFormData({ ...formData, rib: formatIban(e.target.value) })}
+                          maxLength={34}
+                          className="font-mono"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="flex items-center gap-2">
+                          <Mail className="w-4 h-4" />
+                          Email professionnel
+                        </Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="contact@votreentreprise.fr"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        />
+                        <p className="text-xs text-muted-foreground">
+                          Pour recevoir la confirmation et le justificatif de virement
+                        </p>
+                      </div>
+
+                      <div className="bg-green-500/10 rounded-xl p-4 flex items-center gap-3 border border-green-500/20">
+                        <Clock className="w-5 h-5 text-green-600" />
+                        <div>
+                          <p className="font-medium text-green-700">Remboursement sous 48h ouvrées</p>
+                          <p className="text-sm text-green-600/80">0% de commission prélevée</p>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3 pt-2">
+                        <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
+                          <ArrowLeft className="w-4 h-4" />
+                          Retour
+                        </Button>
+                        <Button 
+                          className="flex-1" 
+                          size="lg"
+                          variant="coral"
+                          onClick={handleFinalSubmit}
+                          disabled={
+                            !formData.siret || 
+                            !formData.rib || 
+                            !formData.email || 
+                            !formData.companyName ||
+                            isLoading
+                          }
+                        >
+                          {isLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Traitement en cours...
+                            </>
+                          ) : (
+                            <>
+                              Confirmer l'encaissement
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* Step 4: Confirmation */}
+              {currentStep === "confirmation" && (
+                <motion.div
+                  key="confirmation"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <Card className="border-2 border-green-500/30 bg-gradient-to-br from-green-500/5 to-transparent">
+                    <CardContent className="pt-8 text-center space-y-6">
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: "spring", delay: 0.4, stiffness: 200 }}
+                        transition={{ type: "spring", delay: 0.2 }}
+                        className="mx-auto w-20 h-20 rounded-full bg-green-500 flex items-center justify-center"
                       >
-                        <CheckCircle2 className="w-12 h-12 text-green-500" />
+                        <CheckCircle2 className="w-10 h-10 text-white" />
                       </motion.div>
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                    >
-                      <CardTitle className="text-2xl text-green-600">Transaction validée !</CardTitle>
-                      <CardDescription className="text-base mt-2">
-                        Votre demande de virement a été enregistrée avec succès
-                      </CardDescription>
-                    </motion.div>
-                  </CardHeader>
-                  <CardContent className="space-y-6 relative">
-                    {/* Transaction Summary */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
-                      className="bg-white dark:bg-card rounded-xl p-6 space-y-4 border"
-                    >
-                      <div className="text-center pb-4 border-b">
-                        <p className="text-sm text-muted-foreground mb-1">Montant du virement</p>
-                        <p className="text-4xl font-bold text-primary">{formData.amount}€</p>
+
+                      <div>
+                        <h2 className="text-2xl font-bold text-green-600 mb-2">
+                          Encaissement confirmé !
+                        </h2>
+                        <p className="text-muted-foreground">
+                          Votre demande de remboursement a été enregistrée avec succès.
+                        </p>
                       </div>
-                      
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-muted-foreground">Établissement</p>
-                          <p className="font-medium">{formData.companyName}</p>
+
+                      <div className="bg-card rounded-xl p-6 border text-left space-y-4">
+                        <div className="flex justify-between items-center pb-4 border-b">
+                          <span className="text-muted-foreground">Montant</span>
+                          <span className="text-2xl font-bold text-primary">{formData.amount}€</span>
                         </div>
-                        <div>
-                          <p className="text-muted-foreground">Carte débitée</p>
-                          <p className="font-medium font-mono">{cardInfo.cardNumber}</p>
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">Référence</span>
+                          <span className="font-mono font-medium">{transactionId}</span>
                         </div>
-                        <div>
-                          <p className="text-muted-foreground">Titulaire carte</p>
-                          <p className="font-medium">{cardInfo.holderName}</p>
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">Établissement</span>
+                          <span className="font-medium">{formData.companyName}</span>
                         </div>
-                        <div>
-                          <p className="text-muted-foreground">Solde restant</p>
-                          <p className="font-medium">{(cardInfo.balance - parseFloat(formData.amount)).toFixed(2)}€</p>
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">Délai de virement</span>
+                          <span className="font-medium text-green-600">48h ouvrées</span>
                         </div>
                       </div>
-                    </motion.div>
 
-                    {/* Transaction ID */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7 }}
-                      className="bg-muted/50 rounded-xl p-4 text-center"
-                    >
-                      <p className="text-xs text-muted-foreground mb-1">Référence transaction</p>
-                      <p className="font-mono font-bold text-lg">{transactionId}</p>
-                    </motion.div>
-
-                    {/* Timeline */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                      className="space-y-3"
-                    >
-                      <div className="flex items-center gap-3 p-3 bg-green-500/10 rounded-lg">
-                        <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                          <CheckCircle2 className="w-4 h-4 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-green-700 text-sm">Transaction enregistrée</p>
-                          <p className="text-xs text-muted-foreground">Maintenant</p>
-                        </div>
+                      <div className="bg-muted/50 rounded-xl p-4 text-sm text-muted-foreground">
+                        <p>
+                          Un email de confirmation a été envoyé à <strong className="text-foreground">{formData.email}</strong>
+                        </p>
                       </div>
-                      <div className="flex items-center gap-3 p-3 bg-blue-500/10 rounded-lg">
-                        <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
-                          <Shield className="w-4 h-4 text-blue-500" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-blue-700 text-sm">Vérification SIRET</p>
-                          <p className="text-xs text-muted-foreground">En cours (automatique)</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-                        <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                          <Banknote className="w-4 h-4 text-muted-foreground" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-sm">Virement bancaire</p>
-                          <p className="text-xs text-muted-foreground">Sous 48h ouvrées</p>
-                        </div>
-                      </div>
-                    </motion.div>
 
-                    {/* Email notification */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.9 }}
-                      className="p-4 bg-primary/5 rounded-lg text-center border border-primary/10"
-                    >
-                      <Mail className="w-5 h-5 text-primary mx-auto mb-2" />
-                      <p className="text-sm text-muted-foreground">
-                        Un email de confirmation a été envoyé à
-                      </p>
-                      <p className="font-medium text-primary">{formData.email}</p>
-                    </motion.div>
-
-                    <Button 
-                      variant="outline" 
-                      className="w-full" 
-                      size="lg"
-                      onClick={resetForm}
-                    >
-                      Nouvelle transaction
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Trust badges */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-12 text-center"
-          >
-            <p className="text-sm text-muted-foreground mb-4">
-              🔒 Paiements sécurisés • Aucun contrat requis • Ouvert à tous les pros du sport
-            </p>
-          </motion.div>
-        </div>
+                      <Button 
+                        onClick={resetForm}
+                        size="lg"
+                        className="w-full"
+                      >
+                        Nouvel encaissement
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       <Footer />

@@ -48,7 +48,7 @@ interface CardInfo {
 }
 
 const PartnerPayment = () => {
-  const [currentStep, setCurrentStep] = useState<Step>("landing");
+  const [currentStep, setCurrentStep] = useState<Step>("scan");
   const [isLoading, setIsLoading] = useState(false);
   const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
   const [transactionId, setTransactionId] = useState<string>("");
@@ -119,7 +119,7 @@ const PartnerPayment = () => {
   };
 
   const resetForm = () => {
-    setCurrentStep("landing");
+    setCurrentStep("scan");
     setFormData({
       cardCode: "",
       amount: "",
@@ -133,8 +133,7 @@ const PartnerPayment = () => {
   };
 
   const goBack = () => {
-    if (currentStep === "scan") setCurrentStep("landing");
-    else if (currentStep === "balance") setCurrentStep("scan");
+    if (currentStep === "balance") setCurrentStep("scan");
     else if (currentStep === "info") setCurrentStep("balance");
   };
 

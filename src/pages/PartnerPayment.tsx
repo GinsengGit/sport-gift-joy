@@ -492,7 +492,7 @@ const PartnerPayment = () => {
                                 <BadgeCheck className="w-5 h-5 text-green-600" />
                               </div>
                               <div>
-                                <p className="font-medium text-foreground">Déjà vérifié ?</p>
+                                <p className="font-medium text-foreground">Professionnel du sport déjà vérifié ?</p>
                                 <p className="text-sm text-muted-foreground">Accédez directement au débit</p>
                               </div>
                             </div>

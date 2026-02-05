@@ -479,6 +479,36 @@ const PartnerPayment = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
+                      {/* Returning Pro Access - TOP */}
+                      {!isReturningPro && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="bg-gradient-to-r from-green-500/10 to-primary/10 border border-green-500/30 rounded-xl p-4"
+                        >
+                          <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                                <BadgeCheck className="w-5 h-5 text-green-600" />
+                              </div>
+                              <div>
+                                <p className="font-medium text-foreground">Déjà vérifié ?</p>
+                                <p className="text-sm text-muted-foreground">Accédez directement au débit</p>
+                              </div>
+                            </div>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="gap-2 border-green-500/30 text-green-700 hover:bg-green-500/10"
+                              onClick={() => setCurrentStep("returning-pro")}
+                            >
+                              <Zap className="w-4 h-4" />
+                              Accès rapide
+                            </Button>
+                          </div>
+                        </motion.div>
+                      )}
+
                       {/* Returning Pro Banner */}
                       {isReturningPro && verifiedPro && (
                         <motion.div
@@ -553,20 +583,6 @@ const PartnerPayment = () => {
                           )}
                         </Button>
                       </div>
-
-                      {/* Returning Pro Access */}
-                      {!isReturningPro && (
-                        <div className="pt-4 border-t border-border">
-                          <Button
-                            variant="ghost"
-                            className="w-full gap-2 text-muted-foreground hover:text-primary"
-                            onClick={() => setCurrentStep("returning-pro")}
-                          >
-                            <BadgeCheck className="w-4 h-4" />
-                            J'ai déjà été vérifié (accès rapide)
-                          </Button>
-                        </div>
-                      )}
                     </CardContent>
                   </Card>
                 </motion.div>

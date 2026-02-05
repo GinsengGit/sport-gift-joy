@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import siretBadge from "@/assets/siret-badge.png";
 
-type Step = "landing" | "scan" | "balance" | "info" | "confirmation";
+type Step = "landing" | "scan" | "returning-pro" | "balance" | "info" | "confirmation";
 
 interface FormData {
   cardCode: string;
@@ -38,6 +38,14 @@ interface FormData {
   rib: string;
   email: string;
   companyName: string;
+}
+
+interface VerifiedPro {
+  email: string;
+  siret: string;
+  rib: string;
+  companyName: string;
+  verified: boolean;
 }
 
 interface CardInfo {
@@ -52,6 +60,9 @@ const PartnerPayment = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
   const [transactionId, setTransactionId] = useState<string>("");
+  const [isReturningPro, setIsReturningPro] = useState(false);
+  const [returningProEmail, setReturningProEmail] = useState("");
+  const [verifiedPro, setVerifiedPro] = useState<VerifiedPro | null>(null);
   const [formData, setFormData] = useState<FormData>({
     cardCode: "",
     amount: "",
@@ -101,10 +112,42 @@ const PartnerPayment = () => {
     setCurrentStep("balance");
   };
 
+  // Simulate fetching verified pro data
+  const handleReturningProLogin = async () => {
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Simulated verified pro data - in real app, this would come from database
+    const mockVerifiedPro: VerifiedPro = {
+      email: returningProEmail,
+      siret: "123 456 789 00012",
+      rib: "FR76 1234 5678 9012 3456 7890 123",
+      companyName: "Fitness Club Pro",
+      verified: true,
+    };
+    
+    setVerifiedPro(mockVerifiedPro);
+    setFormData(prev => ({
+      ...prev,
+      email: mockVerifiedPro.email,
+      siret: mockVerifiedPro.siret,
+      rib: mockVerifiedPro.rib,
+      companyName: mockVerifiedPro.companyName,
+    }));
+    setIsReturningPro(true);
+    setIsLoading(false);
+    setCurrentStep("scan");
+  };
+
   const handleAmountSubmit = () => {
     const amount = parseFloat(formData.amount);
     if (amount > 0 && amount <= (cardInfo?.balance || 0)) {
-      setCurrentStep("info");
+      // Skip info step if returning verified pro
+      if (isReturningPro && verifiedPro) {
+        handleFinalSubmit();
+      } else {
+        setCurrentStep("info");
+      }
     }
   };
 
@@ -130,21 +173,25 @@ const PartnerPayment = () => {
     });
     setCardInfo(null);
     setTransactionId("");
+    setIsReturningPro(false);
+    setVerifiedPro(null);
+    setReturningProEmail("");
   };
 
   const goBack = () => {
-    if (currentStep === "balance") setCurrentStep("scan");
+    if (currentStep === "returning-pro") setCurrentStep("scan");
+    else if (currentStep === "balance") setCurrentStep("scan");
     else if (currentStep === "info") setCurrentStep("balance");
   };
 
   const processSteps = [
     { id: "scan", label: "Carte", icon: QrCode },
     { id: "balance", label: "Montant", icon: CreditCard },
-    { id: "info", label: "Informations", icon: Building2 },
+    { id: "info", label: isReturningPro ? "Vérifié" : "Informations", icon: isReturningPro ? BadgeCheck : Building2 },
     { id: "confirmation", label: "Confirmation", icon: CheckCircle2 },
   ];
 
-  const currentStepIndex = processSteps.findIndex(s => s.id === currentStep);
+  const currentStepIndex = processSteps.findIndex(s => s.id === currentStep || (currentStep === "returning-pro" && s.id === "scan"));
 
   // Landing page steps
   const howItWorksSteps = [
@@ -432,6 +479,35 @@ const PartnerPayment = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
+                      {/* Returning Pro Banner */}
+                      {isReturningPro && verifiedPro && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 flex items-center gap-3"
+                        >
+                          <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                            <BadgeCheck className="w-5 h-5 text-green-600" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="font-medium text-green-700">{verifiedPro.companyName}</p>
+                            <p className="text-sm text-green-600">Pro vérifié • Parcours simplifié</p>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setIsReturningPro(false);
+                              setVerifiedPro(null);
+                              setFormData(prev => ({ ...prev, siret: "", rib: "", email: "", companyName: "" }));
+                            }}
+                            className="text-muted-foreground hover:text-foreground"
+                          >
+                            Changer
+                          </Button>
+                        </motion.div>
+                      )}
+
                       <div className="space-y-2">
                         <Label htmlFor="cardCode">Code carte (16 caractères)</Label>
                         <Input
@@ -458,10 +534,6 @@ const PartnerPayment = () => {
                       </div>
 
                       <div className="flex gap-3">
-                        <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
-                          <ArrowLeft className="w-4 h-4" />
-                          Retour
-                        </Button>
                         <Button 
                           className="flex-1" 
                           size="lg"
@@ -481,6 +553,107 @@ const PartnerPayment = () => {
                           )}
                         </Button>
                       </div>
+
+                      {/* Returning Pro Access */}
+                      {!isReturningPro && (
+                        <div className="pt-4 border-t border-border">
+                          <Button
+                            variant="ghost"
+                            className="w-full gap-2 text-muted-foreground hover:text-primary"
+                            onClick={() => setCurrentStep("returning-pro")}
+                          >
+                            <BadgeCheck className="w-4 h-4" />
+                            J'ai déjà été vérifié (accès rapide)
+                          </Button>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* Returning Pro Login */}
+              {currentStep === "returning-pro" && (
+                <motion.div
+                  key="returning-pro"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                >
+                  <Card className="border-2">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                        <BadgeCheck className="w-8 h-8 text-green-600" />
+                      </div>
+                      <CardTitle>Accès professionnel vérifié</CardTitle>
+                      <CardDescription>
+                        Entrez l'email utilisé lors de votre première vérification
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="returningEmail" className="flex items-center gap-2">
+                          <Mail className="w-4 h-4" />
+                          Email professionnel
+                        </Label>
+                        <Input
+                          id="returningEmail"
+                          type="email"
+                          placeholder="contact@votreentreprise.fr"
+                          value={returningProEmail}
+                          onChange={(e) => setReturningProEmail(e.target.value)}
+                          className="h-12"
+                        />
+                      </div>
+
+                      <div className="bg-muted/50 rounded-xl p-4 space-y-2">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Zap className="w-4 h-4 text-primary" />
+                          <span><strong className="text-foreground">Parcours simplifié :</strong> plus besoin de ressaisir vos informations</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <CheckCircle2 className="w-4 h-4 text-green-600" />
+                          <span>Débit carte → Confirmation directe par email</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Clock className="w-4 h-4 text-primary" />
+                          <span>Remboursement toujours sous 48h ouvrées</span>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3">
+                        <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
+                          <ArrowLeft className="w-4 h-4" />
+                          Retour
+                        </Button>
+                        <Button 
+                          className="flex-1" 
+                          size="lg"
+                          onClick={handleReturningProLogin}
+                          disabled={!returningProEmail || !returningProEmail.includes("@") || isLoading}
+                        >
+                          {isLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Vérification...
+                            </>
+                          ) : (
+                            <>
+                              Accéder
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </>
+                          )}
+                        </Button>
+                      </div>
+
+                      <p className="text-xs text-center text-muted-foreground">
+                        Première fois ? <button 
+                          onClick={() => setCurrentStep("scan")} 
+                          className="text-primary hover:underline"
+                        >
+                          Continuez normalement
+                        </button>, vous serez vérifié lors de votre premier encaissement.
+                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -524,6 +697,34 @@ const PartnerPayment = () => {
                           <p className="text-5xl font-bold text-primary">{cardInfo.balance}€</p>
                         </div>
                       </div>
+
+                      {/* Verified Pro Info Banner */}
+                      {isReturningPro && verifiedPro && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="bg-green-500/10 border border-green-500/20 rounded-xl p-4"
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <BadgeCheck className="w-5 h-5 text-green-600" />
+                            <span className="font-medium text-green-700">Pro vérifié - Parcours rapide</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <span className="text-muted-foreground">Établissement:</span>
+                              <p className="font-medium text-foreground">{verifiedPro.companyName}</p>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">Email:</span>
+                              <p className="font-medium text-foreground">{verifiedPro.email}</p>
+                            </div>
+                          </div>
+                          <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
+                            <Zap className="w-3 h-3" />
+                            Confirmation directe après validation du montant
+                          </p>
+                        </motion.div>
+                      )}
                       
                       <div className="space-y-2">
                         <Label htmlFor="amount" className="text-base">Montant de la prestation</Label>
@@ -570,11 +771,26 @@ const PartnerPayment = () => {
                         <Button 
                           className="flex-1" 
                           size="lg"
+                          variant={isReturningPro ? "coral" : "default"}
                           onClick={handleAmountSubmit}
-                          disabled={!formData.amount || parseFloat(formData.amount) <= 0 || parseFloat(formData.amount) > cardInfo.balance}
+                          disabled={!formData.amount || parseFloat(formData.amount) <= 0 || parseFloat(formData.amount) > cardInfo.balance || isLoading}
                         >
-                          Continuer
+                          {isLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Traitement...
+                            </>
+                          ) : isReturningPro ? (
+                            <>
+                              Confirmer l'encaissement
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </>
+                          ) : (
+                            <>
+                              Continuer
                           <ArrowRight className="w-4 h-4 ml-2" />
+                            </>
+                          )}
                         </Button>
                       </div>
                     </CardContent>

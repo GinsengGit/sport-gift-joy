@@ -35,23 +35,21 @@ import {
   ExternalLink,
   Send,
   MessageSquare,
-  Briefcase
+  Briefcase,
+  MapPin
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Activity types
 const ACTIVITY_TYPES = [
-  { value: "fitness", label: "Fitness / Musculation" },
-  { value: "coaching", label: "Coaching sportif" },
-  { value: "centre-sportif", label: "Centre sportif / Salle de sport" },
-  { value: "outdoor", label: "Activités outdoor (randonnée, escalade...)" },
-  { value: "association", label: "Association sportive" },
-  { value: "arts-martiaux", label: "Arts martiaux / Sports de combat" },
-  { value: "sports-aquatiques", label: "Sports aquatiques" },
-  { value: "sports-raquette", label: "Sports de raquette (tennis, padel...)" },
-  { value: "yoga-pilates", label: "Yoga / Pilates / Bien-être" },
-  { value: "danse", label: "Danse" },
-  { value: "autre", label: "Autre activité sportive" },
+  { value: "fitness", label: "Fitness" },
+  { value: "coaching-sportif", label: "Coaching sportif" },
+  { value: "centre-sportif", label: "Centre sportif" },
+  { value: "outdoor", label: "Activités outdoor" },
+  { value: "aquatiques", label: "Activités aquatiques" },
+  { value: "club-association", label: "Club et association sportive" },
+  { value: "sport-extreme", label: "Sport extrême" },
+  { value: "autre", label: "Autre" },
 ];
 
 // Types
@@ -66,6 +64,7 @@ interface FormData {
   rib: string;
   companyName: string;
   legalRepresentative: string;
+  address: string;
   activityType: string;
   comments: string;
 }
@@ -110,6 +109,7 @@ const PartnerPayment = () => {
     rib: "",
     companyName: "",
     legalRepresentative: "",
+    address: "",
     activityType: "",
     comments: "",
   });
@@ -253,6 +253,7 @@ const PartnerPayment = () => {
       rib: formData.rib,
       companyName: formData.companyName,
       legalRepresentative: formData.legalRepresentative,
+      address: formData.address,
       activityType: formData.activityType,
       comments: formData.comments,
       email: formData.email,
@@ -274,6 +275,7 @@ const PartnerPayment = () => {
       rib: "",
       companyName: "",
       legalRepresentative: "",
+      address: "",
       activityType: "",
       comments: "",
     });
@@ -317,7 +319,7 @@ const PartnerPayment = () => {
   );
 
   // Check if profile is complete
-  const isProfileComplete = formData.siret && formData.rib && formData.companyName && formData.legalRepresentative && formData.activityType;
+  const isProfileComplete = formData.siret && formData.rib && formData.companyName && formData.legalRepresentative && formData.address && formData.activityType;
 
   return (
     <div className="min-h-screen bg-background">
@@ -1003,6 +1005,19 @@ const PartnerPayment = () => {
                     </div>
 
                     <div className="space-y-2">
+                      <Label htmlFor="address" className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        Adresse de l'établissement
+                      </Label>
+                      <Input
+                        id="address"
+                        placeholder="Ex: 12 rue du Sport, 75001 Paris"
+                        value={formData.address}
+                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
                       <Label htmlFor="activityType" className="flex items-center gap-2">
                         <Briefcase className="w-4 h-4" />
                         Type d'activité
@@ -1096,6 +1111,7 @@ const PartnerPayment = () => {
                           !formData.rib || 
                           !formData.companyName ||
                           !formData.legalRepresentative ||
+                          !formData.address ||
                           !formData.activityType ||
                           isLoading
                         }

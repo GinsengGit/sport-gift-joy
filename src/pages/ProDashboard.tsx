@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
 import { 
   ArrowLeft, 
   CreditCard, 
@@ -8,7 +9,6 @@ import {
   Calendar, 
   Download, 
   Search,
-  Filter,
   ChevronDown,
   BadgeCheck,
   Clock,
@@ -16,8 +16,7 @@ import {
   FileText,
   TrendingUp,
   Building2,
-  Mail,
-  Phone
+  Mail
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -124,8 +123,94 @@ const ProDashboard = () => {
   };
 
   const handleDownloadReceipt = (receiptId: string) => {
-    // TODO: Implement receipt download
-    console.log("Downloading receipt:", receiptId);
+    const transaction = mockTransactions.find(tx => tx.receiptId === receiptId);
+    if (!transaction) return;
+
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    
+    // Header with gradient-like effect
+    doc.setFillColor(255, 107, 53); // kado-coral color
+    doc.rect(0, 0, pageWidth, 45, 'F');
+    
+    // Logo text
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(28);
+    doc.setFont("helvetica", "bold");
+    doc.text("KADOSPORT", pageWidth / 2, 22, { align: "center" });
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text("Reçu de remboursement", pageWidth / 2, 35, { align: "center" });
+    
+    // Receipt info box
+    doc.setTextColor(60, 60, 60);
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(15, 55, pageWidth - 30, 30, 3, 3, 'F');
+    
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("N° Reçu:", 25, 68);
+    doc.text("Date de remboursement:", 25, 78);
+    doc.setFont("helvetica", "normal");
+    doc.text(receiptId, 60, 68);
+    doc.text(formatDate(transaction.reimbursementDate!), 85, 78);
+    
+    // Company info section
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text("BÉNÉFICIAIRE", 15, 100);
+    doc.setDrawColor(255, 107, 53);
+    doc.setLineWidth(0.5);
+    doc.line(15, 103, 60, 103);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(mockProData.companyName, 15, 115);
+    doc.text(`SIRET: ${mockProData.siret}`, 15, 123);
+    doc.text(`Email: ${mockProData.email}`, 15, 131);
+    doc.text(`IBAN: ${mockProData.iban}`, 15, 139);
+    
+    // Transaction details section
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text("DÉTAILS DE LA TRANSACTION", 15, 160);
+    doc.setDrawColor(255, 107, 53);
+    doc.line(15, 163, 100, 163);
+    
+    // Transaction table
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(15, 170, pageWidth - 30, 50, 3, 3, 'F');
+    
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("Référence transaction:", 25, 185);
+    doc.text("Code carte:", 25, 195);
+    doc.text("Date d'encaissement:", 25, 205);
+    
+    doc.setFont("helvetica", "normal");
+    doc.text(transaction.id, 90, 185);
+    doc.text(transaction.cardCode, 90, 195);
+    doc.text(formatDate(transaction.date), 90, 205);
+    
+    // Amount box
+    doc.setFillColor(255, 107, 53);
+    doc.roundedRect(15, 230, pageWidth - 30, 35, 3, 3, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("MONTANT REMBOURSÉ", pageWidth / 2, 245, { align: "center" });
+    doc.setFontSize(24);
+    doc.text(`${transaction.amount.toFixed(2)} €`, pageWidth / 2, 258, { align: "center" });
+    
+    // Footer
+    doc.setTextColor(150, 150, 150);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.text("Ce document fait office de reçu de remboursement pour la transaction ci-dessus.", pageWidth / 2, 280, { align: "center" });
+    doc.text("Kadosport - La carte cadeau 100% sport", pageWidth / 2, 287, { align: "center" });
+    
+    // Save PDF
+    doc.save(`${receiptId}.pdf`);
   };
 
   return (

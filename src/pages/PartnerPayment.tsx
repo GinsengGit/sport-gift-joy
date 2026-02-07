@@ -5,7 +5,15 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { 
   QrCode, 
   CheckCircle2, 
@@ -25,9 +33,26 @@ import {
   BadgeCheck,
   Zap,
   ExternalLink,
-  Send
+  Send,
+  MessageSquare,
+  Briefcase
 } from "lucide-react";
 import { Link } from "react-router-dom";
+
+// Activity types
+const ACTIVITY_TYPES = [
+  { value: "fitness", label: "Fitness / Musculation" },
+  { value: "coaching", label: "Coaching sportif" },
+  { value: "centre-sportif", label: "Centre sportif / Salle de sport" },
+  { value: "outdoor", label: "Activités outdoor (randonnée, escalade...)" },
+  { value: "association", label: "Association sportive" },
+  { value: "arts-martiaux", label: "Arts martiaux / Sports de combat" },
+  { value: "sports-aquatiques", label: "Sports aquatiques" },
+  { value: "sports-raquette", label: "Sports de raquette (tennis, padel...)" },
+  { value: "yoga-pilates", label: "Yoga / Pilates / Bien-être" },
+  { value: "danse", label: "Danse" },
+  { value: "autre", label: "Autre activité sportive" },
+];
 
 // Types
 type Step = "scan" | "returning-pro" | "balance" | "email" | "confirmation" | "complete-profile";
@@ -40,6 +65,9 @@ interface FormData {
   siret: string;
   rib: string;
   companyName: string;
+  legalRepresentative: string;
+  activityType: string;
+  comments: string;
 }
 
 interface VerifiedPro {
@@ -81,6 +109,9 @@ const PartnerPayment = () => {
     siret: "",
     rib: "",
     companyName: "",
+    legalRepresentative: "",
+    activityType: "",
+    comments: "",
   });
 
   // Format card code input
@@ -221,6 +252,9 @@ const PartnerPayment = () => {
       siret: formData.siret,
       rib: formData.rib,
       companyName: formData.companyName,
+      legalRepresentative: formData.legalRepresentative,
+      activityType: formData.activityType,
+      comments: formData.comments,
       email: formData.email,
     });
     
@@ -239,6 +273,9 @@ const PartnerPayment = () => {
       siret: "",
       rib: "",
       companyName: "",
+      legalRepresentative: "",
+      activityType: "",
+      comments: "",
     });
     setCardInfo(null);
     setDeclaration(null);
@@ -280,7 +317,7 @@ const PartnerPayment = () => {
   );
 
   // Check if profile is complete
-  const isProfileComplete = formData.siret && formData.rib && formData.companyName;
+  const isProfileComplete = formData.siret && formData.rib && formData.companyName && formData.legalRepresentative && formData.activityType;
 
   return (
     <div className="min-h-screen bg-background">
@@ -953,6 +990,41 @@ const PartnerPayment = () => {
                     </div>
 
                     <div className="space-y-2">
+                      <Label htmlFor="legalRepresentative" className="flex items-center gap-2">
+                        <User className="w-4 h-4" />
+                        Nom du gérant / Représentant légal
+                      </Label>
+                      <Input
+                        id="legalRepresentative"
+                        placeholder="Ex: Jean Dupont"
+                        value={formData.legalRepresentative}
+                        onChange={(e) => setFormData({ ...formData, legalRepresentative: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="activityType" className="flex items-center gap-2">
+                        <Briefcase className="w-4 h-4" />
+                        Type d'activité
+                      </Label>
+                      <Select
+                        value={formData.activityType}
+                        onValueChange={(value) => setFormData({ ...formData, activityType: value })}
+                      >
+                        <SelectTrigger id="activityType" className="w-full">
+                          <SelectValue placeholder="Sélectionnez votre activité" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {ACTIVITY_TYPES.map((type) => (
+                            <SelectItem key={type.value} value={type.value}>
+                              {type.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
                       <Label htmlFor="siret" className="flex items-center gap-2">
                         <Receipt className="w-4 h-4" />
                         Numéro SIRET
@@ -986,6 +1058,21 @@ const PartnerPayment = () => {
                       />
                     </div>
 
+                    <div className="space-y-2">
+                      <Label htmlFor="comments" className="flex items-center gap-2">
+                        <MessageSquare className="w-4 h-4" />
+                        Commentaires (optionnel)
+                      </Label>
+                      <Textarea
+                        id="comments"
+                        placeholder="Informations complémentaires, questions, remarques..."
+                        value={formData.comments}
+                        onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
+                        rows={3}
+                        className="resize-none"
+                      />
+                    </div>
+
                     <div className="bg-green-500/10 rounded-xl p-4 flex items-center gap-3 border border-green-500/20">
                       <Clock className="w-5 h-5 text-green-600 flex-shrink-0" />
                       <div>
@@ -1008,6 +1095,8 @@ const PartnerPayment = () => {
                           !formData.siret || 
                           !formData.rib || 
                           !formData.companyName ||
+                          !formData.legalRepresentative ||
+                          !formData.activityType ||
                           isLoading
                         }
                       >

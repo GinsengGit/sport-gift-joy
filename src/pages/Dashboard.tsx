@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Percent, ChevronRight } from "lucide-react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import BalanceCard from "@/components/dashboard/BalanceCard";
 import KadosportScoreCard from "@/components/dashboard/KadosportScoreCard";
@@ -151,6 +153,35 @@ const Dashboard = () => {
             />
 
             <QuickActions />
+
+            {/* Exclusive offers teaser */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+            >
+              <Link 
+                to="/avantages-exclusifs"
+                className="block rounded-2xl bg-gradient-to-br from-kado-gold/10 via-kado-coral/5 to-primary/10 border border-kado-gold/20 p-6 hover:shadow-kado transition-all group"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-kado-gold/20 rounded-xl">
+                      <Percent className="h-5 w-5 text-kado-gold" />
+                    </div>
+                    <div>
+                      <h4 className="font-display font-bold text-foreground group-hover:text-primary transition-colors">
+                        Avantages exclusifs sport
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        Codes promo et remises chez nos partenaires
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                </div>
+              </Link>
+            </motion.div>
 
             {/* Promo banner */}
             <motion.div

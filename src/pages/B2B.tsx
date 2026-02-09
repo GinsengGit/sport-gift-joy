@@ -42,6 +42,7 @@ const whyChoose = [
   "Carte cadeau 100 % sport",
   "Utilisable auprès de milliers d'acteurs sportifs",
   "Aucun risque d'usage détourné",
+  "Avantages exclusifs chez nos partenaires sport",
   "Expérience digitale moderne",
   "Programme de récompenses engageant",
   "Solution adaptée aux particuliers et aux entreprises"

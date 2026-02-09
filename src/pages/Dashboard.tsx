@@ -195,7 +195,7 @@ const Dashboard = () => {
 
             {/* Quick links */}
             <div className="flex flex-wrap gap-3 mt-6 pt-6 border-t border-white/10">
-              <Link to="/avantages-exclusifs">
+              <Link to="/historique">
                 <Button variant="ghost" size="sm" className="text-white/80 hover:text-white hover:bg-white/10">
                   <History className="w-4 h-4 mr-2" />
                   Historique des transactions

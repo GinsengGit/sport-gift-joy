@@ -36,7 +36,7 @@ const benefits = [
   {
     icon: Percent,
     title: "Avantages exclusifs",
-    description: "Accédez à des offres et codes promo négociés auprès de nos partenaires sport.",
+    description: "En plus de votre crédit sport, profitez de remises négociées sur l'équipement et le matériel chez nos partenaires.",
   },
   {
     icon: Smartphone,

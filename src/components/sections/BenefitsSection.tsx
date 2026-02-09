@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users, Percent } from "lucide-react";
+import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users, Percent, Lock, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import coachingImage from "@/assets/coaching-fitness.jpg";
 import climbingImage from "@/assets/climbing-adventure.jpg";
 import waterSportsImage from "@/assets/water-sports.jpg";
 import gymImage from "@/assets/gym-fitness.jpg";
+import { Badge } from "@/components/ui/badge";
 
 const benefits = [
   {
@@ -36,7 +37,7 @@ const benefits = [
   {
     icon: Percent,
     title: "Avantages exclusifs",
-    description: "En plus de votre crédit sport, profitez de remises négociées sur l'équipement et le matériel chez nos partenaires.",
+    description: "Réservé aux bénéficiaires : profitez de remises négociées sur l'équipement et le matériel sportif.",
   },
   {
     icon: Smartphone,
@@ -210,7 +211,7 @@ export const BenefitsSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-16"
         >
           {benefits.map((benefit, index) => (
             <motion.div
@@ -229,6 +230,71 @@ export const BenefitsSection = () => {
               </p>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Exclusive Offers Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-kado-gold/10 via-primary/5 to-kado-coral/10 border border-kado-gold/20 p-8 lg:p-12"
+        >
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-kado-gold/20 rounded-xl">
+                <Percent className="h-6 w-6 text-kado-gold" />
+              </div>
+              <div>
+                <h3 className="font-display text-2xl font-bold text-foreground">
+                  Avantages exclusifs sport
+                </h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <Lock className="h-4 w-4 text-kado-gold" />
+                  <span className="text-sm text-muted-foreground">Réservé aux bénéficiaires Kadosport</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mock offers grid preview */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { brand: "Decathlon", discount: "-15%", category: "Équipement" },
+              { brand: "Nike", discount: "-20%", category: "Vêtements" },
+              { brand: "Alltricks", discount: "-10%", category: "Vélo" },
+              { brand: "Salomon", discount: "-25%", category: "Outdoor" },
+            ].map((offer, index) => (
+              <motion.div
+                key={offer.brand}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 * index }}
+                className="bg-card rounded-xl p-4 border border-border shadow-sm"
+              >
+                <Badge variant="secondary" className="mb-2 text-xs">
+                  {offer.category}
+                </Badge>
+                <p className="font-display font-bold text-foreground">{offer.brand}</p>
+                <p className="text-2xl font-bold text-primary">{offer.discount}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <p className="text-muted-foreground mb-4">
+              Des codes promo et remises négociées sur le matériel sportif, accessibles dès l'activation de votre carte.
+            </p>
+            <Link to="/offrir-carte">
+              <Button variant="hero" size="lg" className="group">
+                Obtenir ma carte Kadosport
+                <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>

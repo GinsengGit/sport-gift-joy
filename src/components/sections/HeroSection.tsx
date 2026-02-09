@@ -98,8 +98,9 @@ export const HeroSection = () => {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
-            Une carte sport qui permet de financer la pratique sportive librement,
+            Une carte sport pour financer la pratique sportive librement,
             chez tous les professionnels du sport déclarés, partout en France.
+            Elle donne aussi accès à des <span className="font-semibold text-primary">avantages exclusifs</span> sur le matériel et l'équipement sportif.
           </p>
           
           {/* Les + Kadosport */}

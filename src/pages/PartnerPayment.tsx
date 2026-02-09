@@ -835,12 +835,18 @@ const PartnerPayment = () => {
 
                     <div>
                       <h2 className="text-2xl font-bold text-green-600 mb-2">
-                        {isReturningPro ? "Encaissement confirmé !" : "Déclaration envoyée !"}
+                        {isReturningPro 
+                          ? "Encaissement confirmé !" 
+                          : isProfileComplete 
+                            ? "Compte finalisé !" 
+                            : "Déclaration envoyée !"}
                       </h2>
                       <p className="text-muted-foreground">
                         {isReturningPro 
                           ? "Votre demande de remboursement a été enregistrée."
-                          : "Vérifiez votre boîte mail pour finaliser votre compte."
+                          : isProfileComplete
+                            ? "Votre profil est en attente de validation. Vous recevrez votre virement sous 48h ouvrées."
+                            : "Vérifiez votre boîte mail pour finaliser votre compte."
                         }
                       </p>
                     </div>
@@ -880,7 +886,9 @@ const PartnerPayment = () => {
                         <span>
                           {isReturningPro 
                             ? <>Confirmation envoyée à <strong className="text-foreground">{declaration.email}</strong></>
-                            : <>Déclaration envoyée à <strong className="text-foreground">{declaration.email}</strong></>
+                            : isProfileComplete
+                              ? <>Confirmation de validation envoyée à <strong className="text-foreground">{declaration.email}</strong></>
+                              : <>Déclaration envoyée à <strong className="text-foreground">{declaration.email}</strong></>
                           }
                         </span>
                       </div>

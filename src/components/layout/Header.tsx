@@ -70,7 +70,7 @@ export const Header = () => {
           <div className="hidden lg:flex items-center gap-3">
             <Link to="/dashboard">
               <Button variant="ghost" size="sm">
-                Mon espace
+                Ma carte Kadosport
               </Button>
             </Link>
             <Link to="/offrir-carte">
@@ -84,7 +84,7 @@ export const Header = () => {
           <div className="lg:hidden flex items-center gap-2">
             <Link to="/dashboard" className="shrink-0">
               <Button variant="ghost" size="sm">
-                Mon espace
+                Ma carte Kadosport
               </Button>
             </Link>
 
@@ -149,7 +149,7 @@ export const Header = () => {
               <div className="pt-4 space-y-3">
                 <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full">
-                    Mon espace
+                    Ma carte Kadosport
                   </Button>
                 </Link>
                 <Link to="/offrir-carte" onClick={() => setIsMobileMenuOpen(false)}>

@@ -19,8 +19,15 @@ import {
   Sparkles,
   Trophy,
   Rocket,
-  LayoutDashboard
+  LayoutDashboard,
+  Percent,
+  Lock,
+  ShoppingBag,
+  Dumbbell,
+  Bike,
+  Mountain
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 
 const idealFor = [
@@ -405,6 +412,132 @@ const B2B = () => {
                   </div>
                 </div>
               </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Exclusive Offers Section */}
+        <section className="py-20 bg-gradient-to-br from-kado-gold/5 via-background to-kado-coral/5">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-kado-gold/10 border border-kado-gold/20 mb-6">
+                <Percent className="w-4 h-4 text-kado-gold" />
+                <span className="text-sm font-medium text-kado-gold">Avantages exclusifs</span>
+              </div>
+              
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Vos salariés accèdent aussi à des{" "}
+                <span className="text-primary">offres négociées</span>
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                En plus du crédit sport pour financer leur pratique, les bénéficiaires profitent 
+                de remises exclusives sur l'équipement et le matériel sportif.
+              </p>
+            </motion.div>
+
+            <div className="max-w-5xl mx-auto">
+              {/* Mock screenshot of offers */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="relative rounded-3xl overflow-hidden bg-card border border-border shadow-xl p-6 md:p-8"
+              >
+                {/* Header bar */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-kado-gold/15 rounded-xl">
+                      <Percent className="h-5 w-5 text-kado-gold" />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-bold text-lg text-foreground">Avantages exclusifs sport</h3>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <Lock className="h-3.5 w-3.5 text-kado-gold" />
+                        <span className="text-xs text-muted-foreground">Réservé aux bénéficiaires Kadosport</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Badge variant="secondary" className="bg-kado-gold/10 text-kado-gold border-kado-gold/20">
+                    Offres négociées
+                  </Badge>
+                </div>
+
+                {/* Offers grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  {[
+                    { category: "Équipement", discount: "-15%", icon: ShoppingBag },
+                    { category: "Vêtements sport", discount: "-20%", icon: Dumbbell },
+                    { category: "Vélo & Cycle", discount: "-10%", icon: Bike },
+                    { category: "Outdoor & Rando", discount: "-25%", icon: Mountain },
+                  ].map((offer, index) => (
+                    <motion.div
+                      key={offer.category}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 * index + 0.3 }}
+                      className="bg-muted/50 rounded-xl p-4 border border-border/50 hover:border-primary/30 transition-colors"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                        <offer.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <Badge variant="secondary" className="mb-2 text-xs">
+                        {offer.category}
+                      </Badge>
+                      <p className="text-2xl font-bold text-primary">{offer.discount}</p>
+                      <p className="text-xs text-muted-foreground mt-1">sur une sélection</p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Bottom info */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border/50">
+                  <p className="text-sm text-muted-foreground text-center sm:text-left">
+                    Des codes promo et remises négociées accessibles dès l'activation de la carte Kadosport.
+                  </p>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 whitespace-nowrap">
+                    + de 20 partenaires
+                  </Badge>
+                </div>
+              </motion.div>
+
+              {/* Two pillars explanation */}
+              <div className="grid md:grid-cols-2 gap-6 mt-8">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="p-6 rounded-2xl bg-card border border-border/50"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center mb-4">
+                    <CreditCard className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <h4 className="font-display font-bold text-foreground mb-2">1. Crédit sport</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Le budget alloué finance directement la pratique sportive : salles, coachs, clubs, événements, loisirs.
+                  </p>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="p-6 rounded-2xl bg-card border border-border/50"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-kado-gold/20 flex items-center justify-center mb-4">
+                    <Percent className="w-6 h-6 text-kado-gold" />
+                  </div>
+                  <h4 className="font-display font-bold text-foreground mb-2">2. Avantages équipement</h4>
+                  <p className="text-sm text-muted-foreground">
+                    En bonus, vos salariés accèdent à des remises exclusives négociées sur le matériel et l'équipement sportif.
+                  </p>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>

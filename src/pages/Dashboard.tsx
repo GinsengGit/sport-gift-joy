@@ -1,6 +1,11 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Percent, ChevronRight } from "lucide-react";
+import { Percent, ChevronRight, CreditCard, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import BalanceCard from "@/components/dashboard/BalanceCard";
 import KadosportScoreCard from "@/components/dashboard/KadosportScoreCard";
@@ -9,6 +14,7 @@ import ActivityTracker from "@/components/dashboard/ActivityTracker";
 import RewardsSection from "@/components/dashboard/RewardsSection";
 import TransactionHistory from "@/components/dashboard/TransactionHistory";
 import QuickActions from "@/components/dashboard/QuickActions";
+import kadosportLogo from "@/assets/kadosport-logo.png";
 
 // Mock data - will be replaced with real data from API
 const mockUserData = {
@@ -93,7 +99,102 @@ const mockTransactions = [
   },
 ];
 
+const CardEntryScreen = ({ onSubmit }: { onSubmit: (cardNumber: string) => void }) => {
+  const [cardNumber, setCardNumber] = useState("");
+  const [error, setError] = useState("");
+
+  const formatCardNumber = (value: string) => {
+    const digits = value.replace(/\D/g, "").slice(0, 16);
+    return digits.replace(/(.{4})/g, "$1 ").trim();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCardNumber(e.target.value);
+    setCardNumber(formatted);
+    setError("");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const digits = cardNumber.replace(/\s/g, "");
+    if (digits.length < 16) {
+      setError("Veuillez saisir les 16 chiffres de votre carte.");
+      return;
+    }
+    onSubmit(digits);
+  };
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
+      <main className="flex-1 flex items-center justify-center px-4 pt-24 pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-md"
+        >
+          <div className="text-center mb-8">
+            <img src={kadosportLogo} alt="Kadosport" className="h-16 mx-auto mb-6" />
+            <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+              Ma carte Kadosport
+            </h1>
+            <p className="text-muted-foreground">
+              Saisissez votre numéro de carte pour accéder à votre espace.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="relative">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
+                <CreditCard className="w-5 h-5" />
+              </div>
+              <Input
+                type="text"
+                inputMode="numeric"
+                placeholder="0000 0000 0000 0000"
+                value={cardNumber}
+                onChange={handleChange}
+                className="pl-12 h-14 text-lg tracking-widest font-mono text-center rounded-xl border-2 border-border focus:border-primary"
+                maxLength={19}
+                autoFocus
+              />
+            </div>
+            {error && (
+              <p className="text-sm text-destructive text-center">{error}</p>
+            )}
+            <Button
+              type="submit"
+              variant="hero"
+              size="lg"
+              className="w-full"
+              disabled={cardNumber.replace(/\s/g, "").length < 16}
+            >
+              Accéder à ma carte
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </form>
+
+          <p className="text-xs text-muted-foreground text-center mt-6">
+            Le numéro de carte figure sur l'email de réception de votre carte Kadosport.
+          </p>
+        </motion.div>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
 const Dashboard = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleCardSubmit = (cardNumber: string) => {
+    // In production, validate card number against the database
+    setIsAuthenticated(true);
+  };
+
+  if (!isAuthenticated) {
+    return <CardEntryScreen onSubmit={handleCardSubmit} />;
+  }
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader userName={mockUserData.name} />

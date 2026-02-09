@@ -63,17 +63,8 @@ const cardData = [
   { id: "KS-2024-008", holder: "Thomas Girard", email: "t.girard@techcorp.fr", amount: 350, used: 50, status: "active", lastUsed: "2024-01-15", avatar: "TG" },
 ];
 
-// Kadosport Score leaderboard data (1€ = 10 pts + 1h sport = 10 pts)
-const kadosportLeaderboard = [
-  { rank: 1, name: "Pierre Martin", avatar: "PM", scoreTotal: 8750, scoreCard: 3500, scoreSport: 5250, weeklyHours: 12, medal: "gold", streak: 8 },
-  { rank: 2, name: "Emma Leroy", avatar: "EL", scoreTotal: 7800, scoreCard: 3500, scoreSport: 4300, weeklyHours: 10, medal: "gold", streak: 6 },
-  { rank: 3, name: "Claire Moreau", avatar: "CM", scoreTotal: 6450, scoreCard: 3200, scoreSport: 3250, weeklyHours: 8, medal: "silver", streak: 5 },
-  { rank: 4, name: "Marie Dupont", avatar: "MD", scoreTotal: 5600, scoreCard: 2800, scoreSport: 2800, weeklyHours: 7, medal: "silver", streak: 4 },
-  { rank: 5, name: "Sophie Bernard", avatar: "SB", scoreTotal: 4250, scoreCard: 1750, scoreSport: 2500, weeklyHours: 6, medal: "bronze", streak: 3 },
-  { rank: 6, name: "Lucas Roux", avatar: "LR", scoreTotal: 3500, scoreCard: 1500, scoreSport: 2000, weeklyHours: 5, medal: "bronze", streak: 2 },
-  { rank: 7, name: "Thomas Girard", avatar: "TG", scoreTotal: 1500, scoreCard: 500, scoreSport: 1000, weeklyHours: 2, medal: null, streak: 1 },
-  { rank: 8, name: "Julien Petit", avatar: "JP", scoreTotal: 0, scoreCard: 0, scoreSport: 0, weeklyHours: 0, medal: null, streak: 0 },
-];
+
+
 
 const monthlyStats = [
   { month: "Sep", usage: 45 },
@@ -328,140 +319,7 @@ const DashboardCSE = () => {
             </Card>
           </motion.div>
 
-          {/* Kadosport Score Leaderboard */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25 }}
-            className="mb-8"
-          >
-            <Card className="border-border/50 overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-primary/5 to-coral/5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center">
-                      <Trophy className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg flex items-center gap-2">
-                        Classement Kadosport Score
-                        <Badge className="bg-primary/10 text-primary border-primary/20">En direct</Badge>
-                      </CardTitle>
-                      <CardDescription>1€ utilisé = 10 pts · 1h de sport = 10 pts</CardDescription>
-                    </div>
-                  </div>
-                  <div className="hidden md:flex items-center gap-6 text-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-primary" />
-                      <span className="text-muted-foreground">Points carte</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-coral" />
-                      <span className="text-muted-foreground">Points activité</span>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="divide-y divide-border/50">
-                  {kadosportLeaderboard.slice(0, 8).map((user, index) => {
-                    const getRankIcon = (rank: number) => {
-                      if (rank === 1) return <Crown className="w-5 h-5 text-amber-500" />;
-                      if (rank === 2) return <Medal className="w-5 h-5 text-gray-400" />;
-                      if (rank === 3) return <Medal className="w-5 h-5 text-amber-700" />;
-                      return <span className="w-5 h-5 flex items-center justify-center text-sm font-bold text-muted-foreground">{rank}</span>;
-                    };
 
-                    const getMedalBg = (medal: string | null) => {
-                      if (medal === "gold") return "bg-gradient-to-r from-amber-500/20 to-amber-400/10";
-                      if (medal === "silver") return "bg-gradient-to-r from-gray-400/20 to-gray-300/10";
-                      if (medal === "bronze") return "bg-gradient-to-r from-amber-700/20 to-amber-600/10";
-                      return "";
-                    };
-
-                    const scorePercentage = (user.scoreTotal / kadosportLeaderboard[0].scoreTotal) * 100;
-
-                    return (
-                      <motion.div
-                        key={user.rank}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 + index * 0.05 }}
-                        className={`flex items-center gap-4 p-4 hover:bg-muted/30 transition-colors ${getMedalBg(user.medal)}`}
-                      >
-                        {/* Rank */}
-                        <div className="w-8 flex justify-center">
-                          {getRankIcon(user.rank)}
-                        </div>
-
-                        {/* Avatar */}
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
-                          user.rank === 1 ? "bg-gradient-hero text-white" :
-                          user.rank <= 3 ? "bg-primary/20 text-primary" :
-                          "bg-muted text-muted-foreground"
-                        }`}>
-                          {user.avatar}
-                        </div>
-
-                        {/* Name & Stats */}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="font-semibold text-foreground truncate">{user.name}</span>
-                            {user.streak >= 4 && (
-                              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-coral/10 text-coral text-xs">
-                                <Flame className="w-3 h-3" />
-                                <span>{user.streak} sem.</span>
-                              </div>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-4 mt-1">
-                            <div className="flex-1 max-w-[200px]">
-                              <div className="h-2 bg-muted rounded-full overflow-hidden flex">
-                                <motion.div
-                                  initial={{ width: 0 }}
-                                  animate={{ width: `${(user.scoreCard / user.scoreTotal) * scorePercentage}%` }}
-                                  transition={{ delay: 0.4 + index * 0.05, duration: 0.5 }}
-                                  className="h-full bg-primary"
-                                />
-                                <motion.div
-                                  initial={{ width: 0 }}
-                                  animate={{ width: `${(user.scoreSport / user.scoreTotal) * scorePercentage}%` }}
-                                  transition={{ delay: 0.5 + index * 0.05, duration: 0.5 }}
-                                  className="h-full bg-coral"
-                                />
-                              </div>
-                            </div>
-                            <div className="hidden sm:flex items-center gap-3 text-xs text-muted-foreground">
-                              <span>{user.scoreCard.toLocaleString()} pts carte</span>
-                              <span>{user.scoreSport.toLocaleString()} pts sport</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Weekly Hours */}
-                        <div className="hidden md:flex flex-col items-center px-4">
-                          <div className="flex items-center gap-1 text-sm">
-                            <Activity className="w-4 h-4 text-kado-emerald" />
-                            <span className="font-semibold text-foreground">{user.weeklyHours}h</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">cette sem.</span>
-                        </div>
-
-                        {/* Total Score */}
-                        <div className="text-right">
-                          <div className="flex items-center gap-1">
-                            <Star className="w-4 h-4 text-primary" />
-                            <span className="text-lg font-bold text-foreground">{user.scoreTotal.toLocaleString()}</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">pts</span>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
 
           {/* Cards Table */}
           <motion.div

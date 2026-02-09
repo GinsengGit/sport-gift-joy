@@ -226,7 +226,7 @@ const OffrirCarte = () => {
                       <div className="space-y-3 mb-8">
                         {[
                           "Livraison instantanée par email",
-                          "Kadosport Score : gagnez des points et récompenses",
+                          "Avantages exclusifs sur le matériel et l'équipement sportif",
                           "Option cadeau commun disponible",
                         ].map((feature) => (
                           <div key={feature} className="flex items-center gap-3">

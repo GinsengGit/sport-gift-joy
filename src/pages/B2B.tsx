@@ -51,7 +51,7 @@ const whyChoose = [
   "Aucun risque d'usage détourné",
   "Avantages exclusifs chez nos partenaires sport",
   "Expérience digitale moderne",
-  "Programme de récompenses engageant",
+  "Avantages exclusifs sur l'équipement sportif",
   "Solution adaptée aux particuliers et aux entreprises"
 ];
 

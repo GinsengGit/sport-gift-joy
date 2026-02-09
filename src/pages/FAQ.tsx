@@ -79,10 +79,6 @@ const faqCategories = [
         q: "Comment suivre mon solde ?",
         a: "Connectez-vous à votre espace personnel pour voir votre solde en temps réel, l'historique de vos transactions et la date d'expiration de votre carte."
       },
-      {
-        q: "Qu'est-ce que le Kadosport Score ?",
-        a: "C'est un programme de fidélité qui vous récompense à chaque utilisation de votre carte. Accumulez des points pour débloquer des avantages exclusifs chez nos partenaires."
-      },
     ]
   },
   {

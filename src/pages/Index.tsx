@@ -1,7 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
-import { KadosportScoreSection } from "@/components/sections/KadosportScoreSection";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { PartnerBenefitsSection } from "@/components/sections/PartnerBenefitsSection";
 import { PricingSection } from "@/components/sections/PricingSection";
@@ -15,7 +14,6 @@ const Index = () => {
       <main>
         <HeroSection />
         <HowItWorksSection />
-        <KadosportScoreSection />
         <BenefitsSection />
         <PartnerBenefitsSection />
         <PricingSection />

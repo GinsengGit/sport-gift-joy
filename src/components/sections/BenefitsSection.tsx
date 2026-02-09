@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users } from "lucide-react";
+import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users, Percent } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import coachingImage from "@/assets/coaching-fitness.jpg";
@@ -32,6 +32,11 @@ const benefits = [
     icon: Users,
     title: "Cadeau commun",
     description: "Créez une cagnotte et laissez plusieurs personnes contribuer au même cadeau.",
+  },
+  {
+    icon: Percent,
+    title: "Avantages exclusifs",
+    description: "Accédez à des offres et codes promo négociés auprès de nos partenaires sport.",
   },
   {
     icon: Smartphone,

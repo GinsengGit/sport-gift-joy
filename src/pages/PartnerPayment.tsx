@@ -53,7 +53,7 @@ const ACTIVITY_TYPES = [
 ];
 
 // Types
-type Step = "scan" | "returning-pro" | "balance" | "email" | "confirmation" | "complete-profile";
+type Step = "choice" | "scan" | "returning-pro" | "new-pro-info" | "balance" | "email" | "confirmation" | "complete-profile";
 
 interface FormData {
   cardCode: string;
@@ -93,7 +93,7 @@ interface EncashmentDeclaration {
 }
 
 const PartnerPayment = () => {
-  const [currentStep, setCurrentStep] = useState<Step>("scan");
+  const [currentStep, setCurrentStep] = useState<Step>("choice");
   const [isLoading, setIsLoading] = useState(false);
   const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
   const [declaration, setDeclaration] = useState<EncashmentDeclaration | null>(null);
@@ -266,7 +266,7 @@ const PartnerPayment = () => {
   };
 
   const resetForm = () => {
-    setCurrentStep("scan");
+    setCurrentStep("choice");
     setFormData({
       cardCode: "",
       amount: "",
@@ -288,10 +288,12 @@ const PartnerPayment = () => {
   };
 
   const goBack = () => {
-    if (currentStep === "returning-pro") setCurrentStep("scan");
+    if (currentStep === "returning-pro") setCurrentStep("choice");
+    else if (currentStep === "new-pro-info") setCurrentStep("choice");
     else if (currentStep === "balance") setCurrentStep("scan");
     else if (currentStep === "email") setCurrentStep("balance");
     else if (currentStep === "complete-profile") setCurrentStep("confirmation");
+    else if (currentStep === "scan") setCurrentStep("choice");
   };
 
   // Progress steps - simplified for new flow
@@ -349,7 +351,7 @@ const PartnerPayment = () => {
             </motion.div>
 
             {/* Progress Steps */}
-            {currentStep !== "complete-profile" && (
+            {currentStep !== "complete-profile" && currentStep !== "choice" && currentStep !== "new-pro-info" && (
               <div className="flex items-center justify-center gap-2 mb-12">
                 {processSteps.map((step, index) => (
                   <div key={step.id} className="flex items-center">
@@ -373,7 +375,134 @@ const PartnerPayment = () => {
               </div>
             )}
 
-            {/* Step 1: Scan Card */}
+            {/* Choice Screen */}
+            {currentStep === "choice" && (
+              <motion.div
+                key="choice"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="space-y-4"
+              >
+                {/* Option 1: Returning Pro */}
+                <Card 
+                  className="border-2 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all group"
+                  onClick={() => setCurrentStep("returning-pro")}
+                >
+                  <CardContent className="p-6 flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/20 transition-colors">
+                      <BadgeCheck className="w-7 h-7 text-green-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg text-foreground mb-1">Professionnel du sport déjà vérifié</h3>
+                      <p className="text-sm text-muted-foreground">Accès direct avec votre email — sans ressaisie d'informations</p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </CardContent>
+                </Card>
+
+                {/* Option 2: New Pro */}
+                <Card 
+                  className="border-2 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all group"
+                  onClick={() => setCurrentStep("new-pro-info")}
+                >
+                  <CardContent className="p-6 flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <CreditCard className="w-7 h-7 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg text-foreground mb-1">J'encaisse Kadosport pour la 1ère fois</h3>
+                      <p className="text-sm text-muted-foreground">Créez votre compte en quelques minutes et recevez votre remboursement</p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </CardContent>
+                </Card>
+
+                {/* Trust badges */}
+                <div className="flex items-center justify-center gap-6 pt-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-primary" />
+                    <span>0% de commission</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-primary" />
+                    <span>Remboursement 48h</span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* New Pro Info Screen */}
+            {currentStep === "new-pro-info" && (
+              <motion.div
+                key="new-pro-info"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+              >
+                <Card className="border-2">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                      <Shield className="w-8 h-8 text-primary" />
+                    </div>
+                    <CardTitle>Comment ça marche ?</CardTitle>
+                    <CardDescription>
+                      Un processus simple et sécurisé pour être remboursé
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-5">
+                    <div className="space-y-4">
+                      {[
+                        { icon: QrCode, text: "Vérifiez le solde de la carte du client" },
+                        { icon: Banknote, text: "Déclarez le montant de la prestation" },
+                        { icon: Mail, text: "Renseignez votre email professionnel" },
+                        { icon: Briefcase, text: "Finalisez votre profil (SIRET, RIB) maintenant ou plus tard" },
+                        { icon: CheckCircle2, text: "Recevez votre virement sous 48h ouvrées" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-4">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-sm font-bold text-primary">
+                            {i + 1}
+                          </div>
+                          <div className="flex items-center gap-2 text-foreground">
+                            <item.icon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                            <span className="text-sm">{item.text}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
+                      <div className="flex items-start gap-3">
+                        <Shield className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <div className="text-sm">
+                          <p className="font-medium text-green-700 mb-1">Remboursement garanti</p>
+                          <p className="text-green-600">
+                            Kadosport ne prélève aucune commission. Vous êtes remboursé à 100% du montant encaissé, par virement bancaire sous 48h ouvrées.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
+                        <ArrowLeft className="w-4 h-4" />
+                        Retour
+                      </Button>
+                      <Button 
+                        className="flex-1" 
+                        size="lg"
+                        onClick={() => setCurrentStep("scan")}
+                      >
+                        C'est parti !
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {/* Step: Scan Card */}
             {currentStep === "scan" && (
               <motion.div
                 key="scan"
@@ -388,40 +517,10 @@ const PartnerPayment = () => {
                     </div>
                     <CardTitle>Vérifier le solde de la carte</CardTitle>
                     <CardDescription>
-                      Étape 1 : Scannez ou saisissez le code pour voir le solde disponible
+                      Scannez ou saisissez le code pour voir le solde disponible
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    {/* Returning Pro Access */}
-                    {!isReturningPro && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-gradient-to-r from-green-500/10 to-primary/10 border border-green-500/30 rounded-xl p-4"
-                      >
-                        <div className="flex items-center justify-between gap-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                              <BadgeCheck className="w-5 h-5 text-green-600" />
-                            </div>
-                            <div>
-                              <p className="font-medium text-foreground">Professionnel du sport déjà vérifié ?</p>
-                              <p className="text-sm text-muted-foreground">Accès direct sans ressaisie</p>
-                            </div>
-                          </div>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="gap-2 border-green-500/30 text-green-700 hover:bg-green-500/10"
-                            onClick={() => setCurrentStep("returning-pro")}
-                          >
-                            <Zap className="w-4 h-4" />
-                            Accès rapide
-                          </Button>
-                        </div>
-                      </motion.div>
-                    )}
-
                     {/* Returning Pro Banner */}
                     {isReturningPro && verifiedPro && (
                       <motion.div
@@ -443,6 +542,7 @@ const PartnerPayment = () => {
                             setIsReturningPro(false);
                             setVerifiedPro(null);
                             setFormData(prev => ({ ...prev, siret: "", rib: "", email: "", companyName: "" }));
+                            setCurrentStep("choice");
                           }}
                           className="text-muted-foreground hover:text-foreground"
                         >
@@ -476,16 +576,21 @@ const PartnerPayment = () => {
                       </div>
                     </div>
 
-                    <Button 
-                      className="w-full" 
-                      size="lg"
-                      onClick={handleCardVerification}
-                      disabled={formData.cardCode.replace(/-/g, "").length < 16 || isLoading}
-                    >
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Vérification du solde...
+                    <div className="flex gap-3">
+                      <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
+                        <ArrowLeft className="w-4 h-4" />
+                        Retour
+                      </Button>
+                      <Button 
+                        className="flex-1" 
+                        size="lg"
+                        onClick={handleCardVerification}
+                        disabled={formData.cardCode.replace(/-/g, "").length < 16 || isLoading}
+                      >
+                        {isLoading ? (
+                          <>
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            Vérification du solde...
                         </>
                       ) : (
                         <>
@@ -494,6 +599,7 @@ const PartnerPayment = () => {
                         </>
                       )}
                     </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -572,7 +678,7 @@ const PartnerPayment = () => {
                     <p className="text-xs text-center text-muted-foreground">
                       Première fois ?{" "}
                       <button 
-                        onClick={() => setCurrentStep("scan")} 
+                        onClick={() => setCurrentStep("new-pro-info")} 
                         className="text-primary hover:underline"
                       >
                         Continuez normalement

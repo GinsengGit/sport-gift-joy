@@ -125,9 +125,14 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="py-6 border-t border-secondary-foreground/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-secondary-foreground/60">
-            © 2025 Kadosport. Tous droits réservés.
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-secondary-foreground/60">
+              © 2025 Kadosport. Tous droits réservés.
+            </p>
+            <Link to="/admin-login" className="text-xs text-secondary-foreground/30 hover:text-secondary-foreground/60 transition-colors">
+              Espace gestionnaire
+            </Link>
+          </div>
           <div className="flex items-center gap-4">
             <span className="text-xs text-secondary-foreground/50">Paiements sécurisés</span>
             <div className="flex items-center gap-2">

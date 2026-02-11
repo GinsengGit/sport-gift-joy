@@ -16,6 +16,8 @@ import ExtendCard from "./pages/ExtendCard";
 import ProDashboard from "./pages/ProDashboard";
 import AvantagesExclusifs from "./pages/AvantagesExclusifs";
 import Historique from "./pages/Historique";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +42,8 @@ const App = () => (
           <Route path="/pro-dashboard" element={<ProDashboard />} />
           <Route path="/avantages-exclusifs" element={<AvantagesExclusifs />} />
           <Route path="/historique" element={<Historique />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -12,8 +12,10 @@ import {
   History,
   ChevronRight,
   Gift,
-  Lock
+  Lock,
+  Download
 } from "lucide-react";
+import { generateGiftCardPDF } from "@/lib/generateGiftCardPDF";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -213,6 +215,23 @@ const Dashboard = () => {
                   Offrir une carte
                 </Button>
               </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white/80 hover:text-white hover:bg-white/10"
+                onClick={() =>
+                  generateGiftCardPDF({
+                    recipientName: mockUserData.name,
+                    balance: mockUserData.balance,
+                    cardNumber: mockUserData.cardNumber,
+                    expirationDate: mockUserData.expirationDate,
+                    cardCode: "KDS-2024-7X9F",
+                  })
+                }
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Télécharger ma carte
+              </Button>
             </div>
           </div>
         </motion.div>

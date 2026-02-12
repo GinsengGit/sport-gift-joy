@@ -14,7 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      affiliate_clicks: {
+        Row: {
+          clicked_at: string
+          clickref: string | null
+          id: string
+          offer_id: string
+        }
+        Insert: {
+          clicked_at?: string
+          clickref?: string | null
+          id?: string
+          offer_id: string
+        }
+        Update: {
+          clicked_at?: string
+          clickref?: string | null
+          id?: string
+          offer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_clicks_offer_id_fkey"
+            columns: ["offer_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_offers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_offers: {
+        Row: {
+          advertiser_id: string | null
+          advertiser_name: string
+          category: string
+          created_at: string
+          description: string | null
+          discount_type: string
+          discount_value: number
+          end_date: string
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          is_popular: boolean
+          landing_page_url: string
+          logo_emoji: string | null
+          start_date: string
+          title: string
+          updated_at: string
+          voucher_code: string | null
+        }
+        Insert: {
+          advertiser_id?: string | null
+          advertiser_name: string
+          category?: string
+          created_at?: string
+          description?: string | null
+          discount_type?: string
+          discount_value: number
+          end_date?: string
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          is_popular?: boolean
+          landing_page_url: string
+          logo_emoji?: string | null
+          start_date?: string
+          title: string
+          updated_at?: string
+          voucher_code?: string | null
+        }
+        Update: {
+          advertiser_id?: string | null
+          advertiser_name?: string
+          category?: string
+          created_at?: string
+          description?: string | null
+          discount_type?: string
+          discount_value?: number
+          end_date?: string
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          is_popular?: boolean
+          landing_page_url?: string
+          logo_emoji?: string | null
+          start_date?: string
+          title?: string
+          updated_at?: string
+          voucher_code?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

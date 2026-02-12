@@ -16,6 +16,7 @@ import {
   Download
 } from "lucide-react";
 import { generateGiftCardPDF } from "@/lib/generateGiftCardPDF";
+import { useAffiliateOffers, trackAffiliateClick } from "@/hooks/useAffiliateOffers";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -32,14 +33,7 @@ const mockUserData = {
   expirationDate: "2026-01-15",
 };
 
-const mockOffers = [
-  { id: "1", logo: "🏋️", advertiser: "Fitness Park", title: "-30% abonnement annuel", discount: "-30%", code: "KADOSPORT30", url: "https://fitnesspark.fr", category: "Fitness", is_popular: true, end_date: "2024-12-31" },
-  { id: "2", logo: "🎽", advertiser: "Decathlon", title: "15€ offerts dès 80€", discount: "-15€", code: "KADO15", url: "https://decathlon.fr", category: "Équipement", is_popular: true, end_date: "2024-06-30" },
-  { id: "3", logo: "👟", advertiser: "Nike", title: "-20% collection running", discount: "-20%", code: null, url: "https://nike.com/fr", category: "Vêtements", is_popular: false, end_date: "2024-04-30" },
-  { id: "4", logo: "🚴", advertiser: "Alltricks", title: "-25% vélos électriques", discount: "-25%", code: "KADOVELO25", url: "https://alltricks.fr", category: "Outdoor", is_popular: true, end_date: "2024-05-31" },
-  { id: "5", logo: "🏃", advertiser: "i-Run", title: "Livraison gratuite + 10%", discount: "-10%", code: "KADORUN10", url: "https://i-run.fr", category: "Équipement", is_popular: false, end_date: "2024-12-31" },
-  { id: "6", logo: "💪", advertiser: "Basic-Fit", title: "1er mois offert", discount: "Gratuit", code: "KADOFREE", url: "https://basic-fit.com", category: "Fitness", is_popular: true, end_date: "2024-06-30" },
-];
+// mockOffers removed — now using useAffiliateOffers hook
 
 const CardEntryScreen = ({ onSubmit }: { onSubmit: (cardNumber: string) => void }) => {
   const [cardNumber, setCardNumber] = useState("");
@@ -128,7 +122,7 @@ const CardEntryScreen = ({ onSubmit }: { onSubmit: (cardNumber: string) => void 
 
 const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const { data: dbOffers = [] } = useAffiliateOffers({ limit: 6 });
   const handleCardSubmit = (cardNumber: string) => {
     setIsAuthenticated(true);
   };
@@ -270,12 +264,13 @@ const Dashboard = () => {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {mockOffers.map((offer, index) => (
+            {dbOffers.map((offer, index) => (
               <motion.a
                 key={offer.id}
-                href={offer.url}
+                href={offer.landing_page_url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackAffiliateClick(offer.id)}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + index * 0.05 }}
@@ -290,27 +285,29 @@ const Dashboard = () => {
 
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center text-xl">
-                    {offer.logo}
+                    {offer.logo_emoji}
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground">{offer.advertiser}</p>
-                    <Badge variant="outline" className="text-xs mt-0.5">{offer.category}</Badge>
+                    <p className="font-semibold text-foreground">{offer.advertiser_name}</p>
+                    <Badge variant="outline" className="text-xs mt-0.5 capitalize">{offer.category}</Badge>
                   </div>
                 </div>
 
                 <div className="bg-primary/10 rounded-xl p-3 mb-3">
                   <div className="flex items-center gap-2 mb-1">
                     <Percent className="w-4 h-4 text-primary" />
-                    <span className="font-bold text-lg text-primary">{offer.discount}</span>
+                    <span className="font-bold text-lg text-primary">
+                      {offer.discount_type === "percentage" ? `-${offer.discount_value}%` : `-${offer.discount_value}€`}
+                    </span>
                   </div>
                   <p className="text-sm font-medium text-foreground">{offer.title}</p>
                 </div>
 
-                {offer.code && (
+                {offer.voucher_code && (
                   <div className="flex items-center gap-2 mb-3 p-2.5 bg-muted/50 rounded-lg border border-dashed border-border">
                     <Tag className="w-3.5 h-3.5 text-primary" />
                     <span className="text-xs text-muted-foreground">Code :</span>
-                    <code className="font-mono font-semibold text-primary text-sm">{offer.code}</code>
+                    <code className="font-mono font-semibold text-primary text-sm">{offer.voucher_code}</code>
                   </div>
                 )}
 

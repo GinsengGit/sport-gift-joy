@@ -72,13 +72,17 @@ export async function generateGiftCardPDF(data: GiftCardData) {
   // === PRO REASSURANCE TEXT (next to QR) ===
   const proTextX = 44;
 
-  // SIRET badge
-  doc.setFillColor(76, 175, 80);
-  doc.roundedRect(proTextX, 47, 42, 6, 1.5, 1.5, "F");
-  doc.setFontSize(7);
+  // SIRET badge — large, high contrast
+  doc.setFillColor(255, 215, 0); // Gold background
+  doc.roundedRect(proTextX, 46, 92, 8, 2, 2, "F");
+  doc.setFillColor(30, 60, 30); // Dark green border effect
+  doc.roundedRect(proTextX + 0.5, 46.5, 91, 7, 1.5, 1.5, "F");
+  doc.setFillColor(255, 215, 0);
+  doc.roundedRect(proTextX + 1, 47, 90, 6, 1.2, 1.2, "F");
+  doc.setFontSize(8);
   doc.setFont("helvetica", "bold");
-  doc.setTextColor(255, 255, 255);
-  doc.text("✦ SIRET VÉRIFIÉ — ENCAISSEMENT AUTORISÉ", proTextX + 1.5, 51.2);
+  doc.setTextColor(20, 50, 20);
+  doc.text("SIRET VERIFIE  —  ENCAISSEMENT AUTORISE  ✦", proTextX + 45, 51.2, { align: "center" });
 
   // Title
   doc.setFontSize(8.5);

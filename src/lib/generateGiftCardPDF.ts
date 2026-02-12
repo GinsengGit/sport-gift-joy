@@ -71,34 +71,41 @@ export async function generateGiftCardPDF(data: GiftCardData) {
 
   // === PRO REASSURANCE TEXT (next to QR) ===
   const proTextX = 44;
-  doc.setFontSize(9);
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(76, 175, 80);
-  doc.text("Professionnel du sport ?", proTextX, 51);
 
+  // SIRET badge
+  doc.setFillColor(76, 175, 80);
+  doc.roundedRect(proTextX, 47, 42, 6, 1.5, 1.5, "F");
   doc.setFontSize(7);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(255, 255, 255);
+  doc.text("✦ SIRET VÉRIFIÉ — ENCAISSEMENT AUTORISÉ", proTextX + 1.5, 51.2);
+
+  // Title
+  doc.setFontSize(8.5);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(255, 255, 255);
+  doc.text("Professionnel du sport déclaré ?", proTextX, 58);
+
+  doc.setFontSize(6.5);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(220, 230, 220);
+  doc.text("En tant que professionnel déclaré (SIRET actif), vous", proTextX, 62);
+  doc.text("êtes autorisé à encaisser cette carte. Scannez le QR code.", proTextX, 65.5);
+
+  doc.setFontSize(6.5);
+  doc.setTextColor(180, 220, 180);
 
   const proLines = [
-    "Scannez ce QR code pour encaisser cette carte.",
-    "",
     "✓ 0% de commission — vous recevez 100% du montant",
-    "✓ Virement sous 48h ouvrées sur votre compte",
-    "✓ Vérification SIRET simple et rapide",
-    "✓ Aucun terminal de paiement nécessaire",
-    "",
-    "Kadosport est un réseau de paiement dédié au sport.",
+    "✓ Virement garanti sous 48h ouvrées",
+    "✓ Vérification SIRET instantanée",
+    "✓ Aucun contrat, aucun terminal requis",
   ];
 
-  let lineY = 56;
+  let lineY = 70;
   proLines.forEach((line) => {
-    if (line === "") {
-      lineY += 2;
-    } else {
-      doc.text(line, proTextX, lineY);
-      lineY += 3.5;
-    }
+    doc.text(line, proTextX, lineY);
+    lineY += 3.2;
   });
 
   // === BOTTOM BAR ===

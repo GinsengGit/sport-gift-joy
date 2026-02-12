@@ -82,7 +82,7 @@ export async function generateGiftCardPDF(data: GiftCardData) {
   doc.setFontSize(8);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(20, 50, 20);
-  doc.text("SIRET VERIFIE  —  ENCAISSEMENT AUTORISE  ✦", proTextX + 45, 51.2, { align: "center" });
+  doc.text("✦  ENCAISSEMENT RÉSERVÉ AUX PROFESSIONNELS DU SPORT  ✦", proTextX + 45, 51.2, { align: "center" });
 
   // Title
   doc.setFontSize(8.5);

@@ -72,45 +72,28 @@ export async function generateGiftCardPDF(data: GiftCardData) {
   // === PRO REASSURANCE TEXT (next to QR) ===
   const proTextX = 44;
 
-  // SIRET badge — large, high contrast
-  doc.setFillColor(255, 215, 0); // Gold background
-  doc.roundedRect(proTextX, 46, 92, 8, 2, 2, "F");
-  doc.setFillColor(30, 60, 30); // Dark green border effect
-  doc.roundedRect(proTextX + 0.5, 46.5, 91, 7, 1.5, 1.5, "F");
+  // SIRET badge — gold, all text inside
   doc.setFillColor(255, 215, 0);
-  doc.roundedRect(proTextX + 1, 47, 90, 6, 1.2, 1.2, "F");
-  doc.setFontSize(8);
+  doc.roundedRect(proTextX, 46, 93, 14, 2, 2, "F");
+  doc.setFillColor(30, 60, 30);
+  doc.roundedRect(proTextX + 0.5, 46.5, 92, 13, 1.5, 1.5, "F");
+  doc.setFillColor(255, 215, 0);
+  doc.roundedRect(proTextX + 1, 47, 91, 12, 1.2, 1.2, "F");
+
+  doc.setFontSize(7.5);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(20, 50, 20);
-  doc.text("✦  ENCAISSEMENT RÉSERVÉ AUX PROFESSIONNELS DU SPORT  ✦", proTextX + 45, 51.2, { align: "center" });
+  doc.text("✦  ENCAISSEMENT RÉSERVÉ AUX", proTextX + 46.5, 51.5, { align: "center" });
+  doc.text("PROFESSIONNELS DU SPORT  ✦", proTextX + 46.5, 56, { align: "center" });
 
-  // Title
-  doc.setFontSize(8.5);
+  // Simplified steps
+  doc.setFontSize(7);
   doc.setFont("helvetica", "bold");
-  doc.setTextColor(255, 255, 255);
-  doc.text("Professionnel du sport déclaré ?", proTextX, 58);
+  doc.setTextColor(76, 175, 80);
 
-  doc.setFontSize(6.5);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(220, 230, 220);
-  doc.text("En tant que professionnel déclaré (SIRET actif), vous", proTextX, 62);
-  doc.text("êtes autorisé à encaisser cette carte. Scannez le QR code.", proTextX, 65.5);
-
-  doc.setFontSize(6.5);
-  doc.setTextColor(180, 220, 180);
-
-  const proLines = [
-    "✓ 0% de commission — vous recevez 100% du montant",
-    "✓ Virement garanti sous 48h ouvrées",
-    "✓ Vérification SIRET instantanée",
-    "✓ Aucun contrat, aucun terminal requis",
-  ];
-
-  let lineY = 70;
-  proLines.forEach((line) => {
-    doc.text(line, proTextX, lineY);
-    lineY += 3.2;
-  });
+  doc.text("1. Scannez le QR code", proTextX, 67);
+  doc.text("2. 0% commission — 100% du montant pour vous", proTextX, 71);
+  doc.text("3. Remboursement garanti sous 48h", proTextX, 75);
 
   // === BOTTOM BAR ===
   doc.setFillColor(15, 45, 25);

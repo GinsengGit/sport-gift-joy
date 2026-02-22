@@ -36,7 +36,8 @@ import {
   Send,
   MessageSquare,
   Briefcase,
-  MapPin
+  MapPin,
+  Phone
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -64,6 +65,7 @@ interface FormData {
   rib: string;
   companyName: string;
   legalRepresentative: string;
+  phone: string;
   address: string;
   activityType: string;
   comments: string;
@@ -109,6 +111,7 @@ const PartnerPayment = () => {
     rib: "",
     companyName: "",
     legalRepresentative: "",
+    phone: "",
     address: "",
     activityType: "",
     comments: "",
@@ -253,6 +256,7 @@ const PartnerPayment = () => {
       rib: formData.rib,
       companyName: formData.companyName,
       legalRepresentative: formData.legalRepresentative,
+      phone: formData.phone,
       address: formData.address,
       activityType: formData.activityType,
       comments: formData.comments,
@@ -275,6 +279,7 @@ const PartnerPayment = () => {
       rib: "",
       companyName: "",
       legalRepresentative: "",
+      phone: "",
       address: "",
       activityType: "",
       comments: "",
@@ -321,7 +326,7 @@ const PartnerPayment = () => {
   );
 
   // Check if profile is complete
-  const isProfileComplete = formData.siret && formData.rib && formData.companyName && formData.legalRepresentative && formData.address && formData.activityType;
+  const isProfileComplete = formData.siret && formData.rib && formData.companyName && formData.legalRepresentative && formData.phone && formData.address && formData.activityType;
 
   return (
     <div className="min-h-screen bg-background">
@@ -1114,7 +1119,21 @@ const PartnerPayment = () => {
                         id="legalRepresentative"
                         placeholder="Ex: Jean Dupont"
                         value={formData.legalRepresentative}
-                        onChange={(e) => setFormData({ ...formData, legalRepresentative: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, legalRepresentative: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="flex items-center gap-2">
+                        <Phone className="w-4 h-4" />
+                        Numéro de téléphone
+                      </Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="Ex: 06 12 34 56 78"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
                     </div>
 
@@ -1225,6 +1244,7 @@ const PartnerPayment = () => {
                           !formData.rib || 
                           !formData.companyName ||
                           !formData.legalRepresentative ||
+                          !formData.phone ||
                           !formData.address ||
                           !formData.activityType ||
                           isLoading

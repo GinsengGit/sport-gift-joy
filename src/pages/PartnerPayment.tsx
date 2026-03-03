@@ -38,7 +38,11 @@ import {
   MessageSquare,
   Briefcase,
   MapPin,
-  Phone
+  Phone,
+  Dumbbell,
+  Users,
+  Mountain,
+  Trophy
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -436,6 +440,22 @@ const PartnerPayment = () => {
                         Exclusivement les <strong className="text-foreground">professionnels déclarés</strong> proposant des activités de <strong className="text-foreground">pratique sportive</strong>.
                       </p>
                     </div>
+                  </div>
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 border-t border-border pt-4">
+                    {[
+                      { icon: Dumbbell, label: "Salles de sport" },
+                      { icon: Users, label: "Coachs sportifs" },
+                      { icon: Mountain, label: "Activités outdoor" },
+                      { icon: Trophy, label: "Centres sportifs" },
+                      { icon: Building2, label: "Clubs & Associations" },
+                    ].map((a) => (
+                      <div key={a.label} className="flex flex-col items-center gap-1.5 p-2">
+                        <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+                          <a.icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <span className="text-[11px] text-muted-foreground text-center leading-tight">{a.label}</span>
+                      </div>
+                    ))}
                   </div>
                   <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground border-t border-border pt-4">
                     <div className="flex items-center gap-2">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import siretBadge from "@/assets/siret-badge.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -423,15 +424,28 @@ const PartnerPayment = () => {
                   </CardContent>
                 </Card>
 
-                {/* Trust badges */}
-                <div className="flex items-center justify-center gap-6 pt-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-primary" />
-                    <span>0% de commission</span>
+                {/* Eligibility message + SIRET badge */}
+                <div className="mt-6 bg-card border border-border rounded-2xl p-5 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <img src={siretBadge} alt="SIRET vérifié" className="h-12 w-auto" />
+                    <div>
+                      <h3 className="font-display font-bold text-foreground text-sm">
+                        Qui peut encaisser Kadosport ?
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        Exclusivement les <strong className="text-foreground">professionnels déclarés</strong> proposant des activités de <strong className="text-foreground">pratique sportive</strong>.
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-primary" />
-                    <span>Remboursement 48h</span>
+                  <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground border-t border-border pt-4">
+                    <div className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-primary" />
+                      <span>0% de commission</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-primary" />
+                      <span>Remboursement 48h</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>

@@ -353,7 +353,7 @@ const PartnerPayment = () => {
               animate={{ opacity: 1, y: 0 }}
               className="flex items-center gap-5 mb-8"
             >
-              <img src={siretBadge} alt="SIRET vérifié" className="h-20 w-auto flex-shrink-0 drop-shadow-md" />
+              <img src={siretBadge} alt="SIRET vérifié" className="h-28 w-auto flex-shrink-0 drop-shadow-md" />
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
                   Encaisser une carte Kadosport

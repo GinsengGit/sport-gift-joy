@@ -394,6 +394,47 @@ const PartnerPayment = () => {
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-4"
               >
+                {/* Eligibility message + SIRET badge - EN HAUT */}
+                <div className="bg-primary/5 border-2 border-primary/20 rounded-2xl p-6 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <img src={siretBadge} alt="SIRET vérifié" className="h-14 w-auto flex-shrink-0" />
+                    <div>
+                      <h3 className="font-display font-bold text-foreground text-base">
+                        Qui peut encaisser Kadosport ?
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Exclusivement les <strong className="text-foreground">professionnels déclarés</strong> proposant des activités de <strong className="text-foreground">pratique sportive</strong>.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 border-t border-primary/10 pt-4">
+                    {[
+                      { icon: Dumbbell, label: "Salles de sport" },
+                      { icon: Users, label: "Coachs sportifs" },
+                      { icon: Mountain, label: "Activités outdoor" },
+                      { icon: Trophy, label: "Centres sportifs" },
+                      { icon: Building2, label: "Clubs & Associations" },
+                    ].map((a) => (
+                      <div key={a.label} className="flex flex-col items-center gap-1.5 p-2">
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                          <a.icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <span className="text-[11px] text-muted-foreground text-center leading-tight font-medium">{a.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground border-t border-primary/10 pt-3">
+                    <div className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-primary" />
+                      <span>0% de commission</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-primary" />
+                      <span>Remboursement 48h</span>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Option 1: Returning Pro */}
                 <Card 
                   className="border-2 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all group"
@@ -427,47 +468,6 @@ const PartnerPayment = () => {
                     <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </CardContent>
                 </Card>
-
-                {/* Eligibility message + SIRET badge */}
-                <div className="mt-6 bg-card border border-border rounded-2xl p-5 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <img src={siretBadge} alt="SIRET vérifié" className="h-12 w-auto" />
-                    <div>
-                      <h3 className="font-display font-bold text-foreground text-sm">
-                        Qui peut encaisser Kadosport ?
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        Exclusivement les <strong className="text-foreground">professionnels déclarés</strong> proposant des activités de <strong className="text-foreground">pratique sportive</strong>.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 border-t border-border pt-4">
-                    {[
-                      { icon: Dumbbell, label: "Salles de sport" },
-                      { icon: Users, label: "Coachs sportifs" },
-                      { icon: Mountain, label: "Activités outdoor" },
-                      { icon: Trophy, label: "Centres sportifs" },
-                      { icon: Building2, label: "Clubs & Associations" },
-                    ].map((a) => (
-                      <div key={a.label} className="flex flex-col items-center gap-1.5 p-2">
-                        <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-                          <a.icon className="w-4 h-4 text-primary" />
-                        </div>
-                        <span className="text-[11px] text-muted-foreground text-center leading-tight">{a.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground border-t border-border pt-4">
-                    <div className="flex items-center gap-2">
-                      <Shield className="w-4 h-4 text-primary" />
-                      <span>0% de commission</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-primary" />
-                      <span>Remboursement 48h</span>
-                    </div>
-                  </div>
-                </div>
               </motion.div>
             )}
 

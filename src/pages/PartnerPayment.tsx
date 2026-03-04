@@ -347,15 +347,20 @@ const PartnerPayment = () => {
             className="container mx-auto px-4 max-w-2xl"
           >
             {/* Header */}
+            {/* Header with SIRET badge */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-8"
             >
+              <img src={siretBadge} alt="SIRET vérifié" className="h-20 w-auto mx-auto mb-4 drop-shadow-md" />
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                 Encaisser une carte Kadosport
               </h1>
               <p className="text-muted-foreground">
+                Exclusivement réservé aux <strong className="text-foreground">professionnels déclarés</strong> du sport
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">
                 0% de commission • Remboursement sous 48h
               </p>
             </motion.div>
@@ -394,19 +399,8 @@ const PartnerPayment = () => {
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-4"
               >
-                {/* Eligibility message + SIRET badge - EN HAUT */}
-                <div className="bg-primary/5 border-2 border-primary/20 rounded-2xl p-6 space-y-5">
-                  <div className="flex flex-col items-center text-center gap-4">
-                    <img src={siretBadge} alt="SIRET vérifié" className="h-24 w-auto drop-shadow-md" />
-                    <div>
-                      <h3 className="font-display font-bold text-foreground text-lg">
-                        Qui peut encaisser Kadosport ?
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
-                        Exclusivement les <strong className="text-foreground">professionnels déclarés</strong> proposant des activités de <strong className="text-foreground">pratique sportive</strong>.
-                      </p>
-                    </div>
-                  </div>
+                {/* Eligible activities */}
+                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-5 space-y-4">
                   <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 border-t border-primary/10 pt-4">
                     {[
                       { icon: Dumbbell, label: "Salles de sport" },

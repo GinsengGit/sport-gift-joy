@@ -351,18 +351,20 @@ const PartnerPayment = () => {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-8"
+              className="flex items-center gap-5 mb-8"
             >
-              <img src={siretBadge} alt="SIRET vérifié" className="h-20 w-auto mx-auto mb-4 drop-shadow-md" />
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                Encaisser une carte Kadosport
-              </h1>
-              <p className="text-muted-foreground">
-                Exclusivement réservé aux <strong className="text-foreground">professionnels déclarés</strong> du sport
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                0% de commission • Remboursement sous 48h
-              </p>
+              <img src={siretBadge} alt="SIRET vérifié" className="h-20 w-auto flex-shrink-0 drop-shadow-md" />
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
+                  Encaisser une carte Kadosport
+                </h1>
+                <p className="text-muted-foreground">
+                  Exclusivement réservé aux <strong className="text-foreground">professionnels déclarés</strong> du sport
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  0% de commission • Remboursement sous 48h
+                </p>
+              </div>
             </motion.div>
 
             {/* Progress Steps */}

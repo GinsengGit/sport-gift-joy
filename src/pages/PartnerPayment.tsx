@@ -395,14 +395,14 @@ const PartnerPayment = () => {
                 className="space-y-4"
               >
                 {/* Eligibility message + SIRET badge - EN HAUT */}
-                <div className="bg-primary/5 border-2 border-primary/20 rounded-2xl p-6 space-y-4">
-                  <div className="flex items-center gap-4">
-                    <img src={siretBadge} alt="SIRET vérifié" className="h-14 w-auto flex-shrink-0" />
+                <div className="bg-primary/5 border-2 border-primary/20 rounded-2xl p-6 space-y-5">
+                  <div className="flex flex-col items-center text-center gap-4">
+                    <img src={siretBadge} alt="SIRET vérifié" className="h-24 w-auto drop-shadow-md" />
                     <div>
-                      <h3 className="font-display font-bold text-foreground text-base">
+                      <h3 className="font-display font-bold text-foreground text-lg">
                         Qui peut encaisser Kadosport ?
                       </h3>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
                         Exclusivement les <strong className="text-foreground">professionnels déclarés</strong> proposant des activités de <strong className="text-foreground">pratique sportive</strong>.
                       </p>
                     </div>

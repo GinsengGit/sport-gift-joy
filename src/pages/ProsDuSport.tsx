@@ -97,8 +97,7 @@ const ProsDuSport = () => {
               <span className="gradient-text">encaissez Kadosport</span>
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              <strong className="text-foreground">0% de commission prélevée.</strong>{" "}
-              Dispositif de remboursement réservé aux professionnels du sport disposant d'un SIRET valide.
+              Dispositif de financement de la pratique sportive réservé aux professionnels du sport.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/partner-payment">

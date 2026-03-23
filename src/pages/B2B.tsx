@@ -125,12 +125,8 @@ const B2B = () => {
                     Commander des cartes cadeaux
                   </Button>
                 </Link>
-                <Link to="/dashboard-cse">
-                  <Button variant="outline" size="lg" className="text-base w-full sm:w-auto">
-                    <LayoutDashboard className="w-4 h-4 mr-2" />
-                    Tableau de bord RH
-                  </Button>
-                </Link>
+
+
               </motion.div>
             </div>
           </div>

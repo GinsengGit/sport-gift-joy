@@ -119,12 +119,10 @@ const B2B = () => {
                 transition={{ delay: 0.3 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
-                <Button variant="hero" size="lg" className="text-base">
-                  Demander une démo
-                </Button>
-                <Link to="/plaquette-cse">
-                  <Button variant="outline" size="lg" className="text-base w-full sm:w-auto">
-                    Télécharger la plaquette
+                <Link to="/offrir-carte">
+                  <Button variant="hero" size="lg" className="text-base w-full sm:w-auto">
+                    <Gift className="w-5 h-5 mr-2" />
+                    Commander des cartes cadeaux
                   </Button>
                 </Link>
                 <Link to="/dashboard-cse">
@@ -433,20 +431,16 @@ const B2B = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    variant="secondary" 
-                    size="lg" 
-                    className="bg-white text-primary hover:bg-white/90"
-                  >
-                    Demander une démo
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    className="border-white/30 text-white hover:bg-white/10"
-                  >
-                    Nous contacter
-                  </Button>
+                  <Link to="/offrir-carte">
+                    <Button 
+                      variant="secondary" 
+                      size="lg" 
+                      className="bg-white text-primary hover:bg-white/90 w-full sm:w-auto"
+                    >
+                      <Gift className="w-5 h-5 mr-2" />
+                      Commander des cartes cadeaux
+                    </Button>
+                  </Link>
                 </div>
               </div>
               

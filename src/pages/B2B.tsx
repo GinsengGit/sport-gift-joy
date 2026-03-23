@@ -66,22 +66,13 @@ const B2B = () => {
                 transition={{ delay: 0.1 }}
                 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
               >
-                Vous êtes une entreprise, un CSE, vous souhaitez développer la pratique sportive ?
+                Vous êtes une entreprise, un CSE, vous souhaitez développer la pratique sportive de vos salariés ?
               </motion.h1>
               
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto"
-              >
-                Offrez du sport à vos salariés.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 }}
                 className="text-xl md:text-2xl font-bold text-foreground mb-8 max-w-2xl mx-auto"
               >
                 La carte <span className="text-transparent bg-clip-text bg-gradient-hero">KADOSPORT</span> est LA SOLUTION

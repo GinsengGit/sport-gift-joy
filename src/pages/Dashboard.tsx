@@ -15,7 +15,6 @@ import {
   Lock,
   Download
 } from "lucide-react";
-import { generateGiftCardPDF } from "@/lib/generateGiftCardPDF";
 import { useAffiliateOffers, trackAffiliateClick } from "@/hooks/useAffiliateOffers";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -209,23 +208,16 @@ const Dashboard = () => {
                   Offrir une carte
                 </Button>
               </Link>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/80 hover:text-white hover:bg-white/10"
-                onClick={() =>
-                  generateGiftCardPDF({
-                    recipientName: mockUserData.name,
-                    balance: mockUserData.balance,
-                    cardNumber: mockUserData.cardNumber,
-                    expirationDate: mockUserData.expirationDate,
-                    cardCode: "KDS-2024-7X9F",
-                  })
-                }
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Télécharger ma carte
-              </Button>
+              <Link to={`/carte-digitale?name=${encodeURIComponent(mockUserData.name)}&balance=${mockUserData.balance}&card=${mockUserData.cardNumber}&exp=${mockUserData.expirationDate}&code=KDS-2024-7X9F`}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white/80 hover:text-white hover:bg-white/10"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Télécharger ma carte
+                </Button>
+              </Link>
             </div>
           </div>
         </motion.div>

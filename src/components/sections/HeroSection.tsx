@@ -48,7 +48,7 @@ export const HeroSection = () => {
             OFFREZ DU <span className="text-primary">SPORT</span>
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-            KADOSPORT est la 1ère carte cadeau 100% sportive
+            La 1ère carte cadeau 100% sport, utilisable chez tous les professionnels du sport déclarés en France
           </p>
         </motion.div>
 
@@ -98,9 +98,8 @@ export const HeroSection = () => {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
-            Une carte sport pour financer la pratique sportive librement,
-            chez tous les professionnels du sport déclarés, partout en France.
-            Elle donne aussi accès à des <span className="font-semibold text-primary">avantages exclusifs</span> sur le matériel et l'équipement sportif.
+            Offrez une carte cadeau sportive pour financer la pratique sportive librement :
+            fitness, coaching, clubs, activités outdoor, bien-être… Utilisable chez tous les professionnels du sport déclarés, partout en France.
           </p>
           
           {/* Les + Kadosport */}

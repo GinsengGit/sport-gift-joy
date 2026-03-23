@@ -120,11 +120,7 @@ const CarteDigitale = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between mt-3">
-                <div>
-                  <p className="text-white/50 text-xs">Code</p>
-                  <p className="font-mono font-bold text-emerald-300">{cardCode}</p>
-                </div>
+              <div className="flex items-center justify-end mt-3">
                 <div className="text-right">
                   <p className="text-white/50 text-xs">Valable jusqu'au</p>
                   <p className="text-sm text-white/80">{formattedExp}</p>

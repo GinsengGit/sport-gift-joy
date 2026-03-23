@@ -14,8 +14,6 @@ import FAQ from "./pages/FAQ";
 import PlaquetteCSE from "./pages/PlaquetteCSE";
 import ExtendCard from "./pages/ExtendCard";
 import ProDashboard from "./pages/ProDashboard";
-import AvantagesExclusifs from "./pages/AvantagesExclusifs";
-import AvantagesSport from "./pages/AvantagesSport";
 import Historique from "./pages/Historique";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -42,8 +40,6 @@ const App = () => (
           <Route path="/plaquette-cse" element={<PlaquetteCSE />} />
           <Route path="/prolonger" element={<ExtendCard />} />
           <Route path="/pro-dashboard" element={<ProDashboard />} />
-          <Route path="/avantages-exclusifs" element={<AvantagesExclusifs />} />
-          <Route path="/avantages-sport" element={<AvantagesSport />} />
           <Route path="/historique" element={<Historique />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users, Percent, Lock, ExternalLink } from "lucide-react";
+import { Check, QrCode, Clock, Shield, Smartphone, Zap, Users, Percent } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import coachingImage from "@/assets/coaching-fitness.jpg";

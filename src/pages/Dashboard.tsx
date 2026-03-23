@@ -4,18 +4,11 @@ import { Link } from "react-router-dom";
 import { 
   CreditCard, 
   ArrowRight, 
-  Percent, 
-  ExternalLink, 
-  Tag, 
-  Star, 
   Clock, 
   History,
-  ChevronRight,
   Gift,
-  Lock,
   Download
 } from "lucide-react";
-import { useAffiliateOffers, trackAffiliateClick } from "@/hooks/useAffiliateOffers";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";

@@ -19,7 +19,7 @@ import {
   Rocket,
   LayoutDashboard
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+
 import { Link } from "react-router-dom";
 
 const idealFor = [

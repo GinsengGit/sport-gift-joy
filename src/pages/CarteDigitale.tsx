@@ -42,7 +42,7 @@ const CarteDigitale = () => {
   ];
 
   const steps = [
-    { num: "1", title: "Scannez le QR code", desc: "Accédez à la plateforme d'encaissement sécurisée" },
+    { num: "1", title: "Scannez le QR code", desc: "Ou rendez-vous sur kadosport.fr/encaisser-une-carte" },
     { num: "2", title: "Déclarez le montant", desc: "0% de commission — 100% du montant pour vous" },
     { num: "3", title: "Recevez votre virement", desc: "Remboursement garanti sous 48h ouvrées" },
   ];

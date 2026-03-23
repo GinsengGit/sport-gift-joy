@@ -27,7 +27,7 @@ const advantageBlocks = [
   {
     icon: Smartphone,
     title: "Facilité d'utilisation",
-    description: "Choisissez la e-carte dématérialisée ! Plus de chèque papier que l'on risque de perdre : la carte KADOSPORT est sur votre smartphone. Votre salarié peut dépenser le montant de sa carte cadeau en une ou plusieurs fois et consulter en temps réel le solde disponible."
+    description: "Choisissez la e-carte dématérialisée ! Plus de chèque papier que l'on risque de perdre : la carte KADOSPORT est sur votre smartphone. Votre salarié peut dépenser le montant de sa carte cadeau en une ou plusieurs fois et consulter en temps réel le solde disponible sur notre site internet."
   },
   {
     icon: TrendingUp,

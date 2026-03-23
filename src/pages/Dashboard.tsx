@@ -15,7 +15,6 @@ import {
   Lock,
   Download
 } from "lucide-react";
-import { generateGiftCardPDF } from "@/lib/generateGiftCardPDF";
 import { useAffiliateOffers, trackAffiliateClick } from "@/hooks/useAffiliateOffers";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

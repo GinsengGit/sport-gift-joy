@@ -27,7 +27,7 @@ const advantages = [
   { icon: Heart, text: "Levier de bien-être et de motivation pour vos équipes" },
   { icon: Target, text: "Utilisable chez tous les professionnels du sport déclarés" },
   { icon: Users, text: "Gestion centralisée des budgets et rapports d'utilisation" },
-  { icon: Dumbbell, text: "Zéro commission pour les professionnels partenaires" },
+  
 ];
 
 const stats = [

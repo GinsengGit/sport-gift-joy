@@ -6,35 +6,45 @@ import {
   Building2, 
   Users, 
   Heart, 
-  Shield, 
   Gift, 
   CreditCard,
   CheckCircle,
-  Euro,
   BarChart3,
   Mail,
-  Zap,
-  Target,
-  Dumbbell
+  Smartphone,
+  TrendingUp,
+  Star,
+  Euro
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const advantages = [
-  { icon: Gift, text: "Carte cadeau 100% dédiée au sport" },
-  { icon: Shield, text: "Usage exclusivement sportif — aucun détournement possible" },
-  { icon: Euro, text: "Exonération URSSAF possible sous conditions" },
-  { icon: Zap, text: "100% digital — distribution par email en quelques clics" },
-  { icon: Heart, text: "Levier de bien-être et de motivation pour vos équipes" },
-  { icon: Target, text: "Utilisable chez tous les professionnels du sport déclarés" },
-  { icon: Users, text: "Gestion centralisée des budgets et rapports d'utilisation" },
-  
-];
-
-const stats = [
-  { value: "100%", label: "Digital" },
-  { value: "0%", label: "Commission" },
-  { value: "500+", label: "Pros du sport" },
-  { value: "URSSAF", label: "Conforme" }
+const advantageBlocks = [
+  {
+    icon: Gift,
+    title: "Laissez votre salarié choisir son prochain défi sportif",
+    description: "Fitness, coaching sportif, centres sportifs, clubs et associations sportives... La carte Kadosport est encaissable par chaque professionnel du sport déclaré."
+  },
+  {
+    icon: Smartphone,
+    title: "Facilité d'utilisation",
+    description: "Choisissez la e-carte dématérialisée ! Plus de chèque papier que l'on risque de perdre : la carte KADOSPORT est sur votre smartphone. Votre salarié peut dépenser le montant de sa carte cadeau dans l'ensemble de notre réseau de partenaires et consulter en temps réel le solde de sa carte sur notre site internet."
+  },
+  {
+    icon: TrendingUp,
+    title: "Développez votre productivité et le bien-être de vos salariés",
+    description: "La pratique d'une activité sportive permet de réduire le stress et de prévenir des maladies. Proposer à vos salariés de pratiquer du sport améliore la performance de votre entreprise.",
+    quote: "« Un esprit sain dans un corps sain »"
+  },
+  {
+    icon: Star,
+    title: "Développez l'attractivité de votre entreprise",
+    description: "Motivez et fidélisez vos salariés en leur facilitant l'accès à la pratique sportive ! Démarquez-vous en véhiculant des valeurs saines de santé et de dépassement de soi !"
+  },
+  {
+    icon: Euro,
+    title: "Bénéficiez d'une exonération totale",
+    description: "La distribution des cartes KADOSPORT auprès de vos salariés est exonérée de cotisations sociales selon la réglementation URSSAF."
+  }
 ];
 
 const B2B = () => {
@@ -102,7 +112,7 @@ const B2B = () => {
         </section>
 
 
-        {/* Avantages Section - Single Block */}
+        {/* Avantages Section */}
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
@@ -114,31 +124,28 @@ const B2B = () => {
               >
                 Les avantages <span className="text-primary">KADOSPORT</span> pour votre entreprise
               </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-muted-foreground max-w-2xl mx-auto"
-              >
-                Une solution complète pour encourager la pratique sportive de vos collaborateurs
-              </motion.p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-              {advantages.map((item, index) => (
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {advantageBlocks.map((item, index) => (
                 <motion.div
-                  key={item.text}
+                  key={item.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-center gap-4 p-5 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors"
+                  transition={{ delay: index * 0.08 }}
+                  className={`p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors ${index === 0 ? 'md:col-span-2' : ''}`}
                 >
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-6 h-6 text-primary" />
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <item.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-foreground">{item.title}</h3>
                   </div>
-                  <span className="text-foreground font-medium">{item.text}</span>
+                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                  {item.quote && (
+                    <p className="mt-3 text-primary font-semibold italic">{item.quote}</p>
+                  )}
                 </motion.div>
               ))}
             </div>

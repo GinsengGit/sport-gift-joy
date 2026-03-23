@@ -18,6 +18,7 @@ import Historique from "./pages/Historique";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import CarteDigitale from "./pages/CarteDigitale";
+import CommentCaMarche from "./pages/CommentCaMarche";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/carte-digitale" element={<CarteDigitale />} />
+          <Route path="/comment-ca-marche" element={<CommentCaMarche />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -22,7 +22,7 @@ const advantageBlocks = [
   {
     icon: Gift,
     title: "Laissez votre salarié choisir son prochain défi sportif",
-    description: "Fitness, coaching sportif, centres sportifs, clubs et associations sportives... La carte Kadosport est encaissable par chaque professionnel du sport déclaré."
+    description: "Fitness, coaching sportif, centres sportifs, clubs et associations sportives... Encaissable par tous les professionnels du sport déclarés en France."
   },
   {
     icon: Smartphone,

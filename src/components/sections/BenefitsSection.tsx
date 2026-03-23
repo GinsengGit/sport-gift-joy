@@ -36,8 +36,8 @@ const benefits = [
   },
   {
     icon: Percent,
-    title: "Avantages exclusifs",
-    description: "Réservé aux bénéficiaires : profitez de remises négociées sur l'équipement et le matériel sportif.",
+    title: "Zéro commission",
+    description: "Les professionnels du sport encaissent sans aucune commission. Un modèle gagnant-gagnant.",
   },
   {
     icon: Smartphone,
@@ -81,13 +81,12 @@ export const BenefitsSection = () => {
               Pour les bénéficiaires
             </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Une liberté totale{" "}
+              Une carte cadeau sport{" "}
               <span className="text-primary">sans limites</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              La carte Kadosport ouvre les portes de tout l'univers sportif. 
-              Pas de réseau fermé, pas de liste à consulter : 
-              tout professionnel du sport peut l'accepter.
+              Kadosport est la carte cadeau dédiée au sport, acceptée par tous les professionnels 
+              du sport déclarés en France. Fitness, coaching, clubs, outdoor : offrez du sport en toute liberté.
             </p>
 
             {/* Key Points */}
@@ -232,64 +231,6 @@ export const BenefitsSection = () => {
           ))}
         </motion.div>
 
-        {/* Exclusive Offers Preview */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-kado-gold/10 via-primary/5 to-kado-coral/10 border border-kado-gold/20 p-8 lg:p-12"
-        >
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-kado-gold/20 rounded-xl">
-                <Percent className="h-6 w-6 text-kado-gold" />
-              </div>
-              <div>
-                <h3 className="font-display text-2xl font-bold text-foreground">
-                  🎁 Avantages exclusifs Kadosport
-                </h3>
-              </div>
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="mb-8 space-y-3">
-            <p className="text-foreground font-medium">
-              En plus de votre crédit sport, profitez d'offres privilégiées sur l'équipement et le matériel sportif.
-            </p>
-            <p className="text-muted-foreground">
-              Running, fitness, outdoor, bien-être… Des conditions avantageuses accessibles uniquement aux bénéficiaires Kadosport, depuis leur espace personnel.
-            </p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Lock className="h-4 w-4 text-kado-gold flex-shrink-0" />
-              <span>Offres proposées par des enseignes du sport, achat réalisé directement chez le commerçant.</span>
-            </div>
-          </div>
-
-          {/* Category tags */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {["Running", "Fitness", "Outdoor", "Bien-être", "Vélo", "Sports collectifs"].map((cat) => (
-              <Badge key={cat} variant="secondary" className="text-sm px-3 py-1">
-                {cat}
-              </Badge>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="text-center">
-            <p className="text-muted-foreground mb-4">
-              Activez votre carte pour découvrir toutes les offres dans votre espace personnel.
-            </p>
-            <Link to="/offrir-carte">
-              <Button variant="hero" size="lg" className="group">
-                Obtenir ma carte Kadosport
-                <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

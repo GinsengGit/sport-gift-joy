@@ -148,7 +148,7 @@ export const PricingSection = () => {
                 {[
                   "Livraison instantanée par email",
                   "Validité : jusqu'à 24 mois",
-                  "Avantages exclusifs sur le matériel et l'équipement sportif",
+                  "Utilisable chez tous les professionnels du sport déclarés",
                   "Option cadeau commun disponible",
                 ].map((feature) => (
                   <div key={feature} className="flex items-center gap-3">

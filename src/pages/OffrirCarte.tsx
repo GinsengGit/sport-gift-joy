@@ -226,7 +226,7 @@ const OffrirCarte = () => {
                       <div className="space-y-3 mb-8">
                         {[
                           "Livraison instantanée par email",
-                          "Avantages exclusifs sur le matériel et l'équipement sportif",
+                          "Utilisable chez tous les professionnels du sport déclarés",
                           "Option cadeau commun disponible",
                         ].map((feature) => (
                           <div key={feature} className="flex items-center gap-3">

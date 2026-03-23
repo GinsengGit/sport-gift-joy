@@ -10,110 +10,219 @@ interface GiftCardData {
 }
 
 export async function generateGiftCardPDF(data: GiftCardData) {
-  const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: [90, 145] });
+  // A5 landscape for more space
+  const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: [148, 210] });
 
   const partnerPaymentUrl = `https://sport-gift-joy.lovable.app/partner-payment?card=${data.cardCode}`;
 
-  // Generate QR code as data URL
   const qrDataUrl = await QRCode.toDataURL(partnerPaymentUrl, {
-    width: 300,
+    width: 400,
     margin: 1,
     color: { dark: "#1a1a1a", light: "#ffffff" },
     errorCorrectionLevel: "H",
   });
 
-  // === CARD BACKGROUND ===
-  // Dark green gradient simulation
-  doc.setFillColor(20, 60, 30);
-  doc.roundedRect(0, 0, 145, 90, 0, 0, "F");
+  const W = 210;
+  const H = 148;
 
-  // Lighter green accent strip
-  doc.setFillColor(30, 90, 40);
-  doc.roundedRect(0, 0, 145, 32, 0, 0, "F");
+  // === BACKGROUND ===
+  doc.setFillColor(15, 50, 25);
+  doc.rect(0, 0, W, H, "F");
 
-  // Subtle accent line
-  doc.setFillColor(76, 175, 80);
-  doc.rect(0, 31.5, 145, 1, "F");
+  // Top accent bar
+  doc.setFillColor(25, 75, 35);
+  doc.rect(0, 0, W, 38, "F");
+
+  // Gold accent line
+  doc.setFillColor(200, 170, 50);
+  doc.rect(0, 37.5, W, 1, "F");
 
   // === HEADER ===
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(22);
+  doc.setFontSize(28);
   doc.setFont("helvetica", "bold");
-  doc.text("Kadosport", 8, 14);
+  doc.text("Kadosport", 12, 16);
+
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(180, 210, 180);
+  doc.text("Carte cadeau sport & loisirs sportifs", 12, 23);
+
+  // Amount top right
+  doc.setFontSize(32);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(255, 255, 255);
+  doc.text(`${data.balance.toFixed(2)} €`, W - 12, 18, { align: "right" });
+
+  doc.setFontSize(8);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(160, 190, 160);
+  doc.text("Solde disponible", W - 12, 25, { align: "right" });
+
+  // Beneficiary
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(220, 240, 220);
+  doc.text(`Bénéficiaire : ${data.recipientName}`, 12, 33);
+
+  // Card info right
+  doc.setFontSize(8);
+  doc.setFont("courier", "normal");
+  doc.setTextColor(160, 190, 160);
+  doc.text(`N° ${formatCardDisplay(data.cardNumber)}`, W - 12, 33, { align: "right" });
+
+  // ===========================
+  // SECTION PRO — main content
+  // ===========================
+  const contentY = 44;
+
+  // --- QR CODE ---
+  const qrSize = 38;
+  const qrX = 12;
+  const qrY = contentY;
+
+  // White bg for QR
+  doc.setFillColor(255, 255, 255);
+  doc.roundedRect(qrX, qrY, qrSize + 4, qrSize + 4, 3, 3, "F");
+  doc.addImage(qrDataUrl, "PNG", qrX + 2, qrY + 2, qrSize, qrSize);
+
+  // Small label under QR
+  doc.setFontSize(6.5);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(160, 190, 160);
+  doc.text("Scannez pour encaisser", qrX + (qrSize + 4) / 2, qrY + qrSize + 8, { align: "center" });
+
+  // === RIGHT SIDE: PRO MESSAGE ===
+  const proX = qrX + qrSize + 12;
+  const proW = W - proX - 12;
+
+  // --- GOLD BADGE ---
+  const badgeY = contentY;
+  const badgeH = 18;
+
+  // Outer gold border
+  doc.setFillColor(200, 170, 50);
+  doc.roundedRect(proX, badgeY, proW, badgeH, 3, 3, "F");
+  // Inner dark
+  doc.setFillColor(20, 55, 25);
+  doc.roundedRect(proX + 1, badgeY + 1, proW - 2, badgeH - 2, 2.5, 2.5, "F");
+  // Inner gold
+  doc.setFillColor(200, 170, 50);
+  doc.roundedRect(proX + 2, badgeY + 2, proW - 4, badgeH - 4, 2, 2, "F");
+
+  // Badge icon (shield)
+  doc.setFontSize(10);
+  doc.setTextColor(20, 55, 25);
+  doc.text("🛡️", proX + 6, badgeY + 10);
+
+  // Badge text
+  doc.setFontSize(8);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(20, 55, 25);
+  doc.text("SIRET VÉRIFIÉ", proX + 14, badgeY + 9);
+
+  doc.setFontSize(7);
+  doc.text("ENCAISSEMENT RÉSERVÉ AUX PROFESSIONNELS DU SPORT", proX + 14, badgeY + 14);
+
+  // === ACCROCHE MESSAGE ===
+  const accrocheY = badgeY + badgeH + 5;
+
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(255, 255, 255);
+  doc.text("Vous êtes un professionnel du sport déclaré ?", proX, accrocheY);
 
   doc.setFontSize(8);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(200, 220, 200);
-  doc.text("Carte cadeau sport & loisirs sportifs", 8, 20);
+  const exemples = "(salle fitness, coach sportif, centre sportif, association sportive...)";
+  doc.text(exemples, proX, accrocheY + 5);
 
-  // Amount
-  doc.setFontSize(26);
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(76, 200, 100);
+  doc.text("Encaissez cette carte sans aucune commission !", proX, accrocheY + 12);
+
+  // === 3 ÉTAPES ===
+  const stepsY = accrocheY + 20;
+  const stepSpacing = 30;
+
+  // Step backgrounds
+  for (let i = 0; i < 3; i++) {
+    const sx = proX + i * stepSpacing;
+    doc.setFillColor(25, 70, 35);
+    doc.roundedRect(sx, stepsY, 27, 28, 2, 2, "F");
+  }
+
+  // Step 1
+  doc.setFontSize(16);
+  doc.setTextColor(76, 200, 100);
+  doc.text("📱", proX + 13.5, stepsY + 9, { align: "center" });
+  doc.setFontSize(7);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(255, 255, 255);
-  doc.text(`${data.balance.toFixed(2)} €`, 137, 16, { align: "right" });
-
-  doc.setFontSize(7);
+  doc.text("1. Scannez", proX + 13.5, stepsY + 16, { align: "center" });
+  doc.setFontSize(6);
   doc.setFont("helvetica", "normal");
-  doc.setTextColor(180, 200, 180);
-  doc.text("Solde initial", 137, 22, { align: "right" });
+  doc.setTextColor(180, 210, 180);
+  doc.text("le QR code", proX + 13.5, stepsY + 20, { align: "center" });
+  doc.text("ci-contre", proX + 13.5, stepsY + 24, { align: "center" });
 
-  // === BENEFICIARY NAME ===
-  doc.setFontSize(11);
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(255, 255, 255);
-  doc.text(`Bénéficiaire : ${data.recipientName}`, 8, 42);
-
-  // === QR CODE ===
-  // White background for QR
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(8, 47, 30, 30, 2, 2, "F");
-  doc.addImage(qrDataUrl, "PNG", 9.5, 48.5, 27, 27);
-
-  // === PRO REASSURANCE TEXT (next to QR) ===
-  const proTextX = 44;
-
-  // SIRET badge — gold, all text inside
-  doc.setFillColor(255, 215, 0);
-  doc.roundedRect(proTextX, 46, 93, 14, 2, 2, "F");
-  doc.setFillColor(30, 60, 30);
-  doc.roundedRect(proTextX + 0.5, 46.5, 92, 13, 1.5, 1.5, "F");
-  doc.setFillColor(255, 215, 0);
-  doc.roundedRect(proTextX + 1, 47, 91, 12, 1.2, 1.2, "F");
-
-  doc.setFontSize(7.5);
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(20, 50, 20);
-  doc.text("✦  ENCAISSEMENT RÉSERVÉ AUX", proTextX + 46.5, 51.5, { align: "center" });
-  doc.text("PROFESSIONNELS DU SPORT  ✦", proTextX + 46.5, 56, { align: "center" });
-
-  // Simplified steps
+  // Step 2
+  const s2x = proX + stepSpacing + 13.5;
+  doc.setFontSize(16);
+  doc.setTextColor(76, 200, 100);
+  doc.text("✅", s2x, stepsY + 9, { align: "center" });
   doc.setFontSize(7);
   doc.setFont("helvetica", "bold");
-  doc.setTextColor(76, 175, 80);
+  doc.setTextColor(255, 255, 255);
+  doc.text("2. Déclarez", s2x, stepsY + 16, { align: "center" });
+  doc.setFontSize(6);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(180, 210, 180);
+  doc.text("0% de", s2x, stepsY + 20, { align: "center" });
+  doc.text("commission", s2x, stepsY + 24, { align: "center" });
 
-  doc.text("1. Scannez le QR code", proTextX, 67);
-  doc.text("2. 0% commission — 100% du montant pour vous", proTextX, 71);
-  doc.text("3. Remboursement garanti sous 48h", proTextX, 75);
+  // Step 3
+  const s3x = proX + 2 * stepSpacing + 13.5;
+  doc.setFontSize(16);
+  doc.setTextColor(76, 200, 100);
+  doc.text("💸", s3x, stepsY + 9, { align: "center" });
+  doc.setFontSize(7);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(255, 255, 255);
+  doc.text("3. Recevez", s3x, stepsY + 16, { align: "center" });
+  doc.setFontSize(6);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(180, 210, 180);
+  doc.text("Remboursé", s3x, stepsY + 20, { align: "center" });
+  doc.text("sous 48h", s3x, stepsY + 24, { align: "center" });
 
   // === BOTTOM BAR ===
-  doc.setFillColor(15, 45, 25);
-  doc.rect(0, 80, 145, 10, "F");
+  doc.setFillColor(10, 35, 18);
+  doc.rect(0, H - 14, W, 14, "F");
 
-  // Card number
-  doc.setFontSize(7);
-  doc.setFont("courier", "normal");
-  doc.setTextColor(150, 170, 150);
-  doc.text(`N° ${formatCardDisplay(data.cardNumber)}`, 8, 86);
+  // Gold line above
+  doc.setFillColor(200, 170, 50);
+  doc.rect(0, H - 14.5, W, 0.5, "F");
+
+  // Card code
+  doc.setFontSize(8);
+  doc.setFont("courier", "bold");
+  doc.setTextColor(76, 200, 100);
+  doc.text(`Code : ${data.cardCode}`, 12, H - 7);
 
   // Expiration
   const expDate = new Date(data.expirationDate);
   const expFormatted = expDate.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
-  doc.text(`Valable jusqu'en ${expFormatted}`, 75, 86);
+  doc.setFont("courier", "normal");
+  doc.setTextColor(140, 170, 140);
+  doc.text(`Valable jusqu'en ${expFormatted}`, W / 2, H - 7, { align: "center" });
 
-  // Code
-  doc.setFont("courier", "bold");
-  doc.setTextColor(76, 175, 80);
-  doc.text(data.cardCode, 137, 86, { align: "right" });
+  // Website
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(140, 170, 140);
+  doc.text("kadosport.fr", W - 12, H - 7, { align: "right" });
 
   // === SAVE ===
   doc.save(`carte-kadosport-${data.cardCode}.pdf`);

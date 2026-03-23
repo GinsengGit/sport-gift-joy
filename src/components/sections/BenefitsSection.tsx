@@ -6,7 +6,7 @@ import coachingImage from "@/assets/coaching-fitness.jpg";
 import climbingImage from "@/assets/climbing-adventure.jpg";
 import waterSportsImage from "@/assets/water-sports.jpg";
 import gymImage from "@/assets/gym-fitness.jpg";
-import { Badge } from "@/components/ui/badge";
+
 
 const benefits = [
   {

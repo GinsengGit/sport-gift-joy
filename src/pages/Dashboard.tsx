@@ -114,7 +114,6 @@ const CardEntryScreen = ({ onSubmit }: { onSubmit: (cardNumber: string) => void 
 
 const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { data: dbOffers = [] } = useAffiliateOffers({ limit: 6 });
   const handleCardSubmit = (cardNumber: string) => {
     setIsAuthenticated(true);
   };

@@ -106,7 +106,7 @@ export const HeroSection = () => {
             Offrez une carte KADOSPORT, <span className="text-primary">LA PLUS SPORTIVE</span> des cartes cadeaux.
           </p>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
-            Salles de fitness, coachs sportifs, centres sportifs, clubs et associations sportives… KADOSPORT est la 1ère carte cadeau encaissable <span className="font-semibold text-foreground">sans commission</span>. Véritable carte cadeau multisport, elle répond aux attentes de tous les sportifs.
+            La première carte cadeau digitale universelle, dédiée au sport et aux activités sportives.
           </p>
           
           <div className="flex flex-col gap-3 items-center">

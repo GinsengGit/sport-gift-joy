@@ -41,6 +41,17 @@ export const HeroSection = () => {
           <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
             Encaissable exclusivement par les professionnels du sport déclarés en France
           </p>
+          
+          <div className="flex flex-wrap justify-center gap-2 mt-5">
+            {["Fitness", "Coachs sportifs", "Centres sportifs", "Clubs sportifs", "Associations sportives"].map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </motion.div>
 
         {/* Tilted Photo Collage Box */}

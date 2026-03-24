@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, QrCode, Gift, Check } from "lucide-react";
+import { ArrowRight, QrCode, Gift, Check, Dumbbell, Users, Mountain, Trophy, Heart, Bike } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -43,12 +43,20 @@ export const HeroSection = () => {
           </p>
           
           <div className="flex flex-wrap justify-center gap-2 mt-5">
-            {["Fitness", "Coachs sportifs", "Centres sportifs", "Clubs sportifs", "Associations sportives"].map((tag) => (
+            {[
+              { icon: Dumbbell, label: "Salles de sport & fitness" },
+              { icon: Users, label: "Coachs sportifs indépendants" },
+              { icon: Mountain, label: "Activités outdoor & nature" },
+              { icon: Trophy, label: "Clubs & associations sportives" },
+              { icon: Heart, label: "Centres bien-être & yoga" },
+              { icon: Bike, label: "Centres sportifs & loisirs" },
+            ].map((tag) => (
               <span
-                key={tag}
-                className="inline-flex items-center px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary"
+                key={tag.label}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary"
               >
-                {tag}
+                <tag.icon className="w-3.5 h-3.5" />
+                {tag.label}
               </span>
             ))}
           </div>

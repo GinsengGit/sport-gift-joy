@@ -59,7 +59,7 @@ const ACTIVITY_TYPES = [
 ];
 
 // Types
-type Step = "choice" | "scan" | "returning-pro" | "new-pro-info" | "balance" | "email" | "confirmation" | "complete-profile";
+type Step = "choice" | "scan" | "returning-pro" | "returning-pro-menu" | "new-pro-info" | "balance" | "email" | "confirmation" | "complete-profile";
 
 interface FormData {
   cardCode: string;
@@ -187,7 +187,7 @@ const PartnerPayment = () => {
     }));
     setIsReturningPro(true);
     setIsLoading(false);
-    setCurrentStep("scan");
+    setCurrentStep("returning-pro-menu");
   };
 
   // Step 2: Submit amount - go to email step (or direct confirmation if returning pro)
@@ -299,6 +299,7 @@ const PartnerPayment = () => {
 
   const goBack = () => {
     if (currentStep === "returning-pro") setCurrentStep("choice");
+    else if (currentStep === "returning-pro-menu") setCurrentStep("returning-pro");
     else if (currentStep === "new-pro-info") setCurrentStep("choice");
     else if (currentStep === "balance") setCurrentStep("scan");
     else if (currentStep === "email") setCurrentStep("balance");
@@ -327,6 +328,7 @@ const PartnerPayment = () => {
   const currentStepIndex = processSteps.findIndex(s => 
     s.id === currentStep || 
     (currentStep === "returning-pro" && s.id === "scan") ||
+    (currentStep === "returning-pro-menu" && s.id === "scan") ||
     (currentStep === "complete-profile" && s.id === "confirmation")
   );
 
@@ -719,6 +721,67 @@ const PartnerPayment = () => {
                         Continuez normalement
                       </button>
                     </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {/* Returning Pro Menu - Choose action */}
+            {currentStep === "returning-pro-menu" && verifiedPro && (
+              <motion.div
+                key="returning-pro-menu"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+              >
+                <Card className="border-2">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                      <BadgeCheck className="w-8 h-8 text-green-600" />
+                    </div>
+                    <CardTitle>Bienvenue, {verifiedPro.companyName}</CardTitle>
+                    <CardDescription>
+                      Que souhaitez-vous faire ?
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Card 
+                      className="border-2 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all group"
+                      onClick={() => setCurrentStep("scan")}
+                    >
+                      <CardContent className="p-6 flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                          <CreditCard className="w-7 h-7 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-display font-bold text-lg text-foreground">Nouvel encaissement</h3>
+                          <p className="text-sm text-muted-foreground">Encaisser une carte Kadosport</p>
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </CardContent>
+                    </Card>
+
+                    <Link to="/pro-dashboard" className="block">
+                      <Card 
+                        className="border-2 cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all group"
+                      >
+                        <CardContent className="p-6 flex items-center gap-5">
+                          <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center shrink-0 group-hover:bg-green-500/20 transition-colors">
+                            <User className="w-7 h-7 text-green-600" />
+                          </div>
+                          <div>
+                            <h3 className="font-display font-bold text-lg text-foreground">Mon espace Pro</h3>
+                            <p className="text-sm text-muted-foreground">Historique, remboursements, profil</p>
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-muted-foreground ml-auto group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                        </CardContent>
+                      </Card>
+                    </Link>
+
+                    <Button variant="outline" size="lg" onClick={goBack} className="gap-2 w-full mt-2">
+                      <ArrowLeft className="w-4 h-4" />
+                      Retour
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>

@@ -99,22 +99,13 @@ const ProsDuSport = () => {
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               Dispositif de financement de la pratique sportive réservé aux professionnels du sport.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/partner-payment">
-                <Button variant="hero" size="xl" className="group">
-                  <QrCode className="w-5 h-5 mr-2" />
-                  Encaisser Kadosport
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/pro-dashboard">
-                <Button variant="outline" size="xl" className="group">
-                  <CreditCard className="w-5 h-5 mr-2" />
-                  Mon espace Pro
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </div>
+            <Link to="/partner-payment">
+              <Button variant="hero" size="xl" className="group">
+                <QrCode className="w-5 h-5 mr-2" />
+                Encaisser Kadosport
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </motion.div>
         </section>
 
@@ -295,30 +286,17 @@ const ProsDuSport = () => {
               <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">
                 Interface simple, remboursement garanti sous 48h, zéro commission.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/partner-payment">
-                  <Button 
-                    variant="outline" 
-                    size="xl" 
-                    className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 border-none group"
-                  >
-                    <CreditCard className="w-5 h-5 mr-2" />
-                    Encaisser Kadosport
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link to="/pro-dashboard">
-                  <Button 
-                    variant="outline" 
-                    size="xl" 
-                    className="bg-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/30 border-primary-foreground/30 group"
-                  >
-                    <Users className="w-5 h-5 mr-2" />
-                    Mon espace Pro
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-              </div>
+              <Link to="/partner-payment">
+                <Button 
+                  variant="outline" 
+                  size="xl" 
+                  className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 border-none group"
+                >
+                  <CreditCard className="w-5 h-5 mr-2" />
+                  Encaisser Kadosport
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </section>

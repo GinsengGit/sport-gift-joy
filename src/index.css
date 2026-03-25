@@ -2,68 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700&family=Maven+Pro:wght@400;500;600;700&family=Russo+One&display=swap');
 
 @layer base {
   :root {
-    /* Kadosport Brand Colors - Sport Energy + Fintech Trust */
-    --background: 210 20% 98%;
-    --foreground: 220 30% 15%;
+    /* Kadosport Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 40%; /* #666666 gris textes */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 30% 15%;
+    --card-foreground: 0 0% 40%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 15%;
+    --popover-foreground: 0 0% 40%;
 
-    /* Primary: Kadosport Green - Fresh, Sport Energy (lighter like original site) */
-    --primary: 95 70% 42%;
+    /* Primary: Kadosport Green #7DC142 → HSL 95 52% 51% */
+    --primary: 95 52% 51%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Deep Green - Trust */
-    --secondary: 100 50% 25%;
+    /* Secondary: Kadosport Orange #EDBC36 → HSL 44 84% 57% */
+    --secondary: 44 84% 57%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 95 10% 96%;
-    --muted-foreground: 95 15% 40%;
+    --muted: 0 0% 95%; /* #F2F2F2 */
+    --muted-foreground: 0 0% 60%; /* #999999 */
 
-    /* Accent: Lime Energy */
-    --accent: 90 75% 48%;
-    --accent-foreground: 100 50% 15%;
+    /* Accent: Orange */
+    --accent: 44 84% 57%;
+    --accent-foreground: 0 0% 20%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 120 15% 88%;
-    --input: 120 15% 88%;
-    --ring: 120 70% 35%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 95 52% 51%;
 
     --radius: 0.75rem;
 
-    /* Custom Kadosport tokens - Lighter green matching original site */
-    --kado-emerald: 95 70% 42%;
-    --kado-emerald-light: 90 65% 52%;
-    --kado-emerald-dark: 100 75% 30%;
-    --kado-navy: 100 50% 20%;
-    --kado-navy-light: 100 40% 28%;
-    --kado-lime: 90 75% 48%;
-    --kado-lime-light: 90 70% 60%;
-    --kado-gold: 45 95% 55%;
-    --kado-sky: 150 70% 45%;
-    --kado-coral: 12 85% 60%;
-    --kado-coral-light: 12 80% 68%;
+    /* Custom Kadosport tokens */
+    --kado-emerald: 95 52% 51%;
+    --kado-emerald-light: 95 52% 62%;
+    --kado-emerald-dark: 95 52% 38%;
+    --kado-navy: 95 52% 25%;
+    --kado-navy-light: 95 40% 35%;
+    --kado-lime: 95 52% 51%;
+    --kado-lime-light: 95 52% 65%;
+    --kado-gold: 44 84% 57%;
+    --kado-sky: 95 52% 60%;
+    --kado-coral: 44 84% 57%;
+    --kado-coral-light: 44 84% 67%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(95 70% 42%) 0%, hsl(90 65% 48%) 50%, hsl(90 75% 48%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(95 70% 42%) 0%, hsl(100 75% 30%) 100%);
-    --gradient-navy: linear-gradient(135deg, hsl(100 50% 20%) 0%, hsl(100 40% 28%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(90 65% 52% / 0.2) 0%, transparent 70%);
+    --gradient-hero: linear-gradient(135deg, hsl(95 52% 51%) 0%, hsl(95 52% 58%) 50%, hsl(44 84% 57%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(95 52% 51%) 0%, hsl(95 52% 38%) 100%);
+    --gradient-navy: linear-gradient(135deg, hsl(95 52% 25%) 0%, hsl(95 40% 35%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(95 52% 62% / 0.2) 0%, transparent 70%);
 
     /* Shadows */
-    --shadow-card: 0 4px 24px -4px hsl(120 70% 35% / 0.15);
-    --shadow-card-hover: 0 12px 40px -8px hsl(120 70% 35% / 0.25);
-    --shadow-button: 0 4px 16px -2px hsl(120 70% 35% / 0.35);
-    --shadow-navy: 0 8px 32px -8px hsl(120 50% 15% / 0.4);
+    --shadow-card: 0 4px 24px -4px hsl(95 52% 51% / 0.15);
+    --shadow-card-hover: 0 12px 40px -8px hsl(95 52% 51% / 0.25);
+    --shadow-button: 0 4px 16px -2px hsl(95 52% 51% / 0.35);
+    --shadow-navy: 0 8px 32px -8px hsl(95 52% 25% / 0.4);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -126,11 +126,19 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Maven Pro', sans-serif;
+    color: hsl(0 0% 40%); /* #666666 */
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+  h1 {
+    font-family: 'Russo One', sans-serif;
+    color: hsl(0 0% 60%); /* #999999 */
+  }
+
+  h2, h3, h4, h5, h6 {
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: 500;
+    color: hsl(0 0% 60%); /* #999999 */
   }
 }
 

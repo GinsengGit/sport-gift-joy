@@ -45,7 +45,7 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1 font-nav">
             {navItems.map((item) => (
               item.isRoute ? (
                 <Link
@@ -114,7 +114,7 @@ export const Header = () => {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-card/95 backdrop-blur-xl border-t border-border/50"
           >
-            <nav className="container mx-auto px-4 py-6 space-y-2">
+            <nav className="container mx-auto px-4 py-6 space-y-2 font-nav">
               {navItems.map((item, index) => (
                 item.isRoute ? (
                   <motion.div

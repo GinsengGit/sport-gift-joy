@@ -27,7 +27,7 @@ export const B2BBenefits = () => (
           Un avantage <span className="text-primary">utile et valorisant</span>
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {/* Employee benefits */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

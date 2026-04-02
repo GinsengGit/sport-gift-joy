@@ -100,13 +100,13 @@ export const HeroSection = () => {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
-            Comme le ticket restaurant pour les repas, KADOSPORT est <span className="font-semibold text-foreground">le budget sport dédié</span> de vos collaborateurs. Simple, digital et universel.
+            Comme le ticket restaurant pour les repas, KADOSPORT est <span className="font-semibold text-foreground">le budget sport dédié</span>. Simple, digital et universel.
           </p>
           <p className="text-lg sm:text-xl font-semibold text-foreground mb-4">
-            Entreprises, CSE, collectivités : créez le <span className="text-primary">ticket sport</span> de vos équipes.
+            Entreprises, CSE, collectivités ou particuliers : offrez le <span className="text-primary">budget sport</span> qui change tout.
           </p>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
-            Exonérée de cotisations sociales, utilisable chez tous les professionnels du sport déclarés en France.
+            Utilisable chez tous les professionnels du sport déclarés en France. Exonérée de cotisations sociales pour les entreprises.
           </p>
           
           <div className="flex flex-col gap-3 items-center">

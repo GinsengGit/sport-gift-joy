@@ -39,7 +39,7 @@ export const HeroSection = () => {
             LA CARTE QUI FINANCE LA <span className="text-primary">PRATIQUE SPORTIVE</span>
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-            Encaissable exclusivement par les professionnels du sport déclarés en France
+            Le ticket restaurant finance les repas. <span className="text-primary font-semibold">KADOSPORT finance le sport.</span>
           </p>
           
           <div className="flex flex-wrap justify-center gap-2 mt-5">

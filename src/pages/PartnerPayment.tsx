@@ -1574,9 +1574,16 @@ const PartnerPayment = () => {
                             className={cn("font-mono", ibanValid === true && "border-primary", ibanValid === false && "border-destructive")}
                           />
                           {ibanValid === true && (
-                            <p className="text-sm text-primary flex items-center gap-1">
-                              <CheckCircle2 className="w-4 h-4" /> IBAN valide
-                            </p>
+                            <div className="space-y-1">
+                              <p className="text-sm text-primary flex items-center gap-1">
+                                <CheckCircle2 className="w-4 h-4" /> IBAN valide
+                              </p>
+                              {ibanBic && (
+                                <p className="text-sm text-muted-foreground font-mono">
+                                  Code BIC : <span className="font-semibold text-foreground">{ibanBic}</span>
+                                </p>
+                              )}
+                            </div>
                           )}
                           {ibanValid === false && (
                             <p className="text-sm text-destructive flex items-center gap-1">

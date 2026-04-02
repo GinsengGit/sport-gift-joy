@@ -256,11 +256,39 @@ const PartnerPayment = () => {
     return chunks.join(" ");
   };
 
+  // Validate IBAN using ISO 13616 MOD-97 checksum
+  const validateIban = (iban: string): boolean => {
+    const cleaned = iban.replace(/\s/g, "").toUpperCase();
+    if (cleaned.length < 15 || cleaned.length > 34) return false;
+    if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/.test(cleaned)) return false;
+    // Move first 4 chars to end, convert letters to numbers (A=10, B=11...)
+    const rearranged = cleaned.substring(4) + cleaned.substring(0, 4);
+    const numStr = rearranged.replace(/[A-Z]/g, (ch) => String(ch.charCodeAt(0) - 55));
+    // MOD 97 on large number (process in chunks)
+    let remainder = "";
+    for (const char of numStr) {
+      remainder += char;
+      if (remainder.length > 7) {
+        remainder = String(parseInt(remainder) % 97);
+      }
+    }
+    return parseInt(remainder) % 97 === 1;
+  };
+
+  const [ibanValid, setIbanValid] = useState<boolean | null>(null);
+
   // Format IBAN input
   const formatIban = (value: string) => {
     const cleaned = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
     const chunks = cleaned.match(/.{1,4}/g) || [];
-    return chunks.join(" ").substring(0, 34);
+    const formatted = chunks.join(" ").substring(0, 34);
+    // Validate when length seems complete (French IBAN = 27 chars without spaces)
+    if (cleaned.length >= 15) {
+      setIbanValid(validateIban(cleaned));
+    } else {
+      setIbanValid(null);
+    }
+    return formatted;
   };
 
   // Step 1: Verify card balance

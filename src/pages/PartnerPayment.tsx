@@ -143,6 +143,7 @@ const PartnerPayment = () => {
   const [siretError, setSiretError] = useState<string | null>(null);
   const [siretLoading, setSiretLoading] = useState(false);
   const [ibanValid, setIbanValid] = useState<boolean | null>(null);
+  const [ibanBic, setIbanBic] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     cardCode: "",
     amount: "",

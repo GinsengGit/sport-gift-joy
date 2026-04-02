@@ -53,7 +53,7 @@ export const HeroSection = () => {
             ].map((tag) => (
               <span
                 key={tag.label}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary"
+                className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-medium text-primary"
               >
                 <tag.icon className="w-3.5 h-3.5" />
                 {tag.label}

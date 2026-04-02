@@ -1299,137 +1299,203 @@ const PartnerPayment = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
+                    {/* SIRET en premier */}
                     <div className="space-y-2">
-                      <Label htmlFor="companyName" className="flex items-center gap-2">
-                        <Building2 className="w-4 h-4" />
-                        Nom de l'établissement
-                      </Label>
-                      <Input
-                        id="companyName"
-                        placeholder="Ex: Salle Fitness Plus, Coach Sportif Martin..."
-                        value={formData.companyName}
-                        onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="legalRepresentative" className="flex items-center gap-2">
-                        <User className="w-4 h-4" />
-                        Nom du gérant / Représentant légal
-                      </Label>
-                      <Input
-                        id="legalRepresentative"
-                        placeholder="Ex: Jean Dupont"
-                        value={formData.legalRepresentative}
-                      onChange={(e) => setFormData({ ...formData, legalRepresentative: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="flex items-center gap-2">
-                        <Phone className="w-4 h-4" />
-                        Numéro de téléphone
-                      </Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="Ex: 06 12 34 56 78"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="address" className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        Adresse de l'établissement
-                      </Label>
-                      <Input
-                        id="address"
-                        placeholder="Ex: 12 rue du Sport, 75001 Paris"
-                        value={formData.address}
-                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="activityType" className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4" />
-                        Type d'activité
-                      </Label>
-                      <Select
-                        value={formData.activityType}
-                        onValueChange={(value) => setFormData({ ...formData, activityType: value })}
-                      >
-                        <SelectTrigger id="activityType" className="w-full">
-                          <SelectValue placeholder="Sélectionnez votre activité" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {ACTIVITY_TYPES.map((type) => (
-                            <SelectItem key={type.value} value={type.value}>
-                              {type.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="siret" className="flex items-center gap-2">
+                      <Label htmlFor="siret" className="flex items-center gap-2 font-semibold">
                         <Receipt className="w-4 h-4" />
-                        Numéro SIRET
+                        Numéro SIRET <span className="text-destructive">*</span>
                       </Label>
-                      <Input
-                        id="siret"
-                        placeholder="123 456 789 00012"
-                        value={formData.siret}
-                        onChange={(e) => setFormData({ ...formData, siret: formatSiret(e.target.value) })}
-                        maxLength={17}
-                        className="font-mono"
-                      />
+                      <div className="flex gap-2">
+                        <Input
+                          id="siret"
+                          placeholder="123 456 789 00012"
+                          value={formData.siret}
+                          onChange={(e) => {
+                            setFormData({ ...formData, siret: formatSiret(e.target.value) });
+                            setSiretVerified(false);
+                            setSiretInfo(null);
+                            setSiretError(null);
+                          }}
+                          maxLength={17}
+                          className="font-mono flex-1"
+                        />
+                        <Button
+                          type="button"
+                          onClick={handleSiretLookup}
+                          disabled={siretLoading || formData.siret.replace(/\s/g, "").length < 14}
+                          variant="outline"
+                          className="gap-2 shrink-0"
+                        >
+                          {siretLoading ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Shield className="w-4 h-4" />
+                          )}
+                          Vérifier
+                        </Button>
+                      </div>
                       <p className="text-xs text-muted-foreground flex items-center gap-1">
                         <Shield className="w-3 h-3" />
-                        Nous vérifions automatiquement que votre activité est bien sportive
+                        Nous vérifions automatiquement via l'API Sirene que votre activité est sportive
                       </p>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="rib" className="flex items-center gap-2">
-                        <Banknote className="w-4 h-4" />
-                        IBAN (RIB)
-                      </Label>
-                      <Input
-                        id="rib"
-                        placeholder="FR76 1234 5678 9012 3456 7890 123"
-                        value={formData.rib}
-                        onChange={(e) => setFormData({ ...formData, rib: formatIban(e.target.value) })}
-                        maxLength={34}
-                        className="font-mono"
-                      />
-                    </div>
+                    {/* Message de succès SIRET */}
+                    {siretVerified && siretInfo?.isEligible && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-primary/10 rounded-xl p-4 flex items-start gap-3 border border-primary/30"
+                      >
+                        <BadgeCheck className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-semibold text-primary">SIRET valide ✓</p>
+                          <p className="text-sm text-foreground/80">
+                            Code APE <strong>{siretInfo.apeCode}</strong> — {siretInfo.apeLabel}
+                          </p>
+                          <p className="text-sm text-primary font-medium mt-1">
+                            Activité sportive autorisée pour l'encaissement des cartes Kadosport
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
 
-                    <div className="space-y-2">
-                      <Label htmlFor="comments" className="flex items-center gap-2">
-                        <MessageSquare className="w-4 h-4" />
-                        Commentaires (optionnel)
-                      </Label>
-                      <Textarea
-                        id="comments"
-                        placeholder="Informations complémentaires, questions, remarques..."
-                        value={formData.comments}
-                        onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
-                        rows={3}
-                        className="resize-none"
-                      />
-                    </div>
+                    {/* Message d'erreur SIRET */}
+                    {siretError && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-destructive/10 rounded-xl p-4 flex items-start gap-3 border border-destructive/30"
+                      >
+                        <AlertCircle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-semibold text-destructive">Vérification SIRET</p>
+                          <p className="text-sm text-destructive/80">{siretError}</p>
+                        </div>
+                      </motion.div>
+                    )}
 
-                    <div className="bg-green-500/10 rounded-xl p-4 flex items-center gap-3 border border-green-500/20">
-                      <Clock className="w-5 h-5 text-green-600 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium text-green-700">Remboursement sous 48h ouvrées</p>
-                        <p className="text-sm text-green-600/80">Après vérification de votre SIRET</p>
-                      </div>
-                    </div>
+                    {/* Champs auto-remplis après vérification SIRET */}
+                    {siretVerified && siretInfo?.isEligible && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="space-y-4"
+                      >
+                        <div className="space-y-2">
+                          <Label htmlFor="companyName" className="flex items-center gap-2">
+                            <Building2 className="w-4 h-4" />
+                            Nom de l'établissement
+                          </Label>
+                          <Input
+                            id="companyName"
+                            placeholder="Ex: Salle Fitness Plus, Coach Sportif Martin..."
+                            value={formData.companyName}
+                            onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="legalRepresentative" className="flex items-center gap-2">
+                            <User className="w-4 h-4" />
+                            Nom du gérant / Représentant légal
+                          </Label>
+                          <Input
+                            id="legalRepresentative"
+                            placeholder="Ex: Jean Dupont"
+                            value={formData.legalRepresentative}
+                            onChange={(e) => setFormData({ ...formData, legalRepresentative: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="phone" className="flex items-center gap-2">
+                            <Phone className="w-4 h-4" />
+                            Numéro de téléphone
+                          </Label>
+                          <Input
+                            id="phone"
+                            type="tel"
+                            placeholder="Ex: 06 12 34 56 78"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="address" className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4" />
+                            Adresse de l'établissement
+                          </Label>
+                          <Input
+                            id="address"
+                            placeholder="Ex: 12 rue du Sport, 75001 Paris"
+                            value={formData.address}
+                            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="activityType" className="flex items-center gap-2">
+                            <Briefcase className="w-4 h-4" />
+                            Type d'activité
+                          </Label>
+                          <Select
+                            value={formData.activityType}
+                            onValueChange={(value) => setFormData({ ...formData, activityType: value })}
+                          >
+                            <SelectTrigger id="activityType" className="w-full">
+                              <SelectValue placeholder="Sélectionnez votre activité" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {ACTIVITY_TYPES.map((type) => (
+                                <SelectItem key={type.value} value={type.value}>
+                                  {type.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="rib" className="flex items-center gap-2">
+                            <Banknote className="w-4 h-4" />
+                            IBAN (RIB)
+                          </Label>
+                          <Input
+                            id="rib"
+                            placeholder="FR76 1234 5678 9012 3456 7890 123"
+                            value={formData.rib}
+                            onChange={(e) => setFormData({ ...formData, rib: formatIban(e.target.value) })}
+                            maxLength={34}
+                            className="font-mono"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="comments" className="flex items-center gap-2">
+                            <MessageSquare className="w-4 h-4" />
+                            Commentaires (optionnel)
+                          </Label>
+                          <Textarea
+                            id="comments"
+                            placeholder="Informations complémentaires, questions, remarques..."
+                            value={formData.comments}
+                            onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
+                            rows={3}
+                            className="resize-none"
+                          />
+                        </div>
+
+                        <div className="bg-primary/10 rounded-xl p-4 flex items-center gap-3 border border-primary/20">
+                          <Clock className="w-5 h-5 text-primary flex-shrink-0" />
+                          <div>
+                            <p className="font-medium text-primary">Remboursement sous 48h ouvrées</p>
+                            <p className="text-sm text-primary/70">SIRET vérifié — activité sportive confirmée</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
 
                     <div className="flex gap-3 pt-2">
                       <Button variant="outline" size="lg" onClick={goBack} className="gap-2">
@@ -1442,7 +1508,8 @@ const PartnerPayment = () => {
                         variant="coral"
                         onClick={handleProfileComplete}
                         disabled={
-                          !formData.siret || 
+                          !siretVerified ||
+                          !siretInfo?.isEligible ||
                           !formData.rib || 
                           !formData.companyName ||
                           !formData.legalRepresentative ||

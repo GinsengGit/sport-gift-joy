@@ -195,7 +195,8 @@ const PartnerPayment = () => {
 
       const apeCode = matching.activite_principale || result.activite_principale || "";
       const apeLabel = matching.libelle_activite_principale || result.libelle_activite_principale || "";
-      const isEligible = ELIGIBLE_APE_CODES.includes(apeCode);
+      const normalizedApe = apeCode.replace(/\./g, "");
+      const isEligible = ELIGIBLE_APE_CODES.includes(normalizedApe);
 
       const fullAddress = [
         matching.adresse,

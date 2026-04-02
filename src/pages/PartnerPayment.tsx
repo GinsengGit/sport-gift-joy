@@ -73,7 +73,13 @@ const ELIGIBLE_APE_CODES = [
   "9321Z", // Activités des parcs d'attractions
   "9604Z", // Entretien corporel
   "8559A", // Formation continue d'adultes (coaching)
+  "8559B", // Autres enseignements (coaching sportif)
   "9499Z", // Autres organisations fonctionnant par adhésion volontaire
+  "8690F", // Activités de santé humaine (préparateur physique)
+  "9602B", // Soins de beauté (bien-être sportif)
+  "8542Z", // Enseignement supérieur (STAPS, formations sport)
+  "7490B", // Activités spécialisées scientifiques (coaching performance)
+  "9001Z", // Arts du spectacle vivant (coach danse, arts martiaux spectacle)
 ];
 
 interface SiretInfo {

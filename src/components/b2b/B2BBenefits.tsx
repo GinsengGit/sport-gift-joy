@@ -1,17 +1,11 @@
 import { motion } from "framer-motion";
-import { Heart, TrendingUp, Users, Award, Shield, Scaling } from "lucide-react";
+import { Heart, TrendingUp, Users, Award, Scaling } from "lucide-react";
 
 const employeeBenefits = [
   { icon: Heart, text: "Améliorer la santé des salariés" },
   { icon: TrendingUp, text: "Renforcer l'engagement" },
   { icon: Users, text: "Développer la qualité de vie au travail (QVT)" },
   { icon: Award, text: "Valoriser la marque employeur" },
-];
-
-const prosBenefits = [
-  { icon: Shield, text: "Aucune obligation d'adhésion" },
-  { icon: Shield, text: "Aucun changement dans leur mode de fonctionnement" },
-  { icon: Shield, text: "Paiement classique par le client" },
 ];
 
 const flexBenefits = [

@@ -100,7 +100,7 @@ export const HeroSection = () => {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
-            Comme le ticket restaurant pour les repas, KADOSPORT est <span className="font-semibold text-foreground">le budget sport dédié</span>. Simple, digital et universel.
+            KADOSPORT est <span className="font-semibold text-foreground">le budget sport dédié</span>. Simple, digital et universel.
           </p>
           <p className="text-lg sm:text-xl font-semibold text-foreground mb-4">
             Entreprises, CSE, collectivités ou particuliers : offrez le <span className="text-primary">budget sport</span> qui change tout.

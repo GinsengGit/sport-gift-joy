@@ -61,11 +61,34 @@ const ACTIVITY_TYPES = [
 // Types
 type Step = "choice" | "scan" | "returning-pro" | "returning-pro-menu" | "new-pro-info" | "balance" | "email" | "confirmation" | "complete-profile";
 
+// Codes APE autorisés pour l'encaissement Kadosport (activités sportives)
+const ELIGIBLE_APE_CODES = [
+  "9311Z", // Gestion d'installations sportives
+  "9312Z", // Activités de clubs de sports
+  "9313Z", // Activités des centres de culture physique
+  "9319Z", // Autres activités liées au sport
+  "8551Z", // Enseignement de disciplines sportives
+  "9329Z", // Autres activités récréatives et de loisirs
+  "8552Z", // Enseignement culturel (danse, etc.)
+  "9321Z", // Activités des parcs d'attractions
+  "9604Z", // Entretien corporel
+  "8559A", // Formation continue d'adultes (coaching)
+  "9499Z", // Autres organisations fonctionnant par adhésion volontaire
+];
+
+interface SiretInfo {
+  companyName: string;
+  address: string;
+  apeCode: string;
+  apeLabel: string;
+  legalRepresentative: string;
+  isEligible: boolean;
+}
+
 interface FormData {
   cardCode: string;
   amount: string;
   email: string;
-  // Optionnel - rempli plus tard ou immédiatement
   siret: string;
   rib: string;
   companyName: string;

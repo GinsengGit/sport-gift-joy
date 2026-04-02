@@ -45,6 +45,7 @@ import {
   Trophy
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 // Activity types
 const ACTIVITY_TYPES = [

@@ -231,6 +231,13 @@ const PartnerPayment = () => {
     }
   };
 
+  // Format card code input
+  const formatCardCode = (value: string) => {
+    const cleaned = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
+    const chunks = cleaned.match(/.{1,4}/g) || [];
+    return chunks.join("-").substring(0, 19);
+  };
+
   // Format SIRET input
   const formatSiret = (value: string) => {
     const cleaned = value.replace(/\D/g, "");

@@ -100,13 +100,13 @@ export const HeroSection = () => {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
-            Vous êtes à la recherche d'une idée cadeau pour un sportif/ve ? Vous voulez être certain de lui faire plaisir ?
+            Entreprises, CSE, collectivités : offrez à vos collaborateurs un budget sport simple, digital et universel.
           </p>
           <p className="text-lg sm:text-xl font-semibold text-foreground mb-4">
-            Offrez une carte KADOSPORT, <span className="text-primary">LA PLUS SPORTIVE</span> des cartes cadeaux.
+            La carte KADOSPORT, <span className="text-primary">LA SOLUTION</span> pour développer la pratique sportive de vos équipes.
           </p>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
-            La première carte cadeau digitale universelle, dédiée au sport et aux activités sportives.
+            Exonérée de cotisations sociales, utilisable chez tous les professionnels du sport déclarés en France.
           </p>
           
           <div className="flex flex-col gap-3 items-center">

@@ -111,7 +111,6 @@ export const HeroSection = () => {
           
           <div className="flex flex-col gap-3 items-center">
             {[
-              "Le ticket resto finance les repas, KADOSPORT finance le sport",
               "Zéro commission pour les structures sportives",
               "Budget sport exonéré de charges sociales",
             ].map((benefit, index) => (

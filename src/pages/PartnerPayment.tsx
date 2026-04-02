@@ -45,6 +45,7 @@ import {
   Trophy
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 // Activity types
 const ACTIVITY_TYPES = [
@@ -141,6 +142,7 @@ const PartnerPayment = () => {
   const [siretInfo, setSiretInfo] = useState<SiretInfo | null>(null);
   const [siretError, setSiretError] = useState<string | null>(null);
   const [siretLoading, setSiretLoading] = useState(false);
+  const [ibanValid, setIbanValid] = useState<boolean | null>(null);
   const [formData, setFormData] = useState<FormData>({
     cardCode: "",
     amount: "",
@@ -256,11 +258,38 @@ const PartnerPayment = () => {
     return chunks.join(" ");
   };
 
+  // Validate IBAN using ISO 13616 MOD-97 checksum
+  const validateIban = (iban: string): boolean => {
+    const cleaned = iban.replace(/\s/g, "").toUpperCase();
+    if (cleaned.length < 15 || cleaned.length > 34) return false;
+    if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/.test(cleaned)) return false;
+    // Move first 4 chars to end, convert letters to numbers (A=10, B=11...)
+    const rearranged = cleaned.substring(4) + cleaned.substring(0, 4);
+    const numStr = rearranged.replace(/[A-Z]/g, (ch) => String(ch.charCodeAt(0) - 55));
+    // MOD 97 on large number (process in chunks)
+    let remainder = "";
+    for (const char of numStr) {
+      remainder += char;
+      if (remainder.length > 7) {
+        remainder = String(parseInt(remainder) % 97);
+      }
+    }
+    return parseInt(remainder) % 97 === 1;
+  };
+
+
   // Format IBAN input
   const formatIban = (value: string) => {
     const cleaned = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
     const chunks = cleaned.match(/.{1,4}/g) || [];
-    return chunks.join(" ").substring(0, 34);
+    const formatted = chunks.join(" ").substring(0, 34);
+    // Validate when length seems complete (French IBAN = 27 chars without spaces)
+    if (cleaned.length >= 15) {
+      setIbanValid(validateIban(cleaned));
+    } else {
+      setIbanValid(null);
+    }
+    return formatted;
   };
 
   // Step 1: Verify card balance
@@ -1478,8 +1507,18 @@ const PartnerPayment = () => {
                             value={formData.rib}
                             onChange={(e) => setFormData({ ...formData, rib: formatIban(e.target.value) })}
                             maxLength={34}
-                            className="font-mono"
+                            className={cn("font-mono", ibanValid === true && "border-primary", ibanValid === false && "border-destructive")}
                           />
+                          {ibanValid === true && (
+                            <p className="text-sm text-primary flex items-center gap-1">
+                              <CheckCircle2 className="w-4 h-4" /> IBAN valide
+                            </p>
+                          )}
+                          {ibanValid === false && (
+                            <p className="text-sm text-destructive flex items-center gap-1">
+                              <AlertCircle className="w-4 h-4" /> IBAN invalide — vérifiez votre saisie
+                            </p>
+                          )}
                         </div>
 
                         <div className="space-y-2">

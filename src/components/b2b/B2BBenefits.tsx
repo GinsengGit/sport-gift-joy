@@ -49,28 +49,6 @@ export const B2BBenefits = () => (
             </p>
           </motion.div>
 
-          {/* For pros */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="p-6 rounded-2xl bg-card border border-border/50"
-          >
-            <h3 className="font-display text-lg font-bold text-foreground mb-4">Pour les professionnels</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              La solution s'intègre naturellement dans l'écosystème sportif existant.
-            </p>
-            <div className="space-y-3">
-              {prosBenefits.map((b) => (
-                <div key={b.text} className="flex items-center gap-3">
-                  <b.icon className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-sm text-foreground">{b.text}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
           {/* Flexibility */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

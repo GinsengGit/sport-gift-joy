@@ -36,7 +36,7 @@ export const HeroSection = () => {
           className="text-center mb-8"
         >
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-4">
-            LA CARTE CADEAU QUI FINANCE LA <span className="text-primary">PRATIQUE SPORTIVE</span>
+            LA CARTE QUI FINANCE LA <span className="text-primary">PRATIQUE SPORTIVE</span>
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
             Encaissable exclusivement par les professionnels du sport déclarés en France

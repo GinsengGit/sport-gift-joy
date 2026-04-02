@@ -404,6 +404,9 @@ const PartnerPayment = () => {
     setVerifiedPro(null);
     setReturningProEmail("");
     setWantsToCompleteNow(false);
+    setSiretVerified(false);
+    setSiretInfo(null);
+    setSiretError(null);
   };
 
   const goBack = () => {

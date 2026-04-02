@@ -328,7 +328,6 @@ const PartnerPayment = () => {
     "30438": "CEPAFRPP",
     "11006": "AGRIFRPP",
     "17807": "AGRIFRPP",
-    "10278": "CMCIFR2A",
     "30588": "CEPAFRPP",
     "42559": "CCOPFRPP", // Crédit Coopératif
     "10011": "BOUSFRPP", // Boursorama

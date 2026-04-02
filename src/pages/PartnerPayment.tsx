@@ -1506,8 +1506,18 @@ const PartnerPayment = () => {
                             value={formData.rib}
                             onChange={(e) => setFormData({ ...formData, rib: formatIban(e.target.value) })}
                             maxLength={34}
-                            className="font-mono"
+                            className={cn("font-mono", ibanValid === true && "border-primary", ibanValid === false && "border-destructive")}
                           />
+                          {ibanValid === true && (
+                            <p className="text-sm text-primary flex items-center gap-1">
+                              <CheckCircle2 className="w-4 h-4" /> IBAN valide
+                            </p>
+                          )}
+                          {ibanValid === false && (
+                            <p className="text-sm text-destructive flex items-center gap-1">
+                              <AlertCircle className="w-4 h-4" /> IBAN invalide — vérifiez votre saisie
+                            </p>
+                          )}
                         </div>
 
                         <div className="space-y-2">

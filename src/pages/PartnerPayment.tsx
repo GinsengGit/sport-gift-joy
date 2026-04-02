@@ -278,17 +278,81 @@ const PartnerPayment = () => {
     return parseInt(remainder) % 97 === 1;
   };
 
+  // French bank code to BIC mapping (most common banks)
+  const FRENCH_BANK_BIC: Record<string, string> = {
+    "10007": "BDFEFRPP", // Banque de France
+    "10057": "ABORFRPP", // ABN AMRO
+    "10096": "CMCIFRPP", // CIC
+    "10107": "ABORFRPP", // ABN AMRO
+    "10278": "CMCIFR2A", // CIC
+    "11315": "CEPAFRPP", // Caisse d'Épargne
+    "12006": "AGRIFRPP", // Crédit Agricole
+    "12506": "AGRIFRPP",
+    "12906": "AGRIFRPP",
+    "13106": "AGRIFRPP",
+    "13206": "AGRIFRPP",
+    "13306": "AGRIFRPP",
+    "13406": "AGRIFRPP",
+    "13506": "AGRIFRPP",
+    "13807": "AGRIFRPP",
+    "14006": "AGRIFRPP",
+    "14406": "AGRIFRPP",
+    "14506": "AGRIFRPP",
+    "14707": "AGRIFRPP",
+    "14806": "AGRIFRPP",
+    "14906": "AGRIFRPP",
+    "15006": "AGRIFRPP",
+    "15135": "CEPAFRPP", // Caisse d'Épargne
+    "16006": "AGRIFRPP",
+    "16275": "CEPAFRPP",
+    "16806": "AGRIFRPP",
+    "17106": "AGRIFRPP",
+    "17806": "AGRIFRPP",
+    "18206": "AGRIFRPP",
+    "18706": "AGRIFRPP",
+    "19106": "AGRIFRPP",
+    "19506": "AGRIFRPP",
+    "20041": "PSSTFRPP", // La Banque Postale
+    "30002": "BNPAFRPP", // BNP Paribas
+    "30003": "BNPAFRPP",
+    "30004": "BNPAFRPP", // BNP Paribas
+    "30006": "BNPAFRPP",
+    "30007": "BNPAFRPP",
+    "30027": "CMCIFRPP", // CIC
+    "30047": "CMCIFRPP",
+    "30056": "CCBPFRPP", // Banque Populaire
+    "30066": "CMCIFRPP", // CIC
+    "30076": "NORDFRPP", // Banque du Nord
+    "30077": "SMCTFR2A", // CIC Lyonnaise de Banque
+    "30087": "CCBPFRPP",
+    "30438": "CEPAFRPP",
+    "11006": "AGRIFRPP",
+    "17807": "AGRIFRPP",
+    "10278": "CMCIFR2A",
+    "30588": "CEPAFRPP",
+    "42559": "CCOPFRPP", // Crédit Coopératif
+    "10011": "BOUSFRPP", // Boursorama
+  };
+
+  const getBicFromIban = (iban: string): string | null => {
+    const cleaned = iban.replace(/\s/g, "").toUpperCase();
+    if (!cleaned.startsWith("FR") || cleaned.length !== 27) return null;
+    const bankCode = cleaned.substring(4, 9);
+    return FRENCH_BANK_BIC[bankCode] || null;
+  };
 
   // Format IBAN input
   const formatIban = (value: string) => {
     const cleaned = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
     const chunks = cleaned.match(/.{1,4}/g) || [];
     const formatted = chunks.join(" ").substring(0, 34);
-    // Validate when length seems complete (French IBAN = 27 chars without spaces)
     if (cleaned.length >= 15) {
-      setIbanValid(validateIban(cleaned));
+      const valid = validateIban(cleaned);
+      setIbanValid(valid);
+      setIbanBic(valid ? getBicFromIban(cleaned) : null);
     } else {
       setIbanValid(null);
+      setIbanBic(null);
     }
     return formatted;
   };

@@ -1583,6 +1583,11 @@ const PartnerPayment = () => {
                                   Code BIC : <span className="font-semibold text-foreground">{ibanBic}</span>
                                 </p>
                               )}
+                              {siretInfo?.companyName && (
+                                <p className="text-sm text-muted-foreground">
+                                  Titulaire présumé : <span className="font-semibold text-foreground">{siretInfo.companyName}</span>
+                                </p>
+                              )}
                             </div>
                           )}
                           {ibanValid === false && (

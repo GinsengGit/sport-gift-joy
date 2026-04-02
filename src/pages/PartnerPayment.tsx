@@ -131,6 +131,10 @@ const PartnerPayment = () => {
   const [returningProEmail, setReturningProEmail] = useState("");
   const [verifiedPro, setVerifiedPro] = useState<VerifiedPro | null>(null);
   const [wantsToCompleteNow, setWantsToCompleteNow] = useState(false);
+  const [siretVerified, setSiretVerified] = useState(false);
+  const [siretInfo, setSiretInfo] = useState<SiretInfo | null>(null);
+  const [siretError, setSiretError] = useState<string | null>(null);
+  const [siretLoading, setSiretLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     cardCode: "",
     amount: "",
@@ -145,11 +149,86 @@ const PartnerPayment = () => {
     comments: "",
   });
 
-  // Format card code input
-  const formatCardCode = (value: string) => {
-    const cleaned = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
-    const chunks = cleaned.match(/.{1,4}/g) || [];
-    return chunks.join("-").substring(0, 19);
+  // Lookup SIRET via API Sirene (recherche-entreprises.api.gouv.fr)
+  const handleSiretLookup = async () => {
+    const cleanedSiret = formData.siret.replace(/\s/g, "");
+    if (cleanedSiret.length !== 14) {
+      setSiretError("Le numéro SIRET doit contenir 14 chiffres");
+      return;
+    }
+
+    setSiretLoading(true);
+    setSiretError(null);
+    setSiretVerified(false);
+    setSiretInfo(null);
+
+    try {
+      const response = await fetch(
+        `https://recherche-entreprises.api.gouv.fr/search?q=${cleanedSiret}&page=1&per_page=1`
+      );
+      
+      if (!response.ok) {
+        throw new Error("Erreur lors de la consultation de l'API Sirene");
+      }
+
+      const data = await response.json();
+      
+      if (!data.results || data.results.length === 0) {
+        setSiretError("Aucun établissement trouvé pour ce numéro SIRET");
+        setSiretLoading(false);
+        return;
+      }
+
+      const result = data.results[0];
+      
+      // Find matching establishment
+      const siege = result.siege || {};
+      const matching = result.matching_etablissements?.find(
+        (e: any) => e.siret === cleanedSiret
+      ) || siege;
+
+      const apeCode = matching.activite_principale || result.activite_principale || "";
+      const apeLabel = matching.libelle_activite_principale || result.libelle_activite_principale || "";
+      const isEligible = ELIGIBLE_APE_CODES.includes(apeCode);
+
+      const fullAddress = [
+        matching.adresse,
+        matching.code_postal,
+        matching.libelle_commune,
+      ].filter(Boolean).join(" ");
+
+      const info: SiretInfo = {
+        companyName: result.nom_complet || result.nom_raison_sociale || "",
+        address: fullAddress || siege.adresse || "",
+        apeCode,
+        apeLabel,
+        legalRepresentative: result.dirigeants?.[0]
+          ? `${result.dirigeants[0].prenom || ""} ${result.dirigeants[0].nom || ""}`.trim()
+          : "",
+        isEligible,
+      };
+
+      setSiretInfo(info);
+      setSiretVerified(true);
+
+      // Auto-fill form fields
+      setFormData(prev => ({
+        ...prev,
+        companyName: info.companyName || prev.companyName,
+        address: info.address || prev.address,
+        legalRepresentative: info.legalRepresentative || prev.legalRepresentative,
+      }));
+
+      if (!isEligible) {
+        setSiretError(
+          `Code APE ${apeCode} (${apeLabel}) — Cette activité ne semble pas éligible à l'encaissement des cartes Kadosport. Seules les activités sportives sont autorisées.`
+        );
+      }
+    } catch (error) {
+      setSiretError("Impossible de vérifier le SIRET. Veuillez réessayer.");
+    } finally {
+      setSiretLoading(false);
+    }
   };
 
   // Format SIRET input

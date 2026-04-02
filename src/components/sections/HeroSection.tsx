@@ -100,10 +100,10 @@ export const HeroSection = () => {
           className="text-center max-w-3xl mx-auto mb-10"
         >
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
-            Entreprises, CSE, collectivités : offrez à vos collaborateurs un budget sport simple, digital et universel.
+            Comme le ticket restaurant pour les repas, KADOSPORT est <span className="font-semibold text-foreground">le budget sport dédié</span> de vos collaborateurs. Simple, digital et universel.
           </p>
           <p className="text-lg sm:text-xl font-semibold text-foreground mb-4">
-            La carte KADOSPORT, <span className="text-primary">LA SOLUTION</span> pour développer la pratique sportive de vos équipes.
+            Entreprises, CSE, collectivités : créez le <span className="text-primary">ticket sport</span> de vos équipes.
           </p>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
             Exonérée de cotisations sociales, utilisable chez tous les professionnels du sport déclarés en France.
@@ -111,9 +111,9 @@ export const HeroSection = () => {
           
           <div className="flex flex-col gap-3 items-center">
             {[
-              "Encaissable exclusivement par les professionnels du sport déclarés",
+              "Le ticket resto finance les repas, KADOSPORT finance le sport",
               "Zéro commission pour les structures sportives",
-              "Financement direct de la pratique sportive",
+              "Budget sport exonéré de charges sociales",
             ].map((benefit, index) => (
               <motion.div 
                 key={index}

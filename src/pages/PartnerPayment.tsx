@@ -277,7 +277,6 @@ const PartnerPayment = () => {
     return parseInt(remainder) % 97 === 1;
   };
 
-  const [ibanValid, setIbanValid] = useState<boolean | null>(null);
 
   // Format IBAN input
   const formatIban = (value: string) => {

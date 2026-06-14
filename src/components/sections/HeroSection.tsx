@@ -142,6 +142,12 @@ export const HeroSection = () => {
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
+          <Link to="/utiliser-ma-carte">
+            <Button variant="coral" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
+              <CreditCard className="w-5 h-5 mr-2" />
+              J'utilise ma carte Kadosport
+            </Button>
+          </Link>
           <Link to="/partner-payment">
             <Button variant="hero" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
               <QrCode className="w-5 h-5 mr-2" />

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, QrCode, Gift, Check, Dumbbell, Users, Mountain, Trophy, Heart, Bike } from "lucide-react";
+import { ArrowRight, QrCode, Gift, Check, Dumbbell, Users, Mountain, Trophy, Heart, Bike, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -140,6 +140,12 @@ export const HeroSection = () => {
               <Gift className="w-5 h-5 mr-2" />
               J'offre une carte Kadosport
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+          <Link to="/utiliser-ma-carte">
+            <Button variant="coral" size="xl" className="group text-lg w-full sm:w-auto uppercase tracking-wide">
+              <CreditCard className="w-5 h-5 mr-2" />
+              J'utilise ma carte Kadosport
             </Button>
           </Link>
           <Link to="/partner-payment">

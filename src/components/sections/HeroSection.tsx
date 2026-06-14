@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, QrCode, Gift, Check, Dumbbell, Users, Mountain, Trophy, Heart, Bike } from "lucide-react";
+import { ArrowRight, QrCode, Gift, Check, Dumbbell, Users, Mountain, Trophy, Heart, Bike, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 

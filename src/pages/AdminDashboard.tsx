@@ -402,6 +402,78 @@ const AdminDashboard = () => {
               </Table>
             </Card>
           </TabsContent>
+
+          {/* Demandes d'utilisation Kadosport */}
+          <TabsContent value="usage" className="space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <div>
+                <CardTitle className="text-lg">Demandes d'utilisation Kadosport</CardTitle>
+                <CardDescription>Bénéficiaires souhaitant utiliser leur carte chez un professionnel.</CardDescription>
+              </div>
+              <div className="flex items-center gap-2">
+                <Select value={usageStatusFilter} onValueChange={setUsageStatusFilter}>
+                  <SelectTrigger className="w-44"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Tous les statuts</SelectItem>
+                    {USAGE_STATUSES.map(s => (
+                      <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button variant="outline" size="sm" onClick={loadUsageRequests} disabled={usageLoading}>
+                  <RefreshCw className={`w-4 h-4 mr-1.5 ${usageLoading ? "animate-spin" : ""}`} />
+                  Actualiser
+                </Button>
+              </div>
+            </div>
+            <Card>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Bénéficiaire</TableHead>
+                    <TableHead>Professionnel</TableHead>
+                    <TableHead>Ville</TableHead>
+                    <TableHead>Activité</TableHead>
+                    <TableHead>Statut</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredUsage.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
+                        {usageLoading ? "Chargement..." : "Aucune demande pour le moment."}
+                      </TableCell>
+                    </TableRow>
+                  ) : filteredUsage.map(r => (
+                    <TableRow key={r.id}>
+                      <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                        {new Date(r.created_at).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" })}
+                      </TableCell>
+                      <TableCell>
+                        <div className="font-medium">{r.beneficiary_first_name} {r.beneficiary_last_name}</div>
+                        <div className="text-xs text-muted-foreground">{r.beneficiary_email}</div>
+                        {r.beneficiary_phone && <div className="text-xs text-muted-foreground">{r.beneficiary_phone}</div>}
+                      </TableCell>
+                      <TableCell className="font-medium">{r.listing?.name ?? r.pro_name}</TableCell>
+                      <TableCell className="text-sm">{r.listing?.city ?? r.pro_city ?? "—"}</TableCell>
+                      <TableCell className="text-sm">{r.listing?.activity ?? r.pro_activity ?? "—"}</TableCell>
+                      <TableCell>
+                        <Select value={r.status} onValueChange={(v) => updateUsageStatus(r.id, v)}>
+                          <SelectTrigger className="w-36 h-8 text-xs"><SelectValue /></SelectTrigger>
+                          <SelectContent>
+                            {USAGE_STATUSES.map(s => (
+                              <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
+          </TabsContent>
         </Tabs>
       </main>
     </div>

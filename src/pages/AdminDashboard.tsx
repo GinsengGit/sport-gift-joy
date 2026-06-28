@@ -8,8 +8,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import {
   CreditCard, Users, Building2, LogOut, Search, TrendingUp,
-  Clock, CheckCircle2, XCircle, AlertCircle, Euro, Gift, RefreshCw
+  Clock, CheckCircle2, XCircle, AlertCircle, Euro, Gift, RefreshCw, Inbox
 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import kadosportLogo from "@/assets/kadosport-logo.png";
 
 // Mock data
@@ -59,15 +62,74 @@ const statusBadge = (status: string) => {
   return <Badge variant={info.variant}>{info.label}</Badge>;
 };
 
+const USAGE_STATUSES = [
+  { value: "nouveau", label: "Nouveau" },
+  { value: "a_contacter", label: "À contacter" },
+  { value: "contacte", label: "Contacté" },
+  { value: "en_cours", label: "En cours" },
+  { value: "active", label: "Activé" },
+  { value: "refus", label: "Refus" },
+  { value: "termine", label: "Terminé" },
+] as const;
+
+type UsageRequest = {
+  id: string;
+  created_at: string;
+  beneficiary_first_name: string;
+  beneficiary_last_name: string;
+  beneficiary_email: string;
+  beneficiary_phone: string | null;
+  pro_name: string;
+  pro_city: string | null;
+  pro_activity: string | null;
+  message: string | null;
+  status: string;
+  listing?: { name: string; city: string | null; activity: string | null; slug: string } | null;
+};
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [usageRequests, setUsageRequests] = useState<UsageRequest[]>([]);
+  const [usageLoading, setUsageLoading] = useState(false);
+  const [usageStatusFilter, setUsageStatusFilter] = useState<string>("all");
 
   useEffect(() => {
     if (sessionStorage.getItem("kadosport_admin") !== "true") {
       navigate("/admin-login");
     }
   }, [navigate]);
+
+  const loadUsageRequests = async () => {
+    setUsageLoading(true);
+    const { data, error } = await supabase.functions.invoke("admin-usage-requests", {
+      body: { action: "list" },
+    });
+    setUsageLoading(false);
+    if (error) {
+      toast.error("Impossible de charger les demandes", { description: error.message });
+      return;
+    }
+    setUsageRequests((data?.items ?? []) as UsageRequest[]);
+  };
+
+  useEffect(() => {
+    loadUsageRequests();
+  }, []);
+
+  const updateUsageStatus = async (id: string, status: string) => {
+    const previous = usageRequests;
+    setUsageRequests(prev => prev.map(r => (r.id === id ? { ...r, status } : r)));
+    const { error } = await supabase.functions.invoke("admin-usage-requests", {
+      body: { action: "update_status", id, status },
+    });
+    if (error) {
+      setUsageRequests(previous);
+      toast.error("Mise à jour impossible", { description: error.message });
+    } else {
+      toast.success("Statut mis à jour");
+    }
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("kadosport_admin");
@@ -78,6 +140,10 @@ const AdminDashboard = () => {
   const totalActive = mockGiftCards.filter(c => c.status === "active").length;
   const totalVolume = mockGiftCards.reduce((s, c) => s + c.amount, 0);
   const pendingReimbursements = mockReimbursements.filter(r => r.status === "pending");
+  const filteredUsage = usageRequests.filter(r =>
+    usageStatusFilter === "all" ? true : r.status === usageStatusFilter
+  );
+  const newUsageCount = usageRequests.filter(r => r.status === "nouveau").length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -154,7 +220,7 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="cards" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
             <TabsTrigger value="cards" className="gap-2">
               <CreditCard className="w-4 h-4 hidden sm:block" />
               Cartes
@@ -170,6 +236,13 @@ const AdminDashboard = () => {
             <TabsTrigger value="cse" className="gap-2">
               <Building2 className="w-4 h-4 hidden sm:block" />
               CSE
+            </TabsTrigger>
+            <TabsTrigger value="usage" className="gap-2">
+              <Inbox className="w-4 h-4 hidden sm:block" />
+              Demandes
+              {newUsageCount > 0 && (
+                <Badge variant="default" className="ml-1 h-5 px-1.5 text-xs">{newUsageCount}</Badge>
+              )}
             </TabsTrigger>
           </TabsList>
 
@@ -323,6 +396,78 @@ const AdminDashboard = () => {
                       <TableCell className="text-right">{cse.budget.toLocaleString()}€</TableCell>
                       <TableCell className="text-right">{cse.used.toLocaleString()}€</TableCell>
                       <TableCell>{statusBadge(cse.status)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
+          </TabsContent>
+
+          {/* Demandes d'utilisation Kadosport */}
+          <TabsContent value="usage" className="space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <div>
+                <CardTitle className="text-lg">Demandes d'utilisation Kadosport</CardTitle>
+                <CardDescription>Bénéficiaires souhaitant utiliser leur carte chez un professionnel.</CardDescription>
+              </div>
+              <div className="flex items-center gap-2">
+                <Select value={usageStatusFilter} onValueChange={setUsageStatusFilter}>
+                  <SelectTrigger className="w-44"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Tous les statuts</SelectItem>
+                    {USAGE_STATUSES.map(s => (
+                      <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button variant="outline" size="sm" onClick={loadUsageRequests} disabled={usageLoading}>
+                  <RefreshCw className={`w-4 h-4 mr-1.5 ${usageLoading ? "animate-spin" : ""}`} />
+                  Actualiser
+                </Button>
+              </div>
+            </div>
+            <Card>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Bénéficiaire</TableHead>
+                    <TableHead>Professionnel</TableHead>
+                    <TableHead>Ville</TableHead>
+                    <TableHead>Activité</TableHead>
+                    <TableHead>Statut</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredUsage.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
+                        {usageLoading ? "Chargement..." : "Aucune demande pour le moment."}
+                      </TableCell>
+                    </TableRow>
+                  ) : filteredUsage.map(r => (
+                    <TableRow key={r.id}>
+                      <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                        {new Date(r.created_at).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" })}
+                      </TableCell>
+                      <TableCell>
+                        <div className="font-medium">{r.beneficiary_first_name} {r.beneficiary_last_name}</div>
+                        <div className="text-xs text-muted-foreground">{r.beneficiary_email}</div>
+                        {r.beneficiary_phone && <div className="text-xs text-muted-foreground">{r.beneficiary_phone}</div>}
+                      </TableCell>
+                      <TableCell className="font-medium">{r.listing?.name ?? r.pro_name}</TableCell>
+                      <TableCell className="text-sm">{r.listing?.city ?? r.pro_city ?? "—"}</TableCell>
+                      <TableCell className="text-sm">{r.listing?.activity ?? r.pro_activity ?? "—"}</TableCell>
+                      <TableCell>
+                        <Select value={r.status} onValueChange={(v) => updateUsageStatus(r.id, v)}>
+                          <SelectTrigger className="w-36 h-8 text-xs"><SelectValue /></SelectTrigger>
+                          <SelectContent>
+                            {USAGE_STATUSES.map(s => (
+                              <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

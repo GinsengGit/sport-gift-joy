@@ -106,6 +106,199 @@ export type Database = {
         }
         Relationships: []
       }
+      card_usage_requests: {
+        Row: {
+          beneficiary_card_number: string | null
+          beneficiary_email: string
+          beneficiary_first_name: string
+          beneficiary_last_name: string
+          beneficiary_phone: string | null
+          created_at: string
+          id: string
+          listing_id: string | null
+          message: string | null
+          pro_activity: string | null
+          pro_address: string | null
+          pro_city: string | null
+          pro_email: string | null
+          pro_name: string
+          pro_phone: string | null
+          status: Database["public"]["Enums"]["usage_request_status"]
+          updated_at: string
+        }
+        Insert: {
+          beneficiary_card_number?: string | null
+          beneficiary_email: string
+          beneficiary_first_name: string
+          beneficiary_last_name: string
+          beneficiary_phone?: string | null
+          created_at?: string
+          id?: string
+          listing_id?: string | null
+          message?: string | null
+          pro_activity?: string | null
+          pro_address?: string | null
+          pro_city?: string | null
+          pro_email?: string | null
+          pro_name: string
+          pro_phone?: string | null
+          status?: Database["public"]["Enums"]["usage_request_status"]
+          updated_at?: string
+        }
+        Update: {
+          beneficiary_card_number?: string | null
+          beneficiary_email?: string
+          beneficiary_first_name?: string
+          beneficiary_last_name?: string
+          beneficiary_phone?: string | null
+          created_at?: string
+          id?: string
+          listing_id?: string | null
+          message?: string | null
+          pro_activity?: string | null
+          pro_address?: string | null
+          pro_city?: string | null
+          pro_email?: string | null
+          pro_name?: string
+          pro_phone?: string | null
+          status?: Database["public"]["Enums"]["usage_request_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "card_usage_requests_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "sport_listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sport_categories: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          name: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          name: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          name?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sport_listings: {
+        Row: {
+          activity: string
+          address: string | null
+          category_id: string | null
+          city: string | null
+          country: string
+          created_at: string
+          department: string | null
+          description: string | null
+          email: string | null
+          favorites_count: number
+          featured: boolean
+          id: string
+          is_published: boolean
+          kadosport_score: number | null
+          kadosport_used_count: number
+          latitude: number | null
+          longitude: number | null
+          name: string
+          phone: string | null
+          photos: string[]
+          postal_code: string | null
+          premium: boolean
+          reviews_avg: number | null
+          reviews_count: number
+          slug: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          activity: string
+          address?: string | null
+          category_id?: string | null
+          city?: string | null
+          country?: string
+          created_at?: string
+          department?: string | null
+          description?: string | null
+          email?: string | null
+          favorites_count?: number
+          featured?: boolean
+          id?: string
+          is_published?: boolean
+          kadosport_score?: number | null
+          kadosport_used_count?: number
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          phone?: string | null
+          photos?: string[]
+          postal_code?: string | null
+          premium?: boolean
+          reviews_avg?: number | null
+          reviews_count?: number
+          slug: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          activity?: string
+          address?: string | null
+          category_id?: string | null
+          city?: string | null
+          country?: string
+          created_at?: string
+          department?: string | null
+          description?: string | null
+          email?: string | null
+          favorites_count?: number
+          featured?: boolean
+          id?: string
+          is_published?: boolean
+          kadosport_score?: number | null
+          kadosport_used_count?: number
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          phone?: string | null
+          photos?: string[]
+          postal_code?: string | null
+          premium?: boolean
+          reviews_avg?: number | null
+          reviews_count?: number
+          slug?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sport_listings_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "sport_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -114,7 +307,14 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      usage_request_status:
+        | "nouveau"
+        | "a_contacter"
+        | "contacte"
+        | "en_cours"
+        | "active"
+        | "refus"
+        | "termine"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -241,6 +441,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      usage_request_status: [
+        "nouveau",
+        "a_contacter",
+        "contacte",
+        "en_cours",
+        "active",
+        "refus",
+        "termine",
+      ],
+    },
   },
 } as const

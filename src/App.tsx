@@ -20,6 +20,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import CarteDigitale from "./pages/CarteDigitale";
 import CommentCaMarche from "./pages/CommentCaMarche";
 import UtiliserCarte from "./pages/UtiliserCarte";
+import ActivitesIndex from "./pages/activites/ActivitesIndex";
+import ActiviteDetail from "./pages/activites/ActiviteDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +50,8 @@ const App = () => (
           <Route path="/carte-digitale" element={<CarteDigitale />} />
           <Route path="/comment-ca-marche" element={<CommentCaMarche />} />
           <Route path="/utiliser-ma-carte" element={<UtiliserCarte />} />
+          <Route path="/activites" element={<ActivitesIndex />} />
+          <Route path="/activites/:slug" element={<ActiviteDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

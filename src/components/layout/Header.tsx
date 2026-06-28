@@ -7,6 +7,7 @@ import kadosportLogo from "@/assets/kadosport-logo.png";
 
 const navItems = [
   { label: "Comment ça marche", href: "/comment-ca-marche", icon: Info, isRoute: true },
+  { label: "Activités sportives", href: "/activites", icon: CreditCard, isRoute: true },
   { label: "Offrir une carte sport", href: "/offrir-carte", icon: Gift, isRoute: true },
   { label: "Professionnels du sport", href: "/pros-du-sport", icon: Users, isRoute: true },
   { label: "Entreprises & CSE", href: "/b2b", icon: Building2, isRoute: true },

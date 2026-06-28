@@ -8,8 +8,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import {
   CreditCard, Users, Building2, LogOut, Search, TrendingUp,
-  Clock, CheckCircle2, XCircle, AlertCircle, Euro, Gift, RefreshCw
+  Clock, CheckCircle2, XCircle, AlertCircle, Euro, Gift, RefreshCw, Inbox
 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import kadosportLogo from "@/assets/kadosport-logo.png";
 
 // Mock data

@@ -62,15 +62,74 @@ const statusBadge = (status: string) => {
   return <Badge variant={info.variant}>{info.label}</Badge>;
 };
 
+const USAGE_STATUSES = [
+  { value: "nouveau", label: "Nouveau" },
+  { value: "a_contacter", label: "À contacter" },
+  { value: "contacte", label: "Contacté" },
+  { value: "en_cours", label: "En cours" },
+  { value: "active", label: "Activé" },
+  { value: "refus", label: "Refus" },
+  { value: "termine", label: "Terminé" },
+] as const;
+
+type UsageRequest = {
+  id: string;
+  created_at: string;
+  beneficiary_first_name: string;
+  beneficiary_last_name: string;
+  beneficiary_email: string;
+  beneficiary_phone: string | null;
+  pro_name: string;
+  pro_city: string | null;
+  pro_activity: string | null;
+  message: string | null;
+  status: string;
+  listing?: { name: string; city: string | null; activity: string | null; slug: string } | null;
+};
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [usageRequests, setUsageRequests] = useState<UsageRequest[]>([]);
+  const [usageLoading, setUsageLoading] = useState(false);
+  const [usageStatusFilter, setUsageStatusFilter] = useState<string>("all");
 
   useEffect(() => {
     if (sessionStorage.getItem("kadosport_admin") !== "true") {
       navigate("/admin-login");
     }
   }, [navigate]);
+
+  const loadUsageRequests = async () => {
+    setUsageLoading(true);
+    const { data, error } = await supabase.functions.invoke("admin-usage-requests", {
+      body: { action: "list" },
+    });
+    setUsageLoading(false);
+    if (error) {
+      toast.error("Impossible de charger les demandes", { description: error.message });
+      return;
+    }
+    setUsageRequests((data?.items ?? []) as UsageRequest[]);
+  };
+
+  useEffect(() => {
+    loadUsageRequests();
+  }, []);
+
+  const updateUsageStatus = async (id: string, status: string) => {
+    const previous = usageRequests;
+    setUsageRequests(prev => prev.map(r => (r.id === id ? { ...r, status } : r)));
+    const { error } = await supabase.functions.invoke("admin-usage-requests", {
+      body: { action: "update_status", id, status },
+    });
+    if (error) {
+      setUsageRequests(previous);
+      toast.error("Mise à jour impossible", { description: error.message });
+    } else {
+      toast.success("Statut mis à jour");
+    }
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("kadosport_admin");
@@ -81,6 +140,10 @@ const AdminDashboard = () => {
   const totalActive = mockGiftCards.filter(c => c.status === "active").length;
   const totalVolume = mockGiftCards.reduce((s, c) => s + c.amount, 0);
   const pendingReimbursements = mockReimbursements.filter(r => r.status === "pending");
+  const filteredUsage = usageRequests.filter(r =>
+    usageStatusFilter === "all" ? true : r.status === usageStatusFilter
+  );
+  const newUsageCount = usageRequests.filter(r => r.status === "nouveau").length;
 
   return (
     <div className="min-h-screen bg-background">

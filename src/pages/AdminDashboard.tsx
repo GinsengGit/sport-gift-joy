@@ -220,7 +220,7 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="cards" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
             <TabsTrigger value="cards" className="gap-2">
               <CreditCard className="w-4 h-4 hidden sm:block" />
               Cartes
@@ -236,6 +236,13 @@ const AdminDashboard = () => {
             <TabsTrigger value="cse" className="gap-2">
               <Building2 className="w-4 h-4 hidden sm:block" />
               CSE
+            </TabsTrigger>
+            <TabsTrigger value="usage" className="gap-2">
+              <Inbox className="w-4 h-4 hidden sm:block" />
+              Demandes
+              {newUsageCount > 0 && (
+                <Badge variant="default" className="ml-1 h-5 px-1.5 text-xs">{newUsageCount}</Badge>
+              )}
             </TabsTrigger>
           </TabsList>
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, ArrowRight } from "lucide-react";
-import { ListingBadge } from "./ListingBadge";
+import sportsGuideFallback from "@/assets/sports-guide-fallback.jpg";
 
 type ListingCardProps = {
   slug: string;
@@ -9,40 +9,43 @@ type ListingCardProps = {
   city: string | null;
   department: string | null;
   description: string | null;
-  used: boolean;
+  photos: string[];
 };
 
-export const ListingCard = ({ slug, name, activity, city, department, description, used }: ListingCardProps) => {
+export const ListingCard = ({ slug, name, activity, city, department, description, photos }: ListingCardProps) => {
+  const photo = photos[0] || sportsGuideFallback;
+
   return (
     <Link
       to={`/activites/${slug}`}
-      className="group block bg-card border border-border rounded-2xl p-5 hover:border-primary/40 hover:shadow-lg transition-all"
+      className="group grid grid-cols-[7rem_1fr] overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/40 hover:shadow-lg sm:grid-cols-[9rem_1fr]"
     >
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="min-w-0">
-          <h3 className="font-bold text-lg text-foreground truncate group-hover:text-primary transition-colors">
-            {name}
-          </h3>
-          <p className="text-sm text-muted-foreground">{activity}</p>
+      <img
+        src={photo}
+        alt={`Pratiquer ${activity} à ${city || "proximité"}`}
+        className="h-full min-h-36 w-full object-cover"
+        loading="lazy"
+        width={320}
+        height={240}
+      />
+      <div className="min-w-0 p-4">
+        <div className="mb-2 flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <h3 className="text-lg font-bold text-foreground transition-colors group-hover:text-primary">{name}</h3>
+            <p className="text-sm font-medium text-primary">{activity}</p>
+          </div>
+          <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary" />
         </div>
-        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+
+        {(city || department) && (
+          <div className="mb-2 flex items-center gap-1.5 text-sm text-muted-foreground">
+            <MapPin className="h-4 w-4 shrink-0" />
+            <span>{city}{department ? ` · ${department}` : ""}</span>
+          </div>
+        )}
+
+        {description && <p className="line-clamp-2 text-sm text-foreground/70">{description}</p>}
       </div>
-
-      {(city || department) && (
-        <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-3">
-          <MapPin className="w-4 h-4" />
-          <span>
-            {city}
-            {department ? ` (${department})` : ""}
-          </span>
-        </div>
-      )}
-
-      {description && (
-        <p className="text-sm text-foreground/70 line-clamp-2 mb-4">{description}</p>
-      )}
-
-      <ListingBadge used={used} size="sm" />
     </Link>
   );
 };

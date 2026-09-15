@@ -214,6 +214,10 @@ export type Database = {
           email: string | null
           favorites_count: number
           featured: boolean
+          google_attributions: Json
+          google_maps_url: string | null
+          google_place_id: string | null
+          google_synced_at: string | null
           id: string
           is_published: boolean
           kadosport_score: number | null
@@ -243,6 +247,10 @@ export type Database = {
           email?: string | null
           favorites_count?: number
           featured?: boolean
+          google_attributions?: Json
+          google_maps_url?: string | null
+          google_place_id?: string | null
+          google_synced_at?: string | null
           id?: string
           is_published?: boolean
           kadosport_score?: number | null
@@ -272,6 +280,10 @@ export type Database = {
           email?: string | null
           favorites_count?: number
           featured?: boolean
+          google_attributions?: Json
+          google_maps_url?: string | null
+          google_place_id?: string | null
+          google_synced_at?: string | null
           id?: string
           is_published?: boolean
           kadosport_score?: number | null
